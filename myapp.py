@@ -3,23 +3,14 @@ import streamlit as st
 from google.oauth2 import service_account
 from google.cloud import firestore
 
-
+# yoyo
 # Authenticate to Firestore with the JSON account key.
 import json
 
 key_dict = json.loads(st.secrets["textkey"])
-creds = firestore.service_account.Credentials.from_service_account_info(key_dict)
+creds = service_account.Credentials.from_service_account_info(key_dict)
 db = firestore.Client(credentials=creds, project="cyrushhc.github.io")
 
-
-# Create a reference to the Google post.
-doc_ref = db.collection("Room").document("Room 1")
-
-doc = doc_ref.get()
-
-# Let's see what we got!
-st.write("The id is: ", doc.id)
-st.write("The contents are: ", doc.to_dict())
 
 #from sentence_transformers import SentenceTransformer, util
 #model = SentenceTransformer('stsb-roberta-large')
@@ -156,13 +147,3 @@ if finish:
         "num_response":number_of_response, 
 
     })
-
-
-
-posts_ref = db.collection("Room")
-
-for doc in posts_ref.stream():
-    room = doc.to_dict()
-    st.write(room)
-    st.write("yo")
-    
