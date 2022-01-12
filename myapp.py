@@ -150,8 +150,9 @@ elif user_mode == "Participant":
     room_number = st.number_input("Room Number:", value = 0)
 
     doc_ref = db.collection("Room").document(f"Room {room_number}")
+
     doc = doc_ref.get()
-    doc = doc.to_dict
+    doc = doc.to_dict()
     prompt_name = doc['prompt_name'] 
     prompt_description = doc['prompt_description']
 
