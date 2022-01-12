@@ -150,7 +150,7 @@ elif user_mode == "Participant":
 
     room_ref = db.collection('Room')
     room_id_list = []
-    for rooms in room_ref.stream:
+    for rooms in room_ref.get():
         room_id_list = [rooms.to_dict()['room_number']] 
     
     st.write(room_id_list)
