@@ -145,7 +145,7 @@ if user_mode == "Admin":
 # st.write("## 👀 View Mode")
 # mode = st.radio(label = "Choose a mode", options= ["Response","Result"])
 
-if user_mode == "Participant":
+elif user_mode == "Participant":
 
     room_number = st.number_input("Room Number:", value = 0)
 
