@@ -79,7 +79,7 @@ def create_response(number_of_response, participant_data):
 
                 with st.form(f"{respondant}"):
 
-                    numberlist = [nr for nr in range(number_of_response)]
+                    numberlist = [f'response {nr}' for nr in range(number_of_response)]
                     response_list = dict.fromkeys(numberlist)
                     st.write(f"### Participant {respondant+1}")
                     for i in range(number_of_response):
@@ -100,7 +100,7 @@ def create_response(number_of_response, participant_data):
             for respondant in range(len(participant_data)):
                 with st.form(f"{participant_data[respondant]}"):
                     
-                    numberlist = [nr for nr in range(number_of_response)]
+                    numberlist = [f'response {nr}' for nr in range(number_of_response)]
                     response_list = dict.fromkeys(numberlist)
                     st.write(f"### {participant_data[respondant]}")
                     for i in range(number_of_response):
