@@ -45,6 +45,22 @@ with open("style.css") as f:
     #     n+=1  
 
 
+# Add Rooms
+def room_number_generator():
+    return random.randint(1,1000)
+
+room_choice = st.radio('Open/Join Room', ["Open Room", "Join Room"])
+
+if room_choice == 'Open Room':
+    room_number = room_number_generator()
+    st.sidebar.write(f'# Room {room_number}')
+
+elif room_choice == "Join Room":
+    room_number = st.sidebar.number_input('Room Number')
+
+
+
+
 st.sidebar.write("## ✋ The Prompt for Discussion")
 prompt_name = st.sidebar.text_input('Prompt')
 prompt_description = st.sidebar.text_input('Prompt description (optional)')
@@ -134,12 +150,8 @@ if mode == "Response":
 
 finish = st.button("Done")
 
-def room_number_generator():
-    return random.randint(1,1000)
 
 if finish:
-
-    room_number = room_number_generator()
 
     doc_ref = db.collection("Room").document(f"Room {room_number}")
 
