@@ -145,7 +145,7 @@ if finish:
     doc_ref.set({
         "prompt_question": prompt_name,
         "prompt_description":prompt_description,
-        # "response":all_response,
+        "response":all_response,
         "room_number": room_number,
         "num_participants": number_of_p,
         # "name_participants": p_name,
