@@ -73,30 +73,30 @@ def create_response(number_of_response, participant_data):
                     
                     all_response.append(response_list)
                     
-                    st.form_submit_button("Submit")
+                    submitted = st.form_submit_button("Submit")
 
-            return all_response
+            return all_response, submitted
 
-        if type(participant_data) == list:
+        # if type(participant_data) == list:
 
-            # create a dictionary to keep track of all the response
-            all_response = []
+        #     # create a dictionary to keep track of all the response
+        #     all_response = []
 
-            # Create a for loop to create all the response
-            for respondant in range(len(participant_data)):
-                with st.form(f"{participant_data[respondant]}"):
+        #     # Create a for loop to create all the response
+        #     for respondant in range(len(participant_data)):
+        #         with st.form(f"{participant_data[respondant]}"):
                     
-                    numberlist = [f'response {nr}' for nr in range(number_of_response)]
-                    response_list = dict.fromkeys(numberlist)
-                    st.write(f"### {participant_data[respondant]}")
-                    for i in range(number_of_response):
-                        response_list[f'response {i}'] = st.text_input(f'Response {i+1}')
+        #             numberlist = [f'response {nr}' for nr in range(number_of_response)]
+        #             response_list = dict.fromkeys(numberlist)
+        #             st.write(f"### {participant_data[respondant]}")
+        #             for i in range(number_of_response):
+        #                 response_list[f'response {i}'] = st.text_input(f'Response {i+1}')
                     
-                    all_response.append(response_list)
+        #             all_response.append(response_list)
                     
-                    st.form_submit_button("Submit")
+        #             st.form_submit_button("Submit")
                     
-            return all_response
+        #     return all_response
 
 
 user_mode = st.selectbox('# Who are you?', ['Admin','Participant'])
@@ -116,16 +116,16 @@ if user_mode == "Admin":
     prompt_description = st.text_input('Prompt description (optional)')
     # Let users choose whether they want to create based on name or number of participant
 
-    create_participant = st.radio('how would you like to create parcipant for this prompt?', ['Enter Number of Participant', 'Enter Participant Name'])
+    # create_participant = st.radio('how would you like to create parcipant for this prompt?', ['Enter Number of Participant', 'Enter Participant Name'])
 
-    if create_participant == "Enter Participant Name":
-        p_name = st.text_input("Enter Partcipant Name (separated by comma ',' )", value = "{participant name}")
-    elif create_participant == 'Enter Number of Participant':
-        number_of_p = st.slider("Number of Participant",max_value = 20, value = 3) 
+    # if create_participant == "Enter Participant Name":
+    #     p_name = st.text_input("Enter Partcipant Name (separated by comma ',' )", value = "{participant name}")
+    # elif create_participant == 'Enter Number of Participant':
+    #     number_of_p = st.slider("Number of Participant",max_value = 20, value = 3) 
 
     number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value= 3) 
 
-    finish = st.button("Done")
+    finish = st.button("Create")
 
     if finish:
 
@@ -136,7 +136,7 @@ if user_mode == "Admin":
             "prompt_description":prompt_description,
             "responses": [],
             "room_number": room_number,
-            "num_participants": number_of_p,
+            # "num_participants": number_of_p,
             # "name_participants": p_name,
             "num_response":number_of_response, 
         })
@@ -166,7 +166,7 @@ elif user_mode == "Participant":
         st.write(f"### 🙃 Prompt: {prompt_name}")
         st.write(prompt_description)
 
-        new_response = create_response(doc['num_response'], 1)
+        new_response, submitted = create_response(doc['num_response'], 1)
 
         # if create_participant == 'Enter Number of Participant':
         #     all_response = create_response(number_of_response, number_of_p)
@@ -176,13 +176,8 @@ elif user_mode == "Participant":
         # elif create_participant == 'Enter Participant Name':
         #     p_name_list = p_name.split(",")
         #     all_response = create_response(number_of_response, p_name_list)
-        
-        finish = st.button("Done")
 
-        st.write(f"This is the new response{new_response}.")
-        st.write(f"This is the original responses{doc['responses']}")
-
-        if finish:
+        if submitted:
 
             current_response = doc['responses']
             updated_response = current_response + new_response
