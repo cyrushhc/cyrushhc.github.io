@@ -130,6 +130,7 @@ if mode == "Response":
 
 
     st.write(all_response)
+    st.write(type(all_response))
 
 finish = st.button("Done")
 
@@ -145,7 +146,7 @@ if finish:
     doc_ref.set({
         "prompt_question": prompt_name,
         "prompt_description":prompt_description,
-        # "all_response":all_response,
+        "responses":all_response,
         "room_number": room_number,
         "num_participants": number_of_p,
         # "name_participants": p_name,
