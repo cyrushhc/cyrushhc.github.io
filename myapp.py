@@ -153,7 +153,7 @@ elif user_mode == "Participant":
 
     doc = doc_ref.get()
     doc = doc.to_dict()
-    prompt_name = doc['prompt_name'] 
+    prompt_name = doc['prompt_question'] 
     prompt_description = doc['prompt_description']
 
     st.write(f"### 🙃 Prompt: {prompt_name}")
