@@ -149,19 +149,16 @@ elif user_mode == "Participant":
 
     room_ref = db.collection('Room')
     room_id_list = []
-    st.write(room_ref.stream())
+    st.write(room_ref.get())
     for rooms in room_ref.get():
         room_id_list = [rooms.to_dict()['room_number']] 
     room_number = st.number_input("Room Number:", value = 0)
-
-    
 
 
 
 
     if room_number != 0:
         doc_ref = db.collection("Room").document(f"Room {room_number}")
-
         doc = doc_ref.get()
         doc = doc.to_dict()
         prompt_name = doc['prompt_question'] 
