@@ -127,7 +127,7 @@ if mode == "Response":
         p_name_list = p_name.split(",")
         all_response = create_response(number_of_response, p_name_list)
         
-        # create a form that will have a set number of response with the participant name
+
 
     st.write(all_response)
 
@@ -145,7 +145,7 @@ if finish:
     doc_ref.set({
         "prompt_question": prompt_name,
         "prompt_description":prompt_description,
-        "all_response":all_response,
+        # "all_response":all_response,
         "room_number": room_number,
         "num_participants": number_of_p,
         # "name_participants": p_name,
