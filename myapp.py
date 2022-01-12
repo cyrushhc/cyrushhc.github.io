@@ -157,7 +157,8 @@ elif user_mode == "Participant":
 
     st.write(db.collection("Room").document(f"Room {room_number}").get())
 
-    if room_number != 0:
+    # if room_number != 0:
+    try:
         doc_ref = db.collection("Room").document(f"Room {room_number}")
         doc = doc_ref.get()
         doc = doc.to_dict()
@@ -197,5 +198,5 @@ elif user_mode == "Participant":
                 "num_participants": doc['num_participants'],
                 "num_response":doc['num_response'], 
             })
-    else:
+    except 404:
         st.write("Enter a valid room number 🙏")
