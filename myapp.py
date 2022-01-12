@@ -172,6 +172,9 @@ elif user_mode == "Participant":
        
     finish = st.button("Done")
 
+    st.write(response)
+    st.write(doc['responses'])
+
     if finish:
 
         current_response = doc['responses']
