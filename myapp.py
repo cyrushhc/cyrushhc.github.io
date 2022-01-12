@@ -172,12 +172,12 @@ elif user_mode == "Participant":
     finish = st.button("Done")
 
     st.write(f"This is the new response{new_response}.")
-    st.write(f"This is the original responses{doc['responses']}")
+    st.write(f"This is the original responses{doc['response']}")
 
     if finish:
 
-        current_response = doc['responses']
-        updated_response = current_response.append(response) 
+        current_response = doc['response']
+        updated_response = current_response.append(new_response) 
 
         doc_ref.set({
             "responses": updated_response
