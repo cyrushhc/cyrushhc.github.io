@@ -154,7 +154,7 @@ elif user_mode == "Participant":
     # for rooms in room_ref.stream():
     #     room_id_list = [rooms.to_dict()['room_number']] 
     room_number = st.number_input("Room Number:", value = 0)
-
+    
     # if room_number != 0:
     try:
         doc_ref = db.collection("Room").document(f"Room {room_number}")
@@ -197,4 +197,4 @@ elif user_mode == "Participant":
                 "num_response":doc['num_response'], 
             })
     except:
-        st.write("Enter a valid room number 🙏")
+        st.write("This room does not exist. Please enter a valid room number 🙏")
