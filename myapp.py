@@ -109,7 +109,7 @@ if user_mode == "Admin":
         st.write(f'# Room {room_number}')
 
     elif room_choice == "Join Room":
-        room_number = st.number_input('Room Number', value = 0)
+        room_number = int(st.text_input('Room Number', value = 0))
 
     st.write("## ✋ The Prompt for Discussion")
     prompt_name = st.text_input('Prompt')
