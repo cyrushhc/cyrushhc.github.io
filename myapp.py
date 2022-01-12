@@ -153,7 +153,7 @@ elif user_mode == "Participant":
     # st.write(room_ref.stream())
     # for rooms in room_ref.stream():
     #     room_id_list = [rooms.to_dict()['room_number']] 
-    # room_number = st.number_input("Room Number:", value = 0)
+    room_number = st.number_input("Room Number:", value = 0)
 
 
 
