@@ -2,6 +2,7 @@
 import streamlit as st
 from google.oauth2 import service_account
 from google.cloud import firestore
+import random
 
 # yoyo
 # Authenticate to Firestore with the JSON account key.
@@ -132,16 +133,20 @@ if mode == "Response":
 
 finish = st.button("Done")
 
+def room_number_generator():
+    return random.randint(1,1000)
 
 if finish:
 
-    doc_ref = db.collection("Room").document("Room 2")
+    room_number = room_number_generator()
+
+    doc_ref = db.collection("Room").document(f"Room {room_number}")
 
     doc_ref.set({
         "prompt_question": prompt_name,
         "prompt_description":prompt_description,
         # "response":all_response,
-        "room_number": 2,
+        "room_number": room_number,
         "num_participants": number_of_p,
         # "name_participants": p_name,
         "num_response":number_of_response, 
