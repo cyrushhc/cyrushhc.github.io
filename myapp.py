@@ -153,7 +153,7 @@ elif user_mode == "Participant":
     for rooms in room_ref.get():
         room_id_list = [rooms.to_dict()['room_number']] 
     
-    st.write(room_id_list)
+    st.write(room_ref.get())
 
 
 
