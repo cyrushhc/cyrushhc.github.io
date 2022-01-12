@@ -71,8 +71,7 @@ def create_response(number_of_response, participant_data):
         if type(participant_data) == int:
             
             # create a dictionary to keep track of all the response
-            number_list = [i for i in range (participant_data)]
-            all_response = dict.fromkeys(number_list)
+            all_response = []
             
 
             # Create a for loop to create all the response
@@ -84,7 +83,7 @@ def create_response(number_of_response, participant_data):
                     for i in range(number_of_response):
                         response_list.append(st.text_input(f'Response {i+1}'))
                     
-                    all_response[respondant]  = response_list
+                    all_response.append(response_list)
                     
                     st.form_submit_button("Submit")
 
@@ -93,8 +92,7 @@ def create_response(number_of_response, participant_data):
         if type(participant_data) == list:
 
             # create a dictionary to keep track of all the response
-            number_list = [i for i in range(len(participant_data))]
-            all_response = dict.fromkeys(number_list)
+            all_response = []
 
             # Create a for loop to create all the response
             for respondant in range(len(participant_data)):
@@ -105,7 +103,7 @@ def create_response(number_of_response, participant_data):
                     for i in range(number_of_response):
                         response_list.append(st.text_input(f'Response {i+1}'))
                     
-                    all_response[respondant]  = response_list
+                    all_response.append(response_list)
                     
                     st.form_submit_button("Submit")
                     
@@ -146,9 +144,9 @@ if finish:
     doc_ref.set({
         "prompt_question": prompt_name,
         "prompt_description":prompt_description,
-        "responses":all_response,
+        "responses": all_response,
         "room_number": room_number,
         "num_participants": number_of_p,
         # "name_participants": p_name,
-        # "num_response":number_of_response, 
+        "num_response":number_of_response, 
     })
