@@ -49,14 +49,14 @@ with open("style.css") as f:
 def room_number_generator():
     return random.randint(1,1000)
 
-room_choice = st.radio('Open/Join Room', ["Open Room", "Join Room"])
+room_choice = st.sidebar.radio('Open/Join Room', ["Open Room", "Join Room"])
 
 if room_choice == 'Open Room':
     room_number = room_number_generator()
     st.sidebar.write(f'# Room {room_number}')
 
 elif room_choice == "Join Room":
-    room_number = st.sidebar.number_input('Room Number')
+    room_number = st.sidebar.number_input('Room Number', value = 0)
 
 
 
