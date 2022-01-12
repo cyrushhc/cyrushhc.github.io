@@ -198,5 +198,5 @@ elif user_mode == "Participant":
                 "num_participants": doc['num_participants'],
                 "num_response":doc['num_response'], 
             })
-    except Exception:
+    except OSError:
         st.write("Enter a valid room number 🙏")
