@@ -177,8 +177,9 @@ elif user_mode == "Participant":
     if finish:
 
         current_response = doc['responses']
-        updated_response = current_response.append(new_response) 
+        updated_response = current_response + new_response
         st.write(updated_response)
+
         doc_ref.set({
             "prompt_question": doc['prompt_question'],
             "prompt_description":doc['prompt_description'],
@@ -186,6 +187,4 @@ elif user_mode == "Participant":
             "room_number": room_number,
             "num_participants": doc['num_participant'],
             "num_response":doc['num_response'], 
-          
         })
-        
