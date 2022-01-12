@@ -181,7 +181,6 @@ elif user_mode == "Participant":
 
             current_response = doc['responses']
             updated_response = current_response + new_response
-            st.write(updated_response)
 
             doc_ref.set({
                 "prompt_question": doc['prompt_question'],
@@ -190,6 +189,8 @@ elif user_mode == "Participant":
                 "room_number": room_number,
                 "num_response":doc['num_response'], 
             })
+
+            st.write("Thank you for your input 👍")
         
     except:
         st.write("This room does not exist. Please enter a valid room number 🙏")
