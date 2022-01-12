@@ -148,43 +148,47 @@ elif user_mode == "Participant":
 
     room_number = st.number_input("Room Number:", value = 0)
 
-    doc_ref = db.collection("Room").document(f"Room {room_number}")
 
-    doc = doc_ref.get()
-    doc = doc.to_dict()
-    prompt_name = doc['prompt_question'] 
-    prompt_description = doc['prompt_description']
+    if room_number != 0:
+        doc_ref = db.collection("Room").document(f"Room {room_number}")
 
-    st.write(f"### 🙃 Prompt: {prompt_name}")
-    st.write(prompt_description)
+        doc = doc_ref.get()
+        doc = doc.to_dict()
+        prompt_name = doc['prompt_question'] 
+        prompt_description = doc['prompt_description']
 
-    new_response = create_response(doc['num_response'], 1)
+        st.write(f"### 🙃 Prompt: {prompt_name}")
+        st.write(prompt_description)
 
-    # if create_participant == 'Enter Number of Participant':
-    #     all_response = create_response(number_of_response, number_of_p)
+        new_response = create_response(doc['num_response'], 1)
+
+        # if create_participant == 'Enter Number of Participant':
+        #     all_response = create_response(number_of_response, number_of_p)
+            
+        #     # create a form that will have a set number of response
+
+        # elif create_participant == 'Enter Participant Name':
+        #     p_name_list = p_name.split(",")
+        #     all_response = create_response(number_of_response, p_name_list)
         
-    #     # create a form that will have a set number of response
+        finish = st.button("Done")
 
-    # elif create_participant == 'Enter Participant Name':
-    #     p_name_list = p_name.split(",")
-    #     all_response = create_response(number_of_response, p_name_list)
-       
-    finish = st.button("Done")
+        st.write(f"This is the new response{new_response}.")
+        st.write(f"This is the original responses{doc['responses']}")
 
-    st.write(f"This is the new response{new_response}.")
-    st.write(f"This is the original responses{doc['responses']}")
+        if finish:
 
-    if finish:
+            current_response = doc['responses']
+            updated_response = current_response + new_response
+            st.write(updated_response)
 
-        current_response = doc['responses']
-        updated_response = current_response + new_response
-        st.write(updated_response)
-
-        doc_ref.set({
-            "prompt_question": doc['prompt_question'],
-            "prompt_description":doc['prompt_description'],
-            "responses": updated_response,
-            "room_number": room_number,
-            "num_participants": doc['num_participants'],
-            "num_response":doc['num_response'], 
-        })
+            doc_ref.set({
+                "prompt_question": doc['prompt_question'],
+                "prompt_description":doc['prompt_description'],
+                "responses": updated_response,
+                "room_number": room_number,
+                "num_participants": doc['num_participants'],
+                "num_response":doc['num_response'], 
+            })
+    else:
+        st.write("Please Enter a valid room number 🙏")
