@@ -67,7 +67,7 @@ def create_response(number_of_response, participant_data):
 
                     numberlist = [f'response {nr}' for nr in range(number_of_response)]
                     response_list = dict.fromkeys(numberlist)
-                    st.write(f"### Participant {respondant+1}")
+                    st.write(f"### Your Response")
                     for i in range(number_of_response):
                         response_list[f'response {i}'] = st.text_input(f'Response {i+1}')
                     
