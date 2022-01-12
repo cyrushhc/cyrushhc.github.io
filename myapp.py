@@ -150,6 +150,5 @@ if finish:
         "room_number": room_number,
         "num_participants": number_of_p,
         # "name_participants": p_name,
-        "num_response":number_of_response, 
-
+        # "num_response":number_of_response, 
     })
