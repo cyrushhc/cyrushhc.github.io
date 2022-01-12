@@ -59,7 +59,6 @@ def create_response(number_of_response, participant_data):
             
             # create a dictionary to keep track of all the response
             all_response = []
-            
 
             # Create a for loop to create all the response
             for respondant in range(participant_data):
@@ -159,7 +158,7 @@ elif user_mode == "Participant":
     st.write(f"### 🙃 Prompt: {prompt_name}")
     st.write(prompt_description)
 
-    response = create_response(doc['num_response'], 1)
+    new_response = create_response(doc['num_response'], 1)
 
     # if create_participant == 'Enter Number of Participant':
     #     all_response = create_response(number_of_response, number_of_p)
@@ -172,8 +171,8 @@ elif user_mode == "Participant":
        
     finish = st.button("Done")
 
-    st.write(response)
-    st.write(doc['responses'])
+    st.write(f"This is the new response{new_response}.")
+    st.write(f"This is the original responses{doc['responses']}")
 
     if finish:
 
