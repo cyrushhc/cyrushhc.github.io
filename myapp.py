@@ -157,7 +157,8 @@ elif user_mode == "Participant":
 
 
 
-    if room_number != 0:
+    if db.collection("Room").document(f"Room {room_number}") is not None:
+
         doc_ref = db.collection("Room").document(f"Room {room_number}")
         doc = doc_ref.get()
         doc = doc.to_dict()
