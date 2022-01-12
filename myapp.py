@@ -146,13 +146,15 @@ if user_mode == "Admin":
 
 elif user_mode == "Participant":
     
-
-    room_ref = db.collection('Room')
+    # For some reasons I cannot use the stream() method 
+    # It says that 'CollectionReference' object has no attribute 'stream'
+    room_ref = db.collection(u'Room')
     room_id_list = []
     st.write(room_ref.stream())
     for rooms in room_ref.stream():
         room_id_list = [rooms.to_dict()['room_number']] 
     room_number = st.number_input("Room Number:", value = 0)
+
 
 
     if room_number != 0:
