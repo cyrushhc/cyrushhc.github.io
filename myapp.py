@@ -188,8 +188,8 @@ elif user_mode == "Participant":
                 "prompt_description":doc['prompt_description'],
                 "responses": updated_response,
                 "room_number": room_number,
-                "num_participants": doc['num_participants'],
                 "num_response":doc['num_response'], 
             })
+        
     except:
         st.write("This room does not exist. Please enter a valid room number 🙏")
