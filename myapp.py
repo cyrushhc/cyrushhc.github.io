@@ -78,10 +78,12 @@ def create_response(number_of_response, participant_data):
             for respondant in range(participant_data):
 
                 with st.form(f"{respondant}"):
-                    response_list = []
+
+                    numberlist = [nr for nr in range(number_of_response)]
+                    response_list = dict.fromkey(numberlist)
                     st.write(f"### Participant {respondant+1}")
                     for i in range(number_of_response):
-                        response_list.append(st.text_input(f'Response {i+1}'))
+                        response_list[i] = st.text_input(f'Response {i+1}')
                     
                     all_response.append(response_list)
                     
@@ -96,12 +98,13 @@ def create_response(number_of_response, participant_data):
 
             # Create a for loop to create all the response
             for respondant in range(len(participant_data)):
-
                 with st.form(f"{participant_data[respondant]}"):
-                    response_list = []
+                    
+                    numberlist = [nr for nr in range(number_of_response)]
+                    response_list = dict.fromkey(numberlist)
                     st.write(f"### {participant_data[respondant]}")
                     for i in range(number_of_response):
-                        response_list.append(st.text_input(f'Response {i+1}'))
+                        response_list[i] = st.text_input(f'Response {i+1}')
                     
                     all_response.append(response_list)
                     
@@ -125,7 +128,6 @@ if mode == "Response":
         p_name_list = p_name.split(",")
         all_response = create_response(number_of_response, p_name_list)
         
-
 
     st.write(all_response)
     st.write(type(all_response))
