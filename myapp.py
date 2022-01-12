@@ -1,4 +1,5 @@
 
+from re import L
 import streamlit as st
 from google.oauth2 import service_account
 from google.cloud import firestore
@@ -48,36 +49,6 @@ with open("style.css") as f:
 # Add Rooms
 def room_number_generator():
     return random.randint(1,1000)
-
-room_choice = st.sidebar.radio('Open/Join Room', ["Open Room", "Join Room"])
-
-if room_choice == 'Open Room':
-    room_number = room_number_generator()
-    st.sidebar.write(f'# Room {room_number}')
-
-elif room_choice == "Join Room":
-    room_number = st.sidebar.number_input('Room Number', value = 0)
-
-
-
-
-st.sidebar.write("## ✋ The Prompt for Discussion")
-prompt_name = st.sidebar.text_input('Prompt')
-prompt_description = st.sidebar.text_input('Prompt description (optional)')
-# Let users choose whether they want to create based on name or number of participant
-
-create_participant = st.sidebar.radio('how would you like to create parcipant for this prompt?', ['Enter Number of Participant', 'Enter Participant Name'])
-
-if create_participant == "Enter Participant Name":
-    p_name = st.sidebar.text_input("Enter Partcipant Name (separated by comma ',' )", value = "{participant name}")
-elif create_participant == 'Enter Number of Participant':
-    number_of_p = st.sidebar.slider("Number of Participant",max_value = 20, value = 3) 
-
-number_of_response = st.sidebar.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value= 3) 
-
-
-st.sidebar.write("## 👀 View Mode")
-mode = st.sidebar.radio(label = "Choose a mode", options= ["Response","Result"])
 
 def create_response(number_of_response, participant_data):
         """
@@ -129,38 +100,82 @@ def create_response(number_of_response, participant_data):
             return all_response
 
 
+user_mode = st.selectbox('# Who are you?', ['Admin','Participant'])
 
-if mode == "Response":
+if user_mode == "Admin":
+    room_choice = st.sidebar.radio('Open/Join Room', ["Open Room", "Join Room"])
+
+    if room_choice == 'Open Room':
+        room_number = room_number_generator()
+        st.sidebar.write(f'# Room {room_number}')
+
+    elif room_choice == "Join Room":
+        room_number = st.sidebar.number_input('Room Number', value = 0)
+
+    st.sidebar.write("## ✋ The Prompt for Discussion")
+    prompt_name = st.sidebar.text_input('Prompt')
+    prompt_description = st.sidebar.text_input('Prompt description (optional)')
+    # Let users choose whether they want to create based on name or number of participant
+
+    create_participant = st.sidebar.radio('how would you like to create parcipant for this prompt?', ['Enter Number of Participant', 'Enter Participant Name'])
+
+    if create_participant == "Enter Participant Name":
+        p_name = st.sidebar.text_input("Enter Partcipant Name (separated by comma ',' )", value = "{participant name}")
+    elif create_participant == 'Enter Number of Participant':
+        number_of_p = st.sidebar.slider("Number of Participant",max_value = 20, value = 3) 
+
+    number_of_response = st.sidebar.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value= 3) 
+
+    finish = st.button("Done")
+
+    if finish:
+
+        doc_ref = db.collection("Room").document(f"Room {room_number}")
+
+        doc_ref.set({
+            "prompt_question": prompt_name,
+            "prompt_description":prompt_description,
+            "responses": [],
+            "room_number": room_number,
+            "num_participants": number_of_p,
+            # "name_participants": p_name,
+            "num_response":number_of_response, 
+        })
+
+# st.sidebar.write("## 👀 View Mode")
+# mode = st.sidebar.radio(label = "Choose a mode", options= ["Response","Result"])
+
+if user_mode == "Participant":
+
+    room_number = st.number_input("Room Number:", value = 0)
+
+    doc_ref = db.collection("Room").document(f"Room {room_number}")
+    doc = doc_ref.get()
+    doc = doc.to_dict
+    prompt_name = doc['prompt_name'] 
+    prompt_description = doc['prompt_description']
 
     st.write(f"### 🙃 Prompt: {prompt_name}")
     st.write(prompt_description)
 
-    if create_participant == 'Enter Number of Participant':
-        all_response = create_response(number_of_response, number_of_p)
+    response = create_response(doc['num_response'], 1)
+
+    # if create_participant == 'Enter Number of Participant':
+    #     all_response = create_response(number_of_response, number_of_p)
         
-        # create a form that will have a set number of response
+    #     # create a form that will have a set number of response
 
-    elif create_participant == 'Enter Participant Name':
-        p_name_list = p_name.split(",")
-        all_response = create_response(number_of_response, p_name_list)
-        
+    # elif create_participant == 'Enter Participant Name':
+    #     p_name_list = p_name.split(",")
+    #     all_response = create_response(number_of_response, p_name_list)
+       
+    finish = st.button("Done")
 
-    st.write(all_response)
-    st.write(type(all_response))
+    if finish:
 
-finish = st.button("Done")
+        current_response = doc['responses']
+        updated_response = current_response.append(response) 
 
-
-if finish:
-
-    doc_ref = db.collection("Room").document(f"Room {room_number}")
-
-    doc_ref.set({
-        "prompt_question": prompt_name,
-        "prompt_description":prompt_description,
-        "responses": all_response,
-        "room_number": room_number,
-        "num_participants": number_of_p,
-        # "name_participants": p_name,
-        "num_response":number_of_response, 
-    })
+        doc_ref.set({
+            "responses": updated_response
+        })
