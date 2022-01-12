@@ -148,6 +148,11 @@ elif user_mode == "Participant":
 
     room_number = st.number_input("Room Number:", value = 0)
 
+    collection_ref = db.collection(u'Room')
+    collection = collection_ref.get().to_dict()
+    st.write(collection)
+
+
 
     if room_number != 0:
         doc_ref = db.collection("Room").document(f"Room {room_number}")
@@ -191,4 +196,4 @@ elif user_mode == "Participant":
                 "num_response":doc['num_response'], 
             })
     else:
-        st.write("Please Enter a valid room number 🙏")
+        st.write("Enter a valid room number 🙏")
