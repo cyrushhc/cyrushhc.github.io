@@ -155,7 +155,7 @@ elif user_mode == "Participant":
     #     room_id_list = [rooms.to_dict()['room_number']] 
     room_number = st.number_input("Room Number:", value = 0)
 
-    st.write(db.collection("Room").document(f"Room {room_number}"))
+    st.write(db.collection("Room").document(f"Room {room_number}.get()"))
 
     if room_number != 0:
         doc_ref = db.collection("Room").document(f"Room {room_number}")
