@@ -148,9 +148,13 @@ elif user_mode == "Participant":
 
     room_number = st.number_input("Room Number:", value = 0)
 
-    collection_ref = db.collection('Room')
-    col = collection_ref.stream()
-    st.write(col)
+    room_ref = db.collection('Room')
+    room_id_list = []
+    for rooms in room_ref.stream():
+        room_id_list = [rooms.to_dict()['room_number']] 
+    
+    st.write(room_id_list)
+
 
 
 
