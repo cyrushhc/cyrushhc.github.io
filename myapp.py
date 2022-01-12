@@ -155,10 +155,7 @@ elif user_mode == "Participant":
     #     room_id_list = [rooms.to_dict()['room_number']] 
     room_number = st.number_input("Room Number:", value = 0)
 
-
-
-    if db.collection("Room").document(f"Room {room_number}") is not None:
-
+    try:
         doc_ref = db.collection("Room").document(f"Room {room_number}")
         doc = doc_ref.get()
         doc = doc.to_dict()
@@ -198,5 +195,5 @@ elif user_mode == "Participant":
                 "num_participants": doc['num_participants'],
                 "num_response":doc['num_response'], 
             })
-    else:
+    except FileNotFoundError:
         st.write("Enter a valid room number 🙏")
