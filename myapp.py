@@ -107,11 +107,14 @@ if user_mode == "Admin":
     
     if room_choice == "Join Room":
         room_number = int(st.text_input('Room Number', value = 0))
+        doc_ref = db.collection("Room").document(f"Room {room_number}")
+        doc = doc_ref.get()
+        
 
     st.write("## ✋ The Prompt for Discussion")
-    prompt_name = st.text_input('Prompt')
-    prompt_description = st.text_input('Prompt description (optional)')
-    number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value= 3) 
+    prompt_name = st.text_input('Prompt', value = doc['prompt_question'])
+    prompt_description = st.text_input('Prompt description (optional)',value = doc['prompt_description'])
+    number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = doc['num_response']) 
 
     finish = st.button("Create/Update a Room")
 
@@ -132,7 +135,7 @@ if user_mode == "Admin":
         st.write("\n")
         st.write(f"## 🔗 Your Room Number is {room_number}.")
         st.write("Invite people to your room")
-        st.code(f"Join the discussion at\nhttps://tinyurl.com/findpatterns\nRoom number: {room_number}.")
+        st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {room_number}.")
         
 
 # st.write("## 👀 View Mode")
