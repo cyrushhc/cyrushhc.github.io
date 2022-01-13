@@ -104,7 +104,7 @@ user_mode = st.selectbox('# Who are you?', ['Admin','Participant'])
 if user_mode == "Admin":
     room_choice = st.radio('Open/Join Room', ["Open Room", "Join Room"])
 
-    if room_choice == 'Open room':
+    if room_choice == 'Open Room':
         st.write("## ✋ The Prompt for Discussion")
         prompt_name = st.text_input('Prompt')
         prompt_description = st.text_input('Prompt description (optional)')
@@ -113,7 +113,7 @@ if user_mode == "Admin":
     elif room_choice == "Join Room":
         room_number = int(st.text_input('Room Number', value = 0))
         doc_ref = db.collection("Room").document(f"Room {room_number}")
-        doc = doc_ref.get()
+        doc = doc_ref.get().to_dict()
         st.write("## ✋ The Prompt for Discussion")
         prompt_name = st.text_input('Prompt', value = doc['prompt_question'])
         prompt_description = st.text_input('Prompt description (optional)',value = doc['prompt_description'])
