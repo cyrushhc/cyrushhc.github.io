@@ -132,7 +132,7 @@ if user_mode == "Admin":
         st.write("\n")
         st.write(f"## 🔗 Your Room Number is {room_number}.")
         st.write("Invite people to your room")
-        st.code(f"Join the discussion at [link](https://share.streamlit.io/cyrushhc/cyrushhc.github.io/main/myapp.py)\nEnter The room number: {room_number}.")
+        st.code(f"Join the discussion at\nhttps://tinyurl.com/findpatterns\nRoom number: {room_number}.")
         
 
 # st.write("## 👀 View Mode")
