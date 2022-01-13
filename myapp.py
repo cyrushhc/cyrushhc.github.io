@@ -109,6 +109,7 @@ if user_mode == "Admin":
         prompt_name = st.text_input('Prompt')
         prompt_description = st.text_input('Prompt description (optional)')
         number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = 3) 
+        finish = st.button("Create a Room")
     
     if room_choice == "Join Room":
         room_number = int(st.text_input('Room Number', value = 0))
@@ -118,8 +119,7 @@ if user_mode == "Admin":
         prompt_name = st.text_input('Prompt', value = doc['prompt_question'])
         prompt_description = st.text_input('Prompt description (optional)',value = doc['prompt_description'])
         number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = doc['num_response']) 
-
-    finish = st.button("Create/Update a Room")
+        finish = st.button("Update a Room")
 
     if finish:
         if room_choice == 'Open Room':
