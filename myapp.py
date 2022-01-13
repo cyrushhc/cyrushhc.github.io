@@ -107,26 +107,22 @@ if user_mode == "Admin":
     if room_choice == 'Open Room':
         room_number = room_number_generator()
         st.write(f'# Room {room_number}')
+        st.write("## ✋ The Prompt for Discussion")
+        prompt_name = st.text_input('Prompt')
+        prompt_description = st.text_input('Prompt description (optional)')
+        number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value= 3) 
+        finish = st.button("Create")
 
     elif room_choice == "Join Room":
         room_number = int(st.text_input('Room Number', value = 0))
+        st.write(f'# Room {room_number}')
+        st.write("## ✋ The Prompt for Discussion")
+        prompt_name = st.text_input('Prompt')
+        prompt_description = st.text_input('Prompt description (optional)')
+        number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value= 3) 
+        finish = st.button("Update")
 
-    st.write("## ✋ The Prompt for Discussion")
-    prompt_name = st.text_input('Prompt')
-    prompt_description = st.text_input('Prompt description (optional)')
-    # Let users choose whether they want to create based on name or number of participant
-
-    # create_participant = st.radio('how would you like to create parcipant for this prompt?', ['Enter Number of Participant', 'Enter Participant Name'])
-
-    # if create_participant == "Enter Participant Name":
-    #     p_name = st.text_input("Enter Partcipant Name (separated by comma ',' )", value = "{participant name}")
-    # elif create_participant == 'Enter Number of Participant':
-    #     number_of_p = st.slider("Number of Participant",max_value = 20, value = 3) 
-
-    number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value= 3) 
-
-    finish = st.button("Create")
-
+    
     if finish:
 
         doc_ref = db.collection("Room").document(f"Room {room_number}")
