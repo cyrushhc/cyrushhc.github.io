@@ -118,6 +118,11 @@ if user_mode == "Admin":
         prompt_name = st.text_input('Prompt', value = doc['prompt_question'])
         prompt_description = st.text_input('Prompt description (optional)',value = doc['prompt_description'])
         number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = doc['num_response']) 
+        st.write("\n")
+
+        st.write(f"## 🔗 Your Room Number is {room_number}.")
+        st.write("Invite people to your room")
+        st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {room_number}.")
     
     finish = st.button("Update a Room")
 
@@ -125,6 +130,10 @@ if user_mode == "Admin":
     if finish:
         if room_choice == 'Open Room':
             room_number = room_number_generator()
+            st.write("\n")
+            st.write(f"## 🔗 Your Room Number is {room_number}.")
+            st.write("Invite people to your room")
+            st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {room_number}.")
             
         doc_ref = db.collection("Room").document(f"Room {room_number}")
         doc_ref.set({
@@ -136,10 +145,7 @@ if user_mode == "Admin":
             # "name_participants": p_name,
             "num_response":number_of_response, 
         })
-        st.write("\n")
-        st.write(f"## 🔗 Your Room Number is {room_number}.")
-        st.write("Invite people to your room")
-        st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {room_number}.")
+        
         
 
 # st.write("## 👀 View Mode")
