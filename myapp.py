@@ -118,10 +118,8 @@ if user_mode == "Admin":
     if finish:
         if room_choice == 'Open Room':
             room_number = room_number_generator()
-            st.write(f'# Room {room_number}')
-
+            
         doc_ref = db.collection("Room").document(f"Room {room_number}")
-
         doc_ref.set({
             "prompt_question": prompt_name,
             "prompt_description":prompt_description,
@@ -131,6 +129,10 @@ if user_mode == "Admin":
             # "name_participants": p_name,
             "num_response":number_of_response, 
         })
+        st.write("\n")
+        st.write(f"## 🔗 Your Room Number is {room_number}.")
+        st.write(f"Copy and share this [link](https://share.streamlit.io/cyrushhc/cyrushhc.github.io/main/myapp.py) and the room number: {room_number}.")
+        
 
 # st.write("## 👀 View Mode")
 # mode = st.radio(label = "Choose a mode", options= ["Response","Result"])
