@@ -99,25 +99,26 @@ def create_response(number_of_response, participant_data):
         #     return all_response
 
 
-user_mode = st.selectbox('# Who are you?', ['Admin','Participant'])
+user_mode = st.selectbox('Who are you?', ['Admin','Participant'])
 
 if user_mode == "Admin":
     room_choice = st.radio('Open/Join Room', ["Open Room", "Join Room"])
     finish = False
 
     if room_choice == 'Open Room':
-        st.write("## ✋ The Prompt for Discussion")
+        st.write("## ✋ Discussion Prompt")
         prompt_name = st.text_input('Prompt')
         prompt_description = st.text_input('Prompt description (optional)')
         number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = 3) 
         finish = st.button("Create a Room")
     
+
     elif room_choice == "Join Room":
         room_number = int(st.text_input('Room Number', value = 0))
         try :
             doc_ref = db.collection("Room").document(f"Room {room_number}")
             doc = doc_ref.get().to_dict()
-            st.write("## ✋ The Prompt for Discussion")
+            st.write("## ✋ Discussion Prompt")
             prompt_name = st.text_input('Prompt', value = doc['prompt_question'])
             prompt_description = st.text_input('Prompt description (optional)',value = doc['prompt_description'])
             number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = doc['num_response']) 
@@ -126,18 +127,17 @@ if user_mode == "Admin":
             finish = st.button("Update a Room")
 
             st.write(f"## 🔗 Your Room Number is {room_number}.")
-            st.write("Invite people to your room")
+            st.write("Invite People to Your Room!")
             st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {room_number}.")
         except:
             st.write("This room does not exist. Please enter another room number")
         
 
-
     if finish:
         if room_choice == 'Open Room':
             room_number = room_number_generator()
             st.write("\n")
-            st.write(f"## 🔗 Your Room Number is {room_number}.")
+            st.write(f"## 🔗 Room Number: {room_number}.")
             st.write("Invite people to your room")
             st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {room_number}.")
             
@@ -152,7 +152,8 @@ if user_mode == "Admin":
             "num_response":number_of_response, 
         })
         
-        
+    
+    
 
 # st.write("## 👀 View Mode")
 # mode = st.radio(label = "Choose a mode", options= ["Response","Result"])
