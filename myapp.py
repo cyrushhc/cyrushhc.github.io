@@ -153,17 +153,19 @@ if user_mode == "Admin":
             "num_response":number_of_response, 
         })
 
-    doc_ref = db.collection("Room").document(f"Room {room_number}") 
-    doc = doc_ref.get().to_dict()   
     show_results = st.button("See Results")
-    if show_results == True:
-        if doc['responses'] == []:
-            st.write("No response submitted yet")
-        else:
-            st.write('Yay')
-            st.write(doc['responses'])
+    try:
+        doc_ref = db.collection("Room").document(f"Room {room_number}") 
+        doc = doc_ref.get().to_dict()   
+        if show_results == True:
+            if doc['responses'] == []:
+                st.write("No response submitted yet")
+            else:
+                st.write('Yay')
+                st.write(doc['responses'])
     
-    
+    except:
+        st.write('')
 
 
 # st.write("## 👀 View Mode")
