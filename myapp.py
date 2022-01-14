@@ -171,7 +171,7 @@ if user_mode == "Admin":
             else:
                 st.write(doc['responses'])
     except:
-        st.write("nope")    
+        st.write("")    
 
 
 
