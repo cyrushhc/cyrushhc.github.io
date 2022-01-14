@@ -116,7 +116,7 @@ if user_mode == "Admin":
     room_number = st.empty()
     ss_r = SessionState.get(room_number = None)
 
-    initial_state = st.empty
+    initial_state = st.empty()
     ss_init = SessionState.get(initial_state = None)
 
 
@@ -127,6 +127,7 @@ if user_mode == "Admin":
 
     
     st.write(f"The current room number is: {ss_r.room_number}")
+    st.write(f"The current room number is: {ss_init.initial_state}")
     
     if ss.finish:
         st.write("")
