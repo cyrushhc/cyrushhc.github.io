@@ -144,9 +144,10 @@ if user_mode == "Admin":
         doc = doc_ref.get().to_dict()  
         seeresult = st.button("View Results")
         ss2 = SessionState.get(seeresult = False) 
+        
         if seeresult:
             ss2.seeresult = True
-            
+
         if ss2.seeresult == True:
             if doc['responses'] == []:
                 st.write("No response submitted yet")
