@@ -125,7 +125,7 @@ if user_mode == "Admin":
             st.write("\n")
             st.write(f"## 🔗 Room Number: {ss_r.room_number}")
             st.write("Invite people to your room")
-            st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {room_number}.")
+            st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {ss_r.room_number}.")
             doc_ref = db.collection("Room").document(f"Room {ss_r.room_number}")
             doc_ref.set({
                 "prompt_question": prompt_name,
