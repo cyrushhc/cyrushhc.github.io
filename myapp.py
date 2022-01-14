@@ -101,6 +101,7 @@ def create_response(number_of_response, participant_data):
 
 user_mode = st.selectbox('Who are you?', ['Admin','Participant'])
 n = 0
+
 if user_mode == "Admin":
     if n == 0:
         room_number = room_number_generator()
@@ -143,7 +144,7 @@ if user_mode == "Admin":
         else:
             st.write(doc['responses'])
     
-    st.write(finish)
+    st.write(room_number)
 
 
 
