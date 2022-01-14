@@ -106,7 +106,7 @@ if user_mode == "Admin":
     mode_choice = st.selectbox('View Mode', ["Set Prompt", "Show Results"])
     finish = False
 
-    if mode_choice == 'Open Room':
+    if mode_choice == 'Set Prompt':
         st.write("## ✋ Discussion Prompt")
         prompt_name = st.text_input('Prompt')
         prompt_description = st.text_input('Prompt description (optional)')
