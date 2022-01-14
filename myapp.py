@@ -99,6 +99,7 @@ def create_response(number_of_response, participant_data):
         #     return all_response
 
 
+
 user_mode = st.selectbox('Who are you?', ['Admin','Participant'])
 
 if user_mode == "Admin":
@@ -122,12 +123,11 @@ if user_mode == "Admin":
             "prompt_description":prompt_description,
             "responses": [],
             "room_number": room_number,
-            # "num_participants": number_of_p,
-            # "name_participants": p_name,
             "num_response":number_of_response, 
         })
 
-    try:
+
+    try:    
         doc_ref = db.collection("Room").document(f"Room {room_number}") 
         st.write("## 📝 Participant Response")
         doc = doc_ref.get().to_dict()   
@@ -137,6 +137,8 @@ if user_mode == "Admin":
             st.write(doc['responses'])
     except:
         st.write("")    
+    
+    st.text_input("Something")
 
 
 # st.write("## 👀 View Mode")
