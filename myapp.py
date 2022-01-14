@@ -162,6 +162,7 @@ if user_mode == "Admin":
             if doc['responses'] == []:
                 st.write("No response submitted yet")
             else:
+                st.write('Yay')
                 st.write(doc['responses'])
     except:
         st.write("")
