@@ -132,7 +132,7 @@ if user_mode == "Admin":
         doc_ref.set({
             "prompt_question": prompt_name,
             "prompt_description":prompt_description,
-            "responses": [],
+            # "responses": [],
             "room_number": ss_r.room_number,
             "num_response":number_of_response, 
         })
