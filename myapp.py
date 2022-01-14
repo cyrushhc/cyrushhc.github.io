@@ -100,9 +100,11 @@ def create_response(number_of_response, participant_data):
 
 
 user_mode = st.selectbox('Who are you?', ['Admin','Participant'])
-
+n = 0
 if user_mode == "Admin":
-    room_number = room_number_generator()
+    if n == 0:
+        room_number = room_number_generator()
+        n+=1
     mode_choice = st.selectbox('View Mode', ["Set Prompt", "Show Results"])
     finish = False
 
