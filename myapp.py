@@ -160,7 +160,7 @@ if user_mode == "Admin":
         doc = doc_ref.get().to_dict()   
         seeresult = st.button("See Results")
         if seeresult:
-            st.write(finish)
+
             if doc['responses'] == []:
                 st.write("No response submitted yet")
             else:
@@ -169,6 +169,7 @@ if user_mode == "Admin":
     except:
         st.write('')
     
+    st.write(finish)
 
 
 
