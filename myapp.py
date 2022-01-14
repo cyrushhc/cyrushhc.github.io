@@ -146,14 +146,14 @@ if user_mode == "Admin":
             })
             ss_init.initial_state += 1
         
-        else: 
-            doc_ref.set({
-                "prompt_question": prompt_name,
-                "prompt_description":prompt_description,
-                # "responses": [],
-                "room_number": ss_r.room_number,
-                "num_response":number_of_response, 
-            })
+        # else: 
+        #     doc_ref.set({
+        #         "prompt_question": prompt_name,
+        #         "prompt_description":prompt_description,
+        #         # "responses": [],
+        #         "room_number": ss_r.room_number,
+        #         "num_response":number_of_response, 
+        #     })
 
 
 
