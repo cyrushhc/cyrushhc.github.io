@@ -112,7 +112,6 @@ if user_mode == "Admin":
         number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = 3) 
         finish = st.button("Create a Room")
     
-
     elif room_choice == "Join Room":
         room_number = int(st.text_input('Room Number', value = 0))
         try :
@@ -132,7 +131,6 @@ if user_mode == "Admin":
         except:
             st.write("This room does not exist. Please enter another room number")
         
-
     if finish:
         if room_choice == 'Open Room':
             room_number = room_number_generator()
@@ -152,8 +150,17 @@ if user_mode == "Admin":
             "num_response":number_of_response, 
         })
         
+    try:
+        doc_ref = db.collection("Room").document(f"Room {room_number}")
+        doc = doc_ref.get().to_dict()   
+        if doc['responses'] != []:
+            show_results = st.button("See Results")
+            if show_results == True:
+                st.write(doc['responses'])
+    except:
+        st.write("")
     
-    
+
 
 # st.write("## 👀 View Mode")
 # mode = st.radio(label = "Choose a mode", options= ["Response","Result"])
@@ -208,3 +215,5 @@ elif user_mode == "Participant":
         
     except:
         st.write("This room does not exist. Please enter a valid room number 🙏")
+
+    
