@@ -116,8 +116,6 @@ if user_mode == "Admin":
         st.write(f"## 🔗 Room Number: {room_number}")
         st.write("Invite people to your room")
         st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {room_number}.")
-        
-            
         doc_ref = db.collection("Room").document(f"Room {room_number}")
         doc_ref.set({
             "prompt_question": prompt_name,
@@ -130,8 +128,8 @@ if user_mode == "Admin":
         })
 
     try:
-        st.write("## 📝 Participant Response")
         doc_ref = db.collection("Room").document(f"Room {room_number}") 
+        st.write("## 📝 Participant Response")
         doc = doc_ref.get().to_dict()   
         if doc['responses'] == []:
             st.write("No response submitted yet")
