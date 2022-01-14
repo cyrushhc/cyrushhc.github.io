@@ -100,12 +100,9 @@ def create_response(number_of_response, participant_data):
 
 
 user_mode = st.selectbox('Who are you?', ['Admin','Participant'])
-n = 0
 
 if user_mode == "Admin":
-    if n == 0:
-        room_number = room_number_generator()
-        n+=1
+    
     mode_choice = st.selectbox('View Mode', ["Set Prompt", "Show Results"])
     finish = False
 
@@ -116,24 +113,24 @@ if user_mode == "Admin":
         number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = 3) 
         finish = st.button("Create a Room")
     
-    if finish:
-        
-        st.write("\n")
-        st.write(f"## 🔗 Room Number: {room_number}")
-        st.write("Invite people to your room")
-        st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {room_number}.")
-        st.write("## 📝 Participant Response")
-            
-        doc_ref = db.collection("Room").document(f"Room {room_number}")
-        doc_ref.set({
-            "prompt_question": prompt_name,
-            "prompt_description":prompt_description,
-            "responses": [],
-            "room_number": room_number,
-            # "num_participants": number_of_p,
-            # "name_participants": p_name,
-            "num_response":number_of_response, 
-        })
+        if finish:
+            room_number = room_number_generator()
+            st.write("\n")
+            st.write(f"## 🔗 Room Number: {room_number}")
+            st.write("Invite people to your room")
+            st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {room_number}.")
+            st.write("## 📝 Participant Response")
+                
+            doc_ref = db.collection("Room").document(f"Room {room_number}")
+            doc_ref.set({
+                "prompt_question": prompt_name,
+                "prompt_description":prompt_description,
+                "responses": [],
+                "room_number": room_number,
+                # "num_participants": number_of_p,
+                # "name_participants": p_name,
+                "num_response":number_of_response, 
+            })
 
 
     if mode_choice == "Show Results":
