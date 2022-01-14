@@ -119,7 +119,7 @@ if user_mode == "Admin":
     
     try:
         if ss.finish:
-            if finish == True:
+            if finish.button("Create a Room"):
                 room_number = room_number_generator()
             st.write("\n")
             st.write(f"## 🔗 Room Number: {room_number}")
