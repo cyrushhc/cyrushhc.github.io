@@ -107,15 +107,17 @@ if user_mode == "Admin":
 
     st.write("## ✋ Discussion Prompt")
 
-    with st.form("my_form"):
-        prompt_name = st.text_input('Prompt')
-        prompt_description = st.text_input('Prompt description (optional)')
-        number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = 3) 
-        
-        finish = st.form_submit_button("Create a Room")
 
+    prompt_name = st.text_input('Prompt')
+    prompt_description = st.text_input('Prompt description (optional)')
+    number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = 3) 
+    finish = st.empty()
+    ss = SessionState.get(finish = False)
+    if finish.button("Create a Room"):
+        ss.finish = True
     
-    if finish:
+
+    if ss.finish:
         room_number = room_number_generator()
         st.write("\n")
         st.write(f"## 🔗 Room Number: {room_number}")
@@ -134,31 +136,21 @@ if user_mode == "Admin":
     try:    
         doc_ref = db.collection("Room").document(f"Room {room_number}") 
         st.write("## 📝 Participant Response")
-        doc = doc_ref.get().to_dict()   
-        if doc['responses'] == []:
-            st.write("No response submitted yet")
-        else:
-            st.write(doc['responses'])
+        doc = doc_ref.get().to_dict()  
+        seeresult = st.button("View Results")
+        ss2 = SessionState.get(seeresult = False) 
+        if seeresult:
+            ss2.seeresult = True
+            
+        if ss2.seeresult == True:
+            if doc['responses'] == []:
+                st.write("No response submitted yet")
+            else:
+                st.write(doc['responses'])
     except:
         st.write("")    
     
 
-
-
-button1 = st.empty()
-text1 = st.empty()
-button2 = st.empty()
-text2 = st.empty()
-
-ss = SessionState.get(button1 = False)
-
-if button1.button('1') :
-    ss.button1 = True
-
-if ss.button1:
-    text1.write('you clicked the first button')
-    if button2.button('2'):
-        text2.write('you clicked the second button')
 
 
 
