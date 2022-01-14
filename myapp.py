@@ -115,27 +115,25 @@ if user_mode == "Admin":
     ss = SessionState.get(finish = False)
     room_number = st.empty()
     ss_r = SessionState.get(room_number = None)
+    
     if finish:
         ss.finish = True
         ss_r.room_number = room_number_generator()
     
-    try:
-        if ss.finish:
+    if ss.finish:
             
-            st.write("\n")
-            st.write(f"## 🔗 Room Number: {ss_r.room_number}")
-            st.write("Invite people to your room")
-            st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {ss_r.room_number}.")
-            doc_ref = db.collection("Room").document(f"Room {ss_r.room_number}")
-            doc_ref.set({
-                "prompt_question": prompt_name,
-                "prompt_description":prompt_description,
-                "responses": [],
-                "room_number": ss_r.room_number,
-                "num_response":number_of_response, 
-            })
-    except:
-        st.write('')
+        st.write("\n")
+        st.write(f"## 🔗 Room Number: {ss_r.room_number}")
+        st.write("Invite people to your room")
+        st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {ss_r.room_number}.")
+        doc_ref = db.collection("Room").document(f"Room {ss_r.room_number}")
+        doc_ref.set({
+            "prompt_question": prompt_name,
+            "prompt_description":prompt_description,
+            "responses": [],
+            "room_number": ss_r.room_number,
+            "num_response":number_of_response, 
+        })
 
 
     try:    
@@ -143,6 +141,7 @@ if user_mode == "Admin":
         st.write("## 📝 Participant Response")
         doc = doc_ref.get().to_dict()  
         seeresult = st.button("View Results")
+
         ss2 = SessionState.get(seeresult = False) 
         
         if seeresult:
