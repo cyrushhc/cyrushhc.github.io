@@ -125,7 +125,7 @@ if user_mode == "Admin":
 
             finish = st.button("Update a Room")
 
-            st.write(f"## 🔗 Your Room Number is {room_number}.")
+            st.write(f"## 🔗 Room Number: {room_number}")
             st.write("Invite People to Your Room!")
             st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {room_number}.")
             st.write("## 📝 Participant Response")
@@ -137,7 +137,7 @@ if user_mode == "Admin":
         if room_choice == 'Open Room':
             room_number = room_number_generator()
             st.write("\n")
-            st.write(f"## 🔗 Room Number: {room_number}.")
+            st.write(f"## 🔗 Room Number: {room_number}")
             st.write("Invite people to your room")
             st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {room_number}.")
             st.write("## 📝 Participant Response")
@@ -157,9 +157,11 @@ if user_mode == "Admin":
     try:
         doc_ref = db.collection("Room").document(f"Room {room_number}")
         doc = doc_ref.get().to_dict()   
-        if doc['responses'] != []:
-            show_results = st.button("See Results")
-            if show_results == True:
+        show_results = st.button("See Results")
+        if show_results == True:
+            if doc['responses'] == []:
+                st.write("No response submitted yet")
+            else:
                 st.write(doc['responses'])
     except:
         st.write("")
