@@ -115,10 +115,12 @@ if user_mode == "Admin":
     ss = SessionState.get(finish = False)
     room_number = st.empty()
     ss_r = SessionState.get(room_number = None)
-    
+
     if finish:
         ss.finish = True
         ss_r.room_number = room_number_generator()
+    
+    st.write(f"The current room number is: {ss_r.room_number}")
     
     if ss.finish:
             
