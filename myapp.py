@@ -117,7 +117,7 @@ if user_mode == "Admin":
     if finish.button("Create a Room"):
         ss.finish = True
     
-    try
+    try:
         if ss.finish:
             room_number = room_number_generator()
             st.write("\n")
