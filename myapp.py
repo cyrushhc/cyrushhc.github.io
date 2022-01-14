@@ -126,9 +126,6 @@ if user_mode == "Admin":
         ss_init.initial_state = 0
 
     
-    st.write(f"The current room number is: {ss_r.room_number}")
-    st.write(f"The current room number is: {ss_init.initial_state}")
-    
     if ss.finish:
         st.write("")
         st.write("\n")
