@@ -128,8 +128,10 @@ if user_mode == "Admin":
             st.write(f"## 🔗 Your Room Number is {room_number}.")
             st.write("Invite People to Your Room!")
             st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {room_number}.")
+            st.write("## 📝 Participant Response")
         except:
             st.write("This room does not exist. Please enter another room number")
+
         
     if finish:
         if room_choice == 'Open Room':
@@ -138,6 +140,7 @@ if user_mode == "Admin":
             st.write(f"## 🔗 Room Number: {room_number}.")
             st.write("Invite people to your room")
             st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {room_number}.")
+            st.write("## 📝 Participant Response")
             
         doc_ref = db.collection("Room").document(f"Room {room_number}")
         doc_ref.set({
@@ -149,7 +152,8 @@ if user_mode == "Admin":
             # "name_participants": p_name,
             "num_response":number_of_response, 
         })
-        
+
+
     try:
         doc_ref = db.collection("Room").document(f"Room {room_number}")
         doc = doc_ref.get().to_dict()   
