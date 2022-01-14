@@ -119,7 +119,8 @@ if user_mode == "Admin":
     
     try:
         if ss.finish:
-            room_number = room_number_generator()
+            if finish == True:
+                room_number = room_number_generator()
             st.write("\n")
             st.write(f"## 🔗 Room Number: {room_number}")
             st.write("Invite people to your room")
@@ -152,7 +153,6 @@ if user_mode == "Admin":
                 st.write(doc['responses'])
     except:
         st.write("")    
-
 
 
 
