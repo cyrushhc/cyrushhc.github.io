@@ -4,6 +4,8 @@ import streamlit as st
 from google.oauth2 import service_account
 from google.cloud import firestore
 import random
+from streamlit import SessionState
+
 
 # yoyo
 # Authenticate to Firestore with the JSON account key.
@@ -98,8 +100,6 @@ def create_response(number_of_response, participant_data):
                     
         #     return all_response
 
-
-
 user_mode = st.selectbox('Who are you?', ['Admin','Participant'])
 
 if user_mode == "Admin":
@@ -142,7 +142,25 @@ if user_mode == "Admin":
     except:
         st.write("")    
     
-    st.text_input("Something")
+
+
+
+button1 = st.empty()
+text1 = st.empty()
+button2 = st.empty()
+text2 = st.empty()
+
+ss = SessionState.get(button1 = False)
+
+if button1.button('1') :
+    ss.button1 = True
+
+if ss.button1:
+    text1.write('you clicked the first button')
+    if button2.button('2'):
+        text2.write('you clicked the second button')
+
+
 
 
 # st.write("## 👀 View Mode")
