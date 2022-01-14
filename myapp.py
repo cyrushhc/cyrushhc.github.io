@@ -117,7 +117,7 @@ if user_mode == "Admin":
     ss_r = SessionState.get(room_number = None)
     if finish:
         ss.finish = True
-        ss_r.room_number == room_number_generator()
+        ss_r.room_number = room_number_generator()
     
     try:
         if ss.finish:
