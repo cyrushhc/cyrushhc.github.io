@@ -113,24 +113,27 @@ if user_mode == "Admin":
     number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = 3) 
     finish = st.empty()
     ss = SessionState.get(finish = False)
+
     if finish.button("Create a Room"):
         ss.finish = True
     
-
-    if ss.finish:
-        room_number = room_number_generator()
-        st.write("\n")
-        st.write(f"## 🔗 Room Number: {room_number}")
-        st.write("Invite people to your room")
-        st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {room_number}.")
-        doc_ref = db.collection("Room").document(f"Room {room_number}")
-        doc_ref.set({
-            "prompt_question": prompt_name,
-            "prompt_description":prompt_description,
-            "responses": [],
-            "room_number": room_number,
-            "num_response":number_of_response, 
-        })
+    try
+        if ss.finish:
+            room_number = room_number_generator()
+            st.write("\n")
+            st.write(f"## 🔗 Room Number: {room_number}")
+            st.write("Invite people to your room")
+            st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {room_number}.")
+            doc_ref = db.collection("Room").document(f"Room {room_number}")
+            doc_ref.set({
+                "prompt_question": prompt_name,
+                "prompt_description":prompt_description,
+                "responses": [],
+                "room_number": room_number,
+                "num_response":number_of_response, 
+            })
+    except:
+        st.write('')
 
 
     try:    
@@ -151,6 +154,22 @@ if user_mode == "Admin":
         st.write("")    
     
 
+
+
+button1 = st.empty()
+text1 = st.empty()
+button2 = st.empty()
+text2 = st.empty()
+
+ss = SessionState.get(button1 = False)
+
+if button1.button('1') :
+    ss.button1 = True
+
+if ss.button1:
+    text1.write('you clicked the first button')
+    if button2.button('2'):
+        text2.write('you clicked the second button')
 
 
 
