@@ -113,24 +113,25 @@ if user_mode == "Admin":
     number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = 3) 
     finish = st.button("Create a Room")
     ss = SessionState.get(finish = False)
-
+    room_number = st.empty()
+    ss_r = SessionState.get(room_number = None)
     if finish:
         ss.finish = True
-        room_number = room_number_generator()
+        ss_r.room_number == room_number_generator()
     
     try:
         if ss.finish:
             
             st.write("\n")
-            st.write(f"## 🔗 Room Number: {room_number}")
+            st.write(f"## 🔗 Room Number: {ss_r.room_number}")
             st.write("Invite people to your room")
             st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {room_number}.")
-            doc_ref = db.collection("Room").document(f"Room {room_number}")
+            doc_ref = db.collection("Room").document(f"Room {ss_r.room_number}")
             doc_ref.set({
                 "prompt_question": prompt_name,
                 "prompt_description":prompt_description,
                 "responses": [],
-                "room_number": room_number,
+                "room_number": ss_r.room_number,
                 "num_response":number_of_response, 
             })
     except:
@@ -138,7 +139,7 @@ if user_mode == "Admin":
 
 
     try:    
-        doc_ref = db.collection("Room").document(f"Room {room_number}") 
+        doc_ref = db.collection("Room").document(f"Room {ss_r.room_number}") 
         st.write("## 📝 Participant Response")
         doc = doc_ref.get().to_dict()  
         seeresult = st.button("View Results")
