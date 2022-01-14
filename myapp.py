@@ -157,7 +157,7 @@ if user_mode == "Admin":
     try:
         doc_ref = db.collection("Room").document(f"Room {room_number}") 
         doc = doc_ref.get().to_dict()   
-
+    
         if doc['responses'] == []:
             st.write("No response submitted yet")
         else:
@@ -166,17 +166,6 @@ if user_mode == "Admin":
     except:
         st.write('')
     
-
-    update = st.button("See Updated Response")
-    if update:
-        finish = True
-        doc_ref = db.collection("Room").document(f"Room {room_number}") 
-        doc = doc_ref.get().to_dict()   
-
-        if doc['responses'] == []:
-            st.write("No response submitted yet")
-        else:
-            st.write(doc['responses'])
 
 
 
