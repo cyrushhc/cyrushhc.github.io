@@ -103,46 +103,42 @@ user_mode = st.selectbox('Who are you?', ['Admin','Participant'])
 
 if user_mode == "Admin":
     
-    mode_choice = st.selectbox('View Mode', ["Set Prompt", "Show Results"])
-    finish = False
 
-    if mode_choice == 'Set Prompt':
-        st.write("## ✋ Discussion Prompt")
-        prompt_name = st.text_input('Prompt')
-        prompt_description = st.text_input('Prompt description (optional)')
-        number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = 3) 
-        finish = st.button("Create a Room")
+    st.write("## ✋ Discussion Prompt")
+    prompt_name = st.text_input('Prompt')
+    prompt_description = st.text_input('Prompt description (optional)')
+    number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = 3) 
+    finish = st.button("Create a Room")
     
-        if finish:
-            room_number = room_number_generator()
-            st.write("\n")
-            st.write(f"## 🔗 Room Number: {room_number}")
-            st.write("Invite people to your room")
-            st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {room_number}.")
-            st.write("## 📝 Participant Response")
-                
-            doc_ref = db.collection("Room").document(f"Room {room_number}")
-            doc_ref.set({
-                "prompt_question": prompt_name,
-                "prompt_description":prompt_description,
-                "responses": [],
-                "room_number": room_number,
-                # "num_participants": number_of_p,
-                # "name_participants": p_name,
-                "num_response":number_of_response, 
-            })
+    if finish:
+        room_number = room_number_generator()
+        st.write("\n")
+        st.write(f"## 🔗 Room Number: {room_number}")
+        st.write("Invite people to your room")
+        st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {room_number}.")
+        
+            
+        doc_ref = db.collection("Room").document(f"Room {room_number}")
+        doc_ref.set({
+            "prompt_question": prompt_name,
+            "prompt_description":prompt_description,
+            "responses": [],
+            "room_number": room_number,
+            # "num_participants": number_of_p,
+            # "name_participants": p_name,
+            "num_response":number_of_response, 
+        })
 
-
-    if mode_choice == "Show Results":
+    try:
+        st.write("## 📝 Participant Response")
         doc_ref = db.collection("Room").document(f"Room {room_number}") 
         doc = doc_ref.get().to_dict()   
         if doc['responses'] == []:
             st.write("No response submitted yet")
         else:
             st.write(doc['responses'])
-    
-    st.write(room_number)
-
+    except:
+        st.write("")    
 
 
 # st.write("## 👀 View Mode")
