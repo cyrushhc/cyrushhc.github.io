@@ -17,7 +17,7 @@ db = firestore.Client(credentials=creds, project="automatic-affinity-mapping")
 
 
 from sentence_transformers import SentenceTransformer, util
-model = SentenceTransformer('stsb-roberta-large')
+model = SentenceTransformer('all-mpnet-base-v2')
 sentence1 = "Sharing the same needle would expose you to HIV"
 sentence2 = "Having sex without a condom would make you vulnerable to AIDS"
 embedding3 = model.encode(sentence1, convert_to_tensor=True)
