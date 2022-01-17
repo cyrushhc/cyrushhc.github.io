@@ -10,21 +10,21 @@ import SessionState
 # yoyo
 # Authenticate to Firestore with the JSON account key.
 import json
-# from bertopic import BERTopic
+
 
 key_dict = json.loads(st.secrets["textkey"])
 creds = service_account.Credentials.from_service_account_info(key_dict)
 db = firestore.Client(credentials=creds, project="automatic-affinity-mapping")
 
-
-from sentence_transformers import SentenceTransformer, util
-model = SentenceTransformer('all-mpnet-base-v2')
-sentence1 = "Sharing the same needle would expose you to HIV"
-sentence2 = "Having sex without a condom would make you vulnerable to AIDS"
-embedding3 = model.encode(sentence1, convert_to_tensor=True)
-embedding4 = model.encode(sentence2, convert_to_tensor=True)
-cosine_scores2 = util.pytorch_cos_sim(embedding3, embedding4)
-st.write("🔴2 Similarity score:", cosine_scores2.item())
+# from bertopic import BERTopic
+# from sentence_transformers import SentenceTransformer, util
+# model = SentenceTransformer('all-mpnet-base-v2')
+# sentence1 = "Sharing the same needle would expose you to HIV"
+# sentence2 = "Having sex without a condom would make you vulnerable to AIDS"
+# embedding3 = model.encode(sentence1, convert_to_tensor=True)
+# embedding4 = model.encode(sentence2, convert_to_tensor=True)
+# cosine_scores2 = util.pytorch_cos_sim(embedding3, embedding4)
+# st.write("🔴2 Similarity score:", cosine_scores2.item())
 
 
 
