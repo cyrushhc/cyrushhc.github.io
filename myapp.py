@@ -7,6 +7,7 @@ import random
 import SessionState
 import pandas as pd 
 import time
+from st_aggrid import AgGrid 
 
 # Authenticate to Firestore with the JSON account key.
 import json
@@ -189,9 +190,9 @@ if user_mode == "Admin":
                 
                 st.write('## The patterns in your data.\n')
                 st.write('### Cluster 1')
-                data = {'Response': ['appleappleappleappleappleappleappleappleappleappleappleappleappleappleappleappleapplebanana', 'banana', 'grapes', 'orange'], 'Person': ['Cyrus', 'Kate','Cyrus', 'James']}  
+                data = {'Response': ['apple', 'banana', 'grapes', 'orange'], 'Person': ['Cyrus', 'Kate','Cyrus', 'James']}  
                 df1 = pd.DataFrame(data)
-                st.dataframe(df1)
+                AgGrid(df1)
 
                 st.write('\n')
 
