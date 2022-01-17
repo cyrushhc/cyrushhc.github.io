@@ -182,7 +182,7 @@ if user_mode == "Admin":
                 my_bar = st.progress(0)
                 for percent_complete in range(10):
                     time.sleep(0.1)
-                    my_bar.progress(percent_complete + 1)
+                    my_bar.progress(percent_complete + 10)
                 
                 st.write('The patterns in your data.')
                 st.dataframe(df)
