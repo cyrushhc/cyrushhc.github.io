@@ -25,7 +25,7 @@ embedding4 = model.encode(sentence2, convert_to_tensor=True)
 cosine_scores2 = util.pytorch_cos_sim(embedding3, embedding4)
 st.write("🔴2 Similarity score:", cosine_scores2.item())
 
-
+from bertopic import BERTopic
 
 
 
