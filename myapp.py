@@ -6,13 +6,10 @@ from google.cloud import firestore
 import random
 import SessionState
 import pandas as pd 
+import time
 
-
-# yoyo
 # Authenticate to Firestore with the JSON account key.
 import json
-
-
 key_dict = json.loads(st.secrets["textkey"])
 creds = service_account.Credentials.from_service_account_info(key_dict)
 db = firestore.Client(credentials=creds, project="automatic-affinity-mapping")
@@ -26,7 +23,6 @@ db = firestore.Client(credentials=creds, project="automatic-affinity-mapping")
 # embedding4 = model.encode(sentence2, convert_to_tensor=True)
 # cosine_scores2 = util.pytorch_cos_sim(embedding3, embedding4)
 # st.write("🔴2 Similarity score:", cosine_scores2.item())
-
 
 
 with open("style.css") as f:  
@@ -123,6 +119,8 @@ if user_mode == "Admin":
                 "responses": [],
                 "room_number": ss_r.room_number,
                 "num_response":number_of_response, 
+                "collect_response": True,
+                "ready_to_cluster": False,
             })
             ss_init.initial_state += 1
         
@@ -135,7 +133,9 @@ if user_mode == "Admin":
         #         "num_response":number_of_response, 
         #     })
 
-
+    data = {'Cluster 1': ['apple', 'banana', 'grapes', 'orange'], 'Cluster 2': ['gorilla', 'cats','dogs', 'monkeys'
+    ]}  
+    df = pd.DataFrame(data)
 
     try:    
         doc_ref = db.collection("Room").document(f"Room {ss_r.room_number}") 
@@ -152,14 +152,46 @@ if user_mode == "Admin":
                 st.write("No response submitted yet")
             else:
                 st.write(doc['responses'])
+        
+        end_collection = st.button("Close Participant Response")
+        ss3 = SessionState.get(end_collection = False) 
+
+        if end_collection:
+            ss3.end_collection = True
+
+        if ss3.end_collection == True:
+            doc_ref.update({
+                "collect_response": False,
+                "ready_to_cluster": True,
+            }
+            )
+            
     except:
         st.write("")    
 
+    try:    
+        doc_ref = db.collection("Room").document(f"Room {ss_r.room_number}") 
+        if doc_ref.get().to_dict()['ready_to_cluster'] == True:
+            find_pattern = st.button("Find Pattern")
+            ss4 = SessionState.get(find_pattern = False) 
 
-    data = {'Cluster 1': ['apple', 'banana', 'grapes', 'orange'], 'Cluster 2': ['gorilla', 'cats','dogs', 'monkeys'
-    ]}  
-    df = pd.DataFrame(data)
-    st.dataframe(df)
+            if find_pattern:
+                ss4.find_pattern = True
+
+            if ss4.find_pattern == True:
+                my_bar = st.progress(0)
+                for percent_complete in range(10):
+                    time.sleep(0.1)
+                    my_bar.progress(percent_complete + 1)
+                
+                st.write('The patterns in your data.')
+                st.dataframe(df)
+
+
+    except:
+        st.write('')
+
+    
 
     
 
