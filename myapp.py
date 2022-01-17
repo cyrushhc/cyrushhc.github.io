@@ -133,9 +133,7 @@ if user_mode == "Admin":
         #         "num_response":number_of_response, 
         #     })
 
-    data = {'Cluster 1': ['apple', 'banana', 'grapes', 'orange'], 'Cluster 2': ['gorilla', 'cats','dogs', 'monkeys'
-    ]}  
-    df = pd.DataFrame(data)
+    
 
     try:    
         doc_ref = db.collection("Room").document(f"Room {ss_r.room_number}") 
@@ -184,8 +182,21 @@ if user_mode == "Admin":
                     time.sleep(0.1)
                     my_bar.progress(10*percent_complete + 10)
                 
-                st.write('The patterns in your data.')
-                st.dataframe(df)
+                st.write('## The patterns in your data.\n')
+                st.write('### Cluster 1')
+                data = {'Response': ['apple', 'banana', 'grapes', 'orange'], 'Person': ['Cyrus', 'Kate','Cyrus', 'James']}  
+                df1 = pd.DataFrame(data)
+                st.dataframe(df1)
+
+                st.write('\n')
+
+                st.write('### Cluster 2')
+                data2 = {'Response': ['cats', 'dogs', 'monkeys', 'gorillas'], 'Person': ['Jimmy', 'James','Cyrus', 'Kenn']}  
+                df2 = pd.DataFrame(data2)
+                st.dataframe(df2)
+                
+
+
 
 
     except:
