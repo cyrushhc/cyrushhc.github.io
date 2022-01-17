@@ -11,5 +11,4 @@ google.api.core < 1.31.1
 # transformers < 4.6.1
 # pytorch < 1.8.1
 # bertopic < 0.9.4
-# st_aggrid == 0.2.2
-simplejson == 3.17.6
+streamlit-aggrid < 0.1.9
