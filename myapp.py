@@ -191,7 +191,7 @@ if user_mode == "Admin":
                 st.write('### Cluster 1')
                 data = {'Response': ['appleappleappleappleappleappleappleappleappleappleappleappleappleappleappleappleapplebanana', 'banana', 'grapes', 'orange'], 'Person': ['Cyrus', 'Kate','Cyrus', 'James']}  
                 df1 = pd.DataFrame(data)
-                st.table(df1)
+                st.dataframe(df1)
 
                 st.write('\n')
 
