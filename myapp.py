@@ -10,6 +10,7 @@ import SessionState
 # yoyo
 # Authenticate to Firestore with the JSON account key.
 import json
+# from bertopic import BERTopic
 
 key_dict = json.loads(st.secrets["textkey"])
 creds = service_account.Credentials.from_service_account_info(key_dict)
@@ -25,36 +26,11 @@ embedding4 = model.encode(sentence2, convert_to_tensor=True)
 cosine_scores2 = util.pytorch_cos_sim(embedding3, embedding4)
 st.write("🔴2 Similarity score:", cosine_scores2.item())
 
-from bertopic import BERTopic
-
 
 
 with open("style.css") as f:  
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-
-# Experiment with "Add a response" Button
-  
-    # I want to add a new input whenever users click the button but it would overwrite the previous response
-    # Turns out you just can nest any action within the button 
-    # https://docs.streamlit.io/library/api-reference/widgets/st.button
-    # Therefore, to make it work, I'll just allow predefined number of questions
-
-    # st.text_input(f'response {n}')
-    # add = st.button("Add a response", key = n)
-    # n+=1
-
-
-    # if add:
-    #     st.text_input(f'response {n}')
-    #     add2 = st.button("Add another response")
-    #     n+=1
-
-
-    # if add2:
-    #     st.text_input(f'response {n}')
-    #     add3 = st.button("Add a response")
-    #     n+=1  
 
 
 # Add Rooms
@@ -113,10 +89,7 @@ user_mode = st.selectbox('Who are you?', ['Admin','Participant'])
 
 if user_mode == "Admin":
     
-
     st.write("## ✋ Discussion Prompt")
-
-
     prompt_name = st.text_input('Prompt')
     prompt_description = st.text_input('Prompt description (optional)')
     number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = 3) 
