@@ -186,7 +186,6 @@ if user_mode == "Admin":
                 st.write('### Cluster 1')
                 data = {'Response': ['apple', 'banana', 'grapes', 'orange'], 'Person': ['Cyrus', 'Kate','Cyrus', 'James']}  
                 df1 = pd.DataFrame(data)
-                st.dataframe(df1)
                 st.table(df1)
 
                 st.write('\n')
@@ -194,7 +193,7 @@ if user_mode == "Admin":
                 st.write('### Cluster 2')
                 data2 = {'Response': ['cats', 'dogs', 'monkeys', 'gorillas'], 'Person': ['Jimmy', 'James','Cyrus', 'Kenn']}  
                 df2 = pd.DataFrame(data2)
-                st.dataframe(df2)
+                st.table(df2)
                 
 
 
