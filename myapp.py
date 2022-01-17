@@ -187,6 +187,7 @@ if user_mode == "Admin":
                 data = {'Response': ['apple', 'banana', 'grapes', 'orange'], 'Person': ['Cyrus', 'Kate','Cyrus', 'James']}  
                 df1 = pd.DataFrame(data)
                 st.dataframe(df1)
+                st.table(df1)
 
                 st.write('\n')
 
