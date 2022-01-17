@@ -177,10 +177,14 @@ if user_mode == "Admin":
                 ss4.find_pattern = True
 
             if ss4.find_pattern == True:
-                my_bar = st.progress(0)
-                for percent_complete in range(10):
-                    time.sleep(0.1)
-                    my_bar.progress(10*percent_complete + 10)
+                with st.spinner('Wait for it...'):
+                    time.sleep(5)
+                    st.success('Done!')
+                    st.balloons()
+                # my_bar = st.progress(0)
+                # for percent_complete in range(10):
+                #     time.sleep(0.1)
+                #     my_bar.progress(10*percent_complete + 10)
                 
                 st.write('## The patterns in your data.\n')
                 st.write('### Cluster 1')
