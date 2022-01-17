@@ -192,7 +192,7 @@ if user_mode == "Admin":
                 st.write('### Cluster 1')
                 data = {'Response': ['apple', 'banana', 'grapes', 'orange'], 'Person': ['Cyrus', 'Kate','Cyrus', 'James']}  
                 df1 = pd.DataFrame(data)
-                AgGrid(df1)
+                AgGrid(df1, theme='streamlit')
 
                 st.write('\n')
 
