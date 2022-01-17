@@ -189,7 +189,7 @@ if user_mode == "Admin":
                 
                 st.write('## The patterns in your data.\n')
                 st.write('### Cluster 1')
-                data = {'Response': ['appleappleappleappleappleappleappleappleappleappleappleappleappleappleappleappleapple', 'banana', 'grapes', 'orange'], 'Person': ['Cyrus', 'Kate','Cyrus', 'James']}  
+                data = {'Response': ['appleappleappleappleappleappleappleappleappleappleappleappleappleappleappleappleapplebanana', 'banana', 'grapes', 'orange'], 'Person': ['Cyrus', 'Kate','Cyrus', 'James']}  
                 df1 = pd.DataFrame(data)
                 st.table(df1)
 
