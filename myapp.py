@@ -170,6 +170,7 @@ if user_mode == "Admin":
     try:    
         doc_ref = db.collection("Room").document(f"Room {ss_r.room_number}") 
         if doc_ref.get().to_dict()['ready_to_cluster'] == True:
+            st.write('## 🧩 Find Patterns')
             find_pattern = st.button("Find Pattern")
             ss4 = SessionState.get(find_pattern = False) 
 
@@ -177,9 +178,9 @@ if user_mode == "Admin":
                 ss4.find_pattern = True
 
             if ss4.find_pattern == True:
-                with st.spinner('Wait for it...'):
+                with st.spinner('Finding patterns in your data...'):
                     time.sleep(5)
-                    st.success('Done!')
+                    st.success('Here you go! 🤟')
                     st.balloons()
                 # my_bar = st.progress(0)
                 # for percent_complete in range(10):
@@ -199,9 +200,6 @@ if user_mode == "Admin":
                 df2 = pd.DataFrame(data2)
                 st.table(df2)
                 
-
-
-
 
     except:
         st.write('')
