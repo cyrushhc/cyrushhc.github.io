@@ -146,7 +146,6 @@ if user_mode == "Admin":
         if seeresult:
             ss2.seeresult = True
 
-
         if ss2.seeresult == True:
             if doc['responses'] == []:
                 st.write("No response submitted yet")
@@ -154,6 +153,14 @@ if user_mode == "Admin":
                 st.write(doc['responses'])
     except:
         st.write("")    
+
+
+    data = {'Cluster 1': ['apple', 'banana', 'grapes', 'orange'], 'Cluster 2': ['gorilla', 'cats','dogs', 'monkeys'
+    ]}  
+    df = pd.DataFrame(data)
+    st.dataframe(df)
+
+    
 
 
 
