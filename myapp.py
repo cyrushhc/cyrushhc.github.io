@@ -165,8 +165,8 @@ if user_mode == "Admin":
                 
                 st.write('## The patterns in your data.\n')
                 st.write('### Cluster 1')
-                index = np.where(np.array(pred) == -1)
-                st.write(np.array(new_list)[index[0]])
+                st.write(model.get_topic_info())
+                st.write(pred)
 
 
                 # data = {'Response': ['apple', 'banana', 'grapes', 'orange'], 'Person': ['Cyrus', 'Kate','Cyrus', 'James']}  
