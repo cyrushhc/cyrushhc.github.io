@@ -8,6 +8,7 @@ import SessionState
 import pandas as pd 
 import time
 from st_aggrid import AgGrid 
+import numpy as np
 
 # Authenticate to Firestore with the JSON account key.
 import json
@@ -15,7 +16,7 @@ key_dict = json.loads(st.secrets["textkey"])
 creds = service_account.Credentials.from_service_account_info(key_dict)
 db = firestore.Client(credentials=creds, project="automatic-affinity-mapping")
 
-# from bertopic import BERTopic
+from bertopic import BERTopic
 # from sentence_transformers import SentenceTransformer, util
 # model = SentenceTransformer('all-mpnet-base-v2')
 # sentence1 = "Sharing the same needle would expose you to HIV"
@@ -63,26 +64,6 @@ def create_response(number_of_response, participant_data):
 
             return all_response, submitted
 
-        # if type(participant_data) == list:
-
-        #     # create a dictionary to keep track of all the response
-        #     all_response = []
-
-        #     # Create a for loop to create all the response
-        #     for respondant in range(len(participant_data)):
-        #         with st.form(f"{participant_data[respondant]}"):
-                    
-        #             numberlist = [f'response {nr}' for nr in range(number_of_response)]
-        #             response_list = dict.fromkeys(numberlist)
-        #             st.write(f"### {participant_data[respondant]}")
-        #             for i in range(number_of_response):
-        #                 response_list[f'response {i}'] = st.text_input(f'Response {i+1}')
-                    
-        #             all_response.append(response_list)
-                    
-        #             st.form_submit_button("Submit")
-                    
-        #     return all_response
 
 user_mode = st.selectbox('Who are you?', ['Admin','Participant'])
 
@@ -126,15 +107,6 @@ if user_mode == "Admin":
             })
             ss_init.initial_state += 1
         
-        # else: 
-        #     doc_ref.set({
-        #         "prompt_question": prompt_name,
-        #         "prompt_description":prompt_description,
-        #         # "responses": [],
-        #         "room_number": ss_r.room_number,
-        #         "num_response":number_of_response, 
-        #     })
-
     
 
     try:    
@@ -171,7 +143,8 @@ if user_mode == "Admin":
 
     try:    
         doc_ref = db.collection("Room").document(f"Room {ss_r.room_number}") 
-        if doc_ref.get().to_dict()['ready_to_cluster'] == True:
+        doc = doc_ref.get().to_dict()
+        if  doc['ready_to_cluster'] == True:
             st.write('## 🧩 Find Patterns')
             find_pattern = st.button("Find Pattern")
             ss4 = SessionState.get(find_pattern = False) 
@@ -181,26 +154,31 @@ if user_mode == "Admin":
 
             if ss4.find_pattern == True:
                 with st.spinner('Finding patterns in your data...'):
-                    time.sleep(5)
+                    
+                    model = BERTopic()
+                    new_list = []
+                    for i in doc['responses']:
+                        new_list+=(list(i.values()))                    
+                    pred, prob = model.fit_transform(new_list)
                     st.success('Here you go! 🤟')
                     st.balloons()
-                # my_bar = st.progress(0)
-                # for percent_complete in range(10):
-                #     time.sleep(0.1)
-                #     my_bar.progress(10*percent_complete + 10)
                 
                 st.write('## The patterns in your data.\n')
                 st.write('### Cluster 1')
-                data = {'Response': ['apple', 'banana', 'grapes', 'orange'], 'Person': ['Cyrus', 'Kate','Cyrus', 'James']}  
-                df1 = pd.DataFrame(data)
-                AgGrid(df1, theme='streamlit')
+                index = np.where(np.array(pred) == -1)
+                st.write(np.array(new_list)[index[0]])
 
-                st.write('\n')
 
-                st.write('### Cluster 2')
-                data2 = {'Response': ['cats', 'dogs', 'monkeys', 'gorillas'], 'Person': ['Jimmy', 'James','Cyrus', 'Kenn']}  
-                df2 = pd.DataFrame(data2)
-                st.table(df2)
+                # data = {'Response': ['apple', 'banana', 'grapes', 'orange'], 'Person': ['Cyrus', 'Kate','Cyrus', 'James']}  
+                # df1 = pd.DataFrame(data)
+                # AgGrid(df1, theme='streamlit')
+
+                # st.write('\n')
+
+                # st.write('### Cluster 2')
+                # data2 = {'Response': ['cats', 'dogs', 'monkeys', 'gorillas'], 'Person': ['Jimmy', 'James','Cyrus', 'Kenn']}  
+                # df2 = pd.DataFrame(data2)
+                # st.table(df2)
                 
 
     except:

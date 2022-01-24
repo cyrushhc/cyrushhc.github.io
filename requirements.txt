@@ -10,5 +10,5 @@ google.api.core < 1.31.1
 # sentence_transformers < 2.0.0
 # transformers < 4.6.1
 # pytorch < 1.8.1
-# bertopic < 0.9.4
+bertopic < 0.9.4
 streamlit-aggrid < 0.2.2
