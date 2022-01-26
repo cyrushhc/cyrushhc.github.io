@@ -65,9 +65,12 @@ def create_response(number_of_response, participant_data):
             return all_response, submitted
 
 
-user_mode = st.selectbox('Who are you?', ['Admin','Participant'])
+user_mode = st.selectbox('Who are you?', ['-','Admin','Participant'])
 
-if user_mode == "Admin":
+if user_mode == '-':
+    st.write('')
+
+elif user_mode == "Admin":
     
     st.write("## ✋ Discussion Prompt")
     prompt_name = st.text_input('Prompt')
