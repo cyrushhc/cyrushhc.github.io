@@ -76,6 +76,7 @@ elif user_mode == "Admin":
     prompt_name = st.text_input('Prompt')
     prompt_description = st.text_input('Prompt description (optional)')
     number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = 3) 
+    
     finish = st.button("Create a Room")
     ss = SessionState.get(finish = False)
     room_number = st.empty()
