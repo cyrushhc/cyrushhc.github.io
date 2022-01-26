@@ -182,7 +182,7 @@ elif user_mode == "Admin":
                     
                     clustering_results.append(cluster_dict)
 
-                st.write(clustering_results)
+                st.write(model.get_topic_info())
 
                 try:
                     doc_ref.update({
