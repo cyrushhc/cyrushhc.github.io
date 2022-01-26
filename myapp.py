@@ -219,6 +219,10 @@ elif user_mode == "Admin":
 
 elif user_mode == "Participant":
     
+    initial_state = st.empty()
+    ss_init = SessionState.get(initial_state = None)
+    ss_init.initial_state = 0
+    
     # For some reasons I cannot use the stream() method 
     # It says that 'CollectionReference' object has no attribute 'stream'
     # room_ref = db.collection(u'Room')
@@ -271,9 +275,11 @@ elif user_mode == "Participant":
                 current_response = doc['responses']
                 updated_response = current_response + all_response
 
-                doc_ref.update({
-                    "responses": updated_response,
-                })
+                if ss_init.initial_state == 0:
+                    doc_ref.update({
+                        "responses": updated_response,
+                    })
+                    ss_init.initial_state +=1
 
 
                 st.write("Thank you for your input 👍")
