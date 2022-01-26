@@ -164,9 +164,11 @@ if user_mode == "Admin":
                     st.balloons()
                 
                 st.write('## The patterns in your data.\n')
-                st.write('### Cluster 1')
-                st.write(model.get_topic_info())
-                st.write(pred)
+                for i in range(len(model.get_topic_info())):
+                    st.write(f'### Cluster {i}')
+                    topic_index = np.where(np.array(pred) == i)
+                    st.write(np.array(new_list)[topic_index])
+
 
 
                 # data = {'Response': ['apple', 'banana', 'grapes', 'orange'], 'Person': ['Cyrus', 'Kate','Cyrus', 'James']}  
