@@ -173,7 +173,7 @@ elif user_mode == "Admin":
                     st.write(f'### Cluster {i}')
                     topic_index = np.where(np.array(pred) == i)
                     a_cluster = np.array(new_list)[topic_index]
-                    st.write(a_cluster)
+                    st.table(a_cluster)
 
                     dictionary_keys = [f'entry {num}' for num in range(len(a_cluster))]
                     cluster_dict = dict(zip(dictionary_keys, a_cluster))
@@ -182,7 +182,7 @@ elif user_mode == "Admin":
                     
                     clustering_results.append(cluster_dict)
 
-                st.write(model.get_topic_info())
+                # st.write(model.get_topic_info())
 
                 try:
                     doc_ref.update({
