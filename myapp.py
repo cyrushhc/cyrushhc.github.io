@@ -180,7 +180,7 @@ elif user_mode == "Admin":
 
                     # Trying to turn the results into dictionary so I can store it on Firestore
                     
-                    clustering_results.append(a_cluster)
+                    clustering_results.append(cluster_dict)
 
                 st.write(clustering_results)
 
