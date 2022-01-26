@@ -182,7 +182,8 @@ elif user_mode == "Admin":
                     
                     clustering_results.append(a_cluster)
 
-            
+                st.write(clustering_results)
+
                 try:
                     doc_ref.update({
                         "clustering_results":  clustering_results,
