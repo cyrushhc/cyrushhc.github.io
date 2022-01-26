@@ -286,7 +286,7 @@ elif user_mode == "Participant":
                     else:
                         for c_id in range(len(doc['clustering_results'])):
                             st.write(f'### Cluster {c_id}')
-                            st.write(np.array(list(dict.values(doc['clustering_results'][c_id]))))
+                            st.table(np.array(list(dict.values(doc['clustering_results'][c_id]))))
         except:
             st.write('')
 
