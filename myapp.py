@@ -275,8 +275,6 @@ elif user_mode == "Participant":
                 "responses": updated_response,
             })
 
-            doc = doc_ref.get()
-            doc = doc.to_dict()
 
             st.write("Thank you for your input 👍")
         
@@ -286,9 +284,10 @@ elif user_mode == "Participant":
                 if doc['clustering_results'] == []:
                     st.write('There is no results yet. Check back later.')
                 else:
-                    for i in range(doc['clustering_results']):
-                        st.write(f'### Cluster {i}')
-                        st.write(doc['clustering_results'][i])
+                    st.write(doc['clustering_results'])
+                    # for i in range(doc['clustering_results']):
+                    #     st.write(f'### Cluster {i}')
+                    #     st.write(doc['clustering_results'][i])
 
 
     except:
