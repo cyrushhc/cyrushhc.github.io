@@ -172,8 +172,16 @@ elif user_mode == "Admin":
                 for i in range(len(model.get_topic_info())):
                     st.write(f'### Cluster {i}')
                     topic_index = np.where(np.array(pred) == i)
-                    st.write(np.array(new_list)[topic_index])
-                    clustering_results.append(np.array(new_list)[topic_index])
+                    a_cluster = np.array(new_list)[topic_index]
+                    st.write(a_cluster)
+
+                    dictionary_keys = [f'entry {num}' for num in range(len(a_cluster))]
+                    cluster_dict = dict(zip(dictionary_keys, a_cluster))
+
+                    # Trying to turn the results into dictionary so I can store it on Firestore
+                    
+                    clustering_results.append(a_cluster)
+
             
                 try:
                     doc_ref.update({
