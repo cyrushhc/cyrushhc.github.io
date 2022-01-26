@@ -276,15 +276,15 @@ elif user_mode == "Participant":
                 current_response = doc['responses']
                 updated_response = current_response + all_response
 
-                if ss_init.initial_state == 0:
-                    doc_ref.update({
-                        "responses": updated_response,
-                    })
-                    st.write("Thank you for your input 👍")
-                    ss_init.initial_state +=1
+                
+                doc_ref.update({
+                    "responses": updated_response,
+                })
+                st.write("Thank you for your input 👍")
+                ss_init.initial_state +=1
 
-                else:
-                    st.write("You can only submit the response once 🙃")
+            else:
+                st.write("You can only submit the response once 🙃")
 
                 
             
