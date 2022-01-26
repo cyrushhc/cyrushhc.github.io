@@ -240,7 +240,7 @@ elif user_mode == "Participant":
         prompt_name = doc['prompt_question'] 
         prompt_description = doc['prompt_description']
         number_of_response = doc["num_response"]
-        st.write(f"### 🙃 Prompt: {prompt_name}")
+        st.write(f"### ✋ Prompt: {prompt_name}")
         st.write(prompt_description)
 
         # create a dictionary to keep track of all the response
@@ -279,10 +279,13 @@ elif user_mode == "Participant":
                     doc_ref.update({
                         "responses": updated_response,
                     })
+                    st.write("Thank you for your input 👍")
                     ss_init.initial_state +=1
 
+                else:
+                    st.write("You can only submit the response once 🙃")
 
-                st.write("Thank you for your input 👍")
+                
             
                 see_results = st.button('See results')
 
