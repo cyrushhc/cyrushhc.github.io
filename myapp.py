@@ -265,28 +265,30 @@ elif user_mode == "Participant":
         # elif create_participant == 'Enter Participant Name':
         #     p_name_list = p_name.split(",")
         #     all_response = create_response(number_of_response, p_name_list)
+        try:
+            if ss_submit.submitted:
 
-        if ss_submit.submitted:
+                current_response = doc['responses']
+                updated_response = current_response + all_response
 
-            current_response = doc['responses']
-            updated_response = current_response + all_response
-
-            doc_ref.update({
-                "responses": updated_response,
-            })
+                doc_ref.update({
+                    "responses": updated_response,
+                })
 
 
-            st.write("Thank you for your input 👍")
-        
-            see_results = st.button('See results')
+                st.write("Thank you for your input 👍")
+            
+                see_results = st.button('See results')
 
-            if see_results:
-                if doc['clustering_results'] == []:
-                    st.write('There is no results yet. Check back later.')
-                else:
-                    for c_id in range(len(doc['clustering_results'])):
-                        st.write(f'### Cluster {c_id}')
-                        st.write(np.array(list(dict.values(doc['clustering_results'][c_id]))))
+                if see_results:
+                    if doc['clustering_results'] == []:
+                        st.write('There is no results yet. Check back later.')
+                    else:
+                        for c_id in range(len(doc['clustering_results'])):
+                            st.write(f'### Cluster {c_id}')
+                            st.write(np.array(list(dict.values(doc['clustering_results'][c_id]))))
+        except:
+            st.write('')
 
     except:
         st.write("This room does not exist. Please enter a valid room number 🙏")
