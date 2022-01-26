@@ -284,13 +284,9 @@ elif user_mode == "Participant":
                 if doc['clustering_results'] == []:
                     st.write('There is no results yet. Check back later.')
                 else:
-                    st.write(len(doc['clustering_results']))
-                    st.write(doc['clustering_results'][0])
-                    st.write(type(doc['clustering_results'][0]))
-
-                    # for i in range(doc['clustering_results']):
-                    #     st.write(f'### Cluster {i}')
-                    #     st.write(list(dict.values(doc['clustering_results'][i])))
+                    for c_id in range(len(doc['clustering_results'])):
+                        st.write(f'### Cluster {c_id}')
+                        st.write(list(dict.values(doc['clustering_results'][i])))
 
     except:
         st.write("This room does not exist. Please enter a valid room number 🙏")
