@@ -37,32 +37,32 @@ st.write("# findPattern.")
 def room_number_generator():
     return random.randint(1,1000)
 
-def create_response(number_of_response, participant_data):
-        """
-        participant_data: could either be the number of participant or the name
-        number_of_response: number of response for each participant
-        """
-        if type(participant_data) == int:
+# def create_response(number_of_response, participant_data):
+#         """
+#         participant_data: could either be the number of participant or the name
+#         number_of_response: number of response for each participant
+#         """
+#         if type(participant_data) == int:
             
-            # create a dictionary to keep track of all the response
-            all_response = []
+#             # create a dictionary to keep track of all the response
+#             all_response = []
 
-            # Create a for loop to create all the response
-            for respondant in range(participant_data):
+#             # Create a for loop to create all the response
+#             for respondant in range(participant_data):
 
-                with st.form(f"{respondant}"):
+#                 with st.form(f"{respondant}"):
 
-                    numberlist = [f'response {nr}' for nr in range(number_of_response)]
-                    response_list = dict.fromkeys(numberlist)
-                    st.write(f"### Your Response")
-                    for i in range(number_of_response):
-                        response_list[f'response {i}'] = st.text_input(f'Response {i+1}')
+#                     numberlist = [f'response {nr}' for nr in range(number_of_response)]
+#                     response_list = dict.fromkeys(numberlist)
+#                     st.write(f"### Your Response")
+#                     for i in range(number_of_response):
+#                         response_list[f'response {i}'] = st.text_input(f'Response {i+1}')
                     
-                    all_response.append(response_list)
+#                     all_response.append(response_list)
                     
-                    submitted = st.form_submit_button("Submit")
+#                     submitted = st.form_submit_button("Submit")
 
-            return all_response, submitted
+#             return all_response, submitted
 
 
 user_mode = st.selectbox('Who are you?', ['-','Admin','Participant'])
@@ -107,6 +107,7 @@ elif user_mode == "Admin":
                 "num_response":number_of_response, 
                 "collect_response": True,
                 "ready_to_cluster": False,
+                'clustering_results': [],
             })
             ss_init.initial_state += 1
         
@@ -166,12 +167,21 @@ elif user_mode == "Admin":
                     st.success('Here you go! 🤟')
                     st.balloons()
                 
+                clustering_results = []
                 st.write('## The patterns in your data.\n')
                 for i in range(len(model.get_topic_info())):
                     st.write(f'### Cluster {i}')
                     topic_index = np.where(np.array(pred) == i)
                     st.write(np.array(new_list)[topic_index])
-
+                    clustering_results.append(np.array(new_list)[topic_index])
+            
+                try:
+                    doc_ref.update({
+                        "clustering_results":  clustering_results,
+                    })
+                except:
+                    st.write('Cannot write the results')
+                    
 
 
                 # data = {'Response': ['apple', 'banana', 'grapes', 'orange'], 'Person': ['Cyrus', 'Kate','Cyrus', 'James']}  
@@ -216,11 +226,27 @@ elif user_mode == "Participant":
         doc = doc.to_dict()
         prompt_name = doc['prompt_question'] 
         prompt_description = doc['prompt_description']
-
+        number_of_response = doc["num_response"]
         st.write(f"### 🙃 Prompt: {prompt_name}")
         st.write(prompt_description)
 
-        new_response, submitted = create_response(doc['num_response'], 1)
+        # create a dictionary to keep track of all the response
+        all_response = []
+
+        # Create a for loop to create all the response
+        with st.form("This form"):
+            numberlist = [f'response {nr}' for nr in range(number_of_response)]
+            response_list = dict.fromkeys(numberlist)
+            st.write(f"### Your Response")
+            for i in range(number_of_response):
+                response_list[f'response {i}'] = st.text_input(f'Response {i+1}')
+                
+            all_response.append(response_list)
+    
+            submitted = st.form_submit_button("Submit")
+            ss_submit = SessionState.get(submitted = False) 
+            if submitted:
+                ss_submit.submitted = True
 
         # if create_participant == 'Enter Number of Participant':
         #     all_response = create_response(number_of_response, number_of_p)
@@ -231,21 +257,32 @@ elif user_mode == "Participant":
         #     p_name_list = p_name.split(",")
         #     all_response = create_response(number_of_response, p_name_list)
 
-        if submitted:
+        if ss_submit.submitted:
 
             current_response = doc['responses']
-            updated_response = current_response + new_response
+            updated_response = current_response + all_response
 
-            doc_ref.set({
-                "prompt_question": doc['prompt_question'],
-                "prompt_description":doc['prompt_description'],
+            doc_ref.update({
                 "responses": updated_response,
-                "room_number": room_number,
-                "num_response":doc['num_response'], 
             })
 
             st.write("Thank you for your input 👍")
         
+            see_results = st.button('See results')
+            if see_results:
+                if doc['clustering_results'] == []:
+                    st.write('There is no results yet. Check back later.')
+                else:
+                    for i in range(doc['clustering_results']):
+                        st.write(f'### Cluster {i}')
+                        st.write(doc['clustering_results'][i])
+
+
+        
+
+
+
+
     except:
         st.write("This room does not exist. Please enter a valid room number 🙏")
 
