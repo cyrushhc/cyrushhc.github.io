@@ -286,7 +286,7 @@ elif user_mode == "Participant":
                 else:
                     for c_id in range(len(doc['clustering_results'])):
                         st.write(f'### Cluster {c_id}')
-                        st.write(list(dict.values(doc['clustering_results'][i])))
+                        st.write(list(dict.values(doc['clustering_results'][c_id])))
 
     except:
         st.write("This room does not exist. Please enter a valid room number 🙏")
