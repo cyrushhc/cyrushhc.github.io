@@ -284,10 +284,9 @@ elif user_mode == "Participant":
                 if doc['clustering_results'] == []:
                     st.write('There is no results yet. Check back later.')
                 else:
-                    st.write(doc['clustering_results'])
-                    # for i in range(doc['clustering_results']):
-                    #     st.write(f'### Cluster {i}')
-                    #     st.write(doc['clustering_results'][i])
+                    for i in range(doc['clustering_results']):
+                        st.write(f'### Cluster {i}')
+                        st.write(list(dict.values(doc['clustering_results'][i])))
 
 
     except:
