@@ -219,8 +219,8 @@ elif user_mode == "Admin":
 
 elif user_mode == "Participant":
     
-    initial_state = st.empty()
-    ss_init = SessionState.get(initial_state = None)
+    # initial_state = st.empty()
+    # ss_init = SessionState.get(initial_state = None)
     
     
     # For some reasons I cannot use the stream() method 
@@ -260,7 +260,7 @@ elif user_mode == "Participant":
             ss_submit = SessionState.get(submitted = False) 
             if submitted:
                 ss_submit.submitted = True
-                ss_init.initial_state = 0
+                # ss_init.initial_state = 0
 
         # if create_participant == 'Enter Number of Participant':
         #     all_response = create_response(number_of_response, number_of_p)
@@ -276,12 +276,11 @@ elif user_mode == "Participant":
                 current_response = doc['responses']
                 updated_response = current_response + all_response
 
-                if ss_init.initial_state == 0:
+                if doc['collect_response'] == True:
                     doc_ref.update({
                         "responses": updated_response,
                     })
                     st.write("Thank you for your input 👍")
-                    ss_init.initial_state +=1
 
                 else:
                     st.write("You can only submit the response once 🙃")
