@@ -65,12 +65,12 @@ def room_number_generator():
 #             return all_response, submitted
 
 
-user_mode = st.selectbox('Who are you?', ['-','Admin','Participant'])
+user_mode = st.selectbox('Who are you?', ['-','Facilitator','Participant'])
 
 if user_mode == '-':
     st.write('')
 
-elif user_mode == "Admin":
+elif user_mode == "Facilitator":
     
     st.write("## ✋ Discussion Prompt")
     prompt_name = st.text_input('Prompt')
@@ -285,6 +285,7 @@ elif user_mode == "Participant":
                 else:
                     st.write("You can only submit the response once 🙃")
 
+                st.write("Please wait for the facilitator to get back to you before clicking the next button")
             
                 see_results = st.button('See results')
 
@@ -292,6 +293,8 @@ elif user_mode == "Participant":
                     if doc['clustering_results'] == []:
                         st.write('There is no results yet. Check back later.')
                     else:
+                        st.balloons()
+                        st.write('## The patterns in the ideas.\n')
                         for c_id in range(len(doc['clustering_results'])):
                             st.write(f'### Cluster {c_id}')
                             st.table(np.array(list(dict.values(doc['clustering_results'][c_id]))))
