@@ -76,7 +76,6 @@ elif user_mode == "Admin":
     prompt_name = st.text_input('Prompt')
     prompt_description = st.text_input('Prompt description (optional)')
     number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = 3) 
-    
     finish = st.button("Create a Room")
     ss = SessionState.get(finish = False)
     room_number = st.empty()
@@ -241,7 +240,7 @@ elif user_mode == "Participant":
         prompt_name = doc['prompt_question'] 
         prompt_description = doc['prompt_description']
         number_of_response = doc["num_response"]
-        st.write(f"### ✋ Prompt: {prompt_name}")
+        st.write(f"### 🙃 Prompt: {prompt_name}")
         st.write(prompt_description)
 
         # create a dictionary to keep track of all the response
@@ -276,27 +275,26 @@ elif user_mode == "Participant":
                 current_response = doc['responses']
                 updated_response = current_response + all_response
 
-                
-                doc_ref.update({
-                    "responses": updated_response,
-                })
-                st.write("Thank you for your input 👍")
-                ss_init.initial_state +=1
+                if ss_init.initial_state == 0:
+                    doc_ref.update({
+                        "responses": updated_response,
+                    })
+                    st.write("Thank you for your input 👍")
+                    ss_init.initial_state +=1
 
-            else:
-                st.write("You can only submit the response once 🙃")
-
-                
-            
-            see_results = st.button('See results')
-
-            if see_results:
-                if doc['clustering_results'] == []:
-                    st.write('There is no results yet. Check back later.')
                 else:
-                    for c_id in range(len(doc['clustering_results'])):
-                        st.write(f'### Cluster {c_id}')
-                        st.table(np.array(list(dict.values(doc['clustering_results'][c_id]))))
+                    st.write("You can only submit the response once 🙃")
+
+            
+                see_results = st.button('See results')
+
+                if see_results:
+                    if doc['clustering_results'] == []:
+                        st.write('There is no results yet. Check back later.')
+                    else:
+                        for c_id in range(len(doc['clustering_results'])):
+                            st.write(f'### Cluster {c_id}')
+                            st.table(np.array(list(dict.values(doc['clustering_results'][c_id]))))
         except:
             st.write('')
 
