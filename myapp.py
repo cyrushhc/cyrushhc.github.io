@@ -294,7 +294,7 @@ elif user_mode == "Participant":
                         st.write('There is no results yet. Check back later.')
                     else:
                         st.balloons()
-                        st.write('## The patterns in the ideas.\n')
+                        st.write('## The patterns in the ideas\n')
                         for c_id in range(len(doc['clustering_results'])):
                             st.write(f'### Cluster {c_id}')
                             st.table(np.array(list(dict.values(doc['clustering_results'][c_id]))))
