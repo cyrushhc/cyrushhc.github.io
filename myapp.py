@@ -1,4 +1,3 @@
-
 from re import L
 import streamlit as st
 from google.oauth2 import service_account
@@ -90,26 +89,28 @@ elif user_mode == "Facilitator":
         ss_r.room_number = room_number_generator()
         ss_init.initial_state = 0
 
-    
-    if ss.finish:
-        st.write("")
-        st.write("\n")
-        st.write(f"## 🔗 Room Number: {ss_r.room_number}")
-        st.write("Invite people to your room")
-        st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {ss_r.room_number}.")
-        doc_ref = db.collection("Room").document(f"Room {ss_r.room_number}")
-        if ss_init.initial_state == 0:
-            doc_ref.set({
-                "prompt_question": prompt_name,
-                "prompt_description":prompt_description,
-                "responses": [],
-                "room_number": ss_r.room_number,
-                "num_response":number_of_response, 
-                "collect_response": True,
-                "ready_to_cluster": False,
-                'clustering_results': [],
-            })
-            ss_init.initial_state += 1
+    try : 
+        if ss.finish:
+            st.write("")
+            st.write("\n")
+            st.write(f"## 🔗 Room Number: {ss_r.room_number}")
+            st.write("Invite people to your room")
+            st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {ss_r.room_number}.")
+            doc_ref = db.collection("Room").document(f"Room {ss_r.room_number}")
+            if ss_init.initial_state == 0:
+                doc_ref.set({
+                    "prompt_question": prompt_name,
+                    "prompt_description":prompt_description,
+                    "responses": [],
+                    "room_number": ss_r.room_number,
+                    "num_response":number_of_response, 
+                    "collect_response": True,
+                    "ready_to_cluster": False,
+                    'clustering_results': [],
+                })
+                ss_init.initial_state += 1
+    except: 
+        st.write('')
         
     
 
@@ -230,8 +231,11 @@ elif user_mode == "Participant":
     # st.write(room_ref.stream())
     # for rooms in room_ref.stream():
     #     room_id_list = [rooms.to_dict()['room_number']] 
-    room_number = int(st.text_input('Room Number', value = 0))
-    
+    try:
+        room_number = int(st.text_input('Room Number', value = 0))
+    except:
+        st.write('')
+
     # if room_number != 0:
     try:
         doc_ref = db.collection("Room").document(f"Room {room_number}")
