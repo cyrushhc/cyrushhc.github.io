@@ -234,7 +234,7 @@ elif user_mode == "Participant":
     try:
         room_number = int(st.text_input('Room Number', value = 0))
     except:
-        st.write('')
+        pass
 
     # if room_number != 0:
     try:
@@ -306,6 +306,9 @@ elif user_mode == "Participant":
             st.write('')
 
     except:
-        st.write("This room does not exist. Please enter a valid room number 🙏")
+        if room_number ==0 :
+            st.write("Enter your room number 👋")
+        else:
+            st.write("Please enter a valid room number 🙏")
 
     
