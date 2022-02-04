@@ -269,7 +269,7 @@ elif user_mode == "Participant":
                 ss_init.initial_state = 1
 
             else:
-                st.write("You can only submit the response once 🙃")
+                pass
 
             # st.write("Please wait for the facilitator to get back to you before clicking the next button")
         
