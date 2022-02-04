@@ -8,6 +8,8 @@ import pandas as pd
 import time
 from st_aggrid import AgGrid 
 import numpy as np
+# from PIL import Image
+
 
 # Authenticate to Firestore with the JSON account key.
 import json
@@ -88,6 +90,7 @@ elif user_mode == "Facilitator":
             st.write(f"## 🔗 Room Number: {ss_r.room_number}")
             st.write("**Copy-paste and share** this invite info with your participants")
             st.code(f"👉 Join here https://tinyurl.com/findpatterns\n🚪 Room number: {ss_r.room_number}")
+            
             doc_ref = db.collection("Room").document(f"Room {ss_r.room_number}")
             if ss_init.initial_state == 0:
                 doc_ref.set({
@@ -101,6 +104,9 @@ elif user_mode == "Facilitator":
                     'clustering_results': [],
                 })
                 ss_init.initial_state += 1
+            
+            with st.expander("View Participant Interface"):
+                st.image("https://github.com/cyrushhc/cyrushhc.github.io/blob/main/Example.png?raw=true")
     except: 
         st.write('')
         
