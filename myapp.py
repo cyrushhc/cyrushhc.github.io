@@ -218,17 +218,10 @@ elif user_mode == "Facilitator":
 
 elif user_mode == "Participant":
     
-    # initial_state = st.empty()
-    # ss_init = SessionState.get(initial_state = None)
-    
-    
-    # For some reasons I cannot use the stream() method 
-    # It says that 'CollectionReference' object has no attribute 'stream'
-    # room_ref = db.collection(u'Room')
-    # room_id_list = []
-    # st.write(room_ref.stream())
-    # for rooms in room_ref.stream():
-    #     room_id_list = [rooms.to_dict()['room_number']] 
+    initial_state = st.empty()
+    ss_init = SessionState.get(initial_state = None)
+    ss_init.initial_state = 0
+
     try:
         room_number = int(st.text_input('Room Number', value = 0))
     except:
@@ -262,7 +255,7 @@ elif user_mode == "Participant":
             ss_submit = SessionState.get(submitted = False) 
             if submitted:
                 ss_submit.submitted = True
-                # ss_init.initial_state = 0
+                ss_init.initial_state += 1
 
         # if create_participant == 'Enter Number of Participant':
         #     all_response = create_response(number_of_response, number_of_p)
@@ -273,19 +266,19 @@ elif user_mode == "Participant":
         #     p_name_list = p_name.split(",")
         #     all_response = create_response(number_of_response, p_name_list)
         try:
-            if ss_submit.submitted:
+            if ss_submit.submitted and ss_init.initial_state== 0:
 
                 current_response = doc['responses']
                 updated_response = current_response + all_response
 
-                if doc['collect_response'] == True:
-                    doc_ref.update({
-                        "responses": updated_response,
-                    })
-                    st.write("Thank you for your input 👍")
+        
+                doc_ref.update({
+                    "responses": updated_response,
+                })
+                st.write("Thank you for your input 👍")
 
-                else:
-                    st.write("You can only submit the response once 🙃")
+            else:
+                st.write("You can only submit the response once 🙃")
 
                 st.write("Please wait for the facilitator to get back to you before clicking the next button")
             
