@@ -262,7 +262,7 @@ elif user_mode == "Participant":
                 st.write("all: ", type(all_response))
                 st.write("doc ", type(doc['responses']))
                 st.write(all_response[0] not in doc['responses'])
-                if all_response not in doc['responses']:
+                if all_response[0] not in doc['responses']:
 
                     current_response = doc['responses']
                     updated_response = current_response + all_response
