@@ -259,12 +259,15 @@ elif user_mode == "Participant":
         try:
             if ss_submit.submitted and ss_init.initial_state== 0:
 
-                current_response = doc['responses']
-                updated_response = current_response + all_response
 
-                doc_ref.update({
-                    "responses": updated_response,
-                })
+                if all_response not in doc['responses']:
+
+                    current_response = doc['responses']
+                    updated_response = current_response + all_response
+
+                    doc_ref.update({
+                        "responses": updated_response,
+                    })
                 st.write("Thank you for your input 👍")
                 ss_init.initial_state = 1
 
