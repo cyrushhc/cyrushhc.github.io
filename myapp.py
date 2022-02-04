@@ -280,19 +280,19 @@ elif user_mode == "Participant":
             else:
                 st.write("You can only submit the response once 🙃")
 
-                st.write("Please wait for the facilitator to get back to you before clicking the next button")
-            
-                see_results = st.button('See results')
+            st.write("Please wait for the facilitator to get back to you before clicking the next button")
+        
+            see_results = st.button('See results')
 
-                if see_results:
-                    if doc['clustering_results'] == []:
-                        st.write('There is no results yet. Check back later.')
-                    else:
-                        st.balloons()
-                        st.write('## The patterns in the ideas\n')
-                        for c_id in range(len(doc['clustering_results'])):
-                            st.write(f'### Cluster {c_id}')
-                            st.table(np.array(list(dict.values(doc['clustering_results'][c_id]))))
+            if see_results:
+                if doc['clustering_results'] == []:
+                    st.write('There is no results yet. Check back later.')
+                else:
+                    st.balloons()
+                    st.write('## The patterns in the ideas\n')
+                    for c_id in range(len(doc['clustering_results'])):
+                        st.write(f'### Cluster {c_id}')
+                        st.table(np.array(list(dict.values(doc['clustering_results'][c_id]))))
         except:
             st.write('')
 
