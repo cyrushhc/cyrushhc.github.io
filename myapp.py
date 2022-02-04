@@ -255,7 +255,6 @@ elif user_mode == "Participant":
             ss_submit = SessionState.get(submitted = False) 
             if submitted:
                 ss_submit.submitted = True
-                ss_init.initial_state += 1
 
         # if create_participant == 'Enter Number of Participant':
         #     all_response = create_response(number_of_response, number_of_p)
@@ -276,6 +275,7 @@ elif user_mode == "Participant":
                     "responses": updated_response,
                 })
                 st.write("Thank you for your input 👍")
+                ss_init.initial_state = 1
 
             else:
                 st.write("You can only submit the response once 🙃")
