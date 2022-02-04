@@ -16,14 +16,6 @@ creds = service_account.Credentials.from_service_account_info(key_dict)
 db = firestore.Client(credentials=creds, project="automatic-affinity-mapping")
 
 from bertopic import BERTopic
-# from sentence_transformers import SentenceTransformer, util
-# model = SentenceTransformer('all-mpnet-base-v2')
-# sentence1 = "Sharing the same needle would expose you to HIV"
-# sentence2 = "Having sex without a condom would make you vulnerable to AIDS"
-# embedding3 = model.encode(sentence1, convert_to_tensor=True)
-# embedding4 = model.encode(sentence2, convert_to_tensor=True)
-# cosine_scores2 = util.pytorch_cos_sim(embedding3, embedding4)
-# st.write("🔴2 Similarity score:", cosine_scores2.item())
 
 
 with open("style.css") as f:  
@@ -94,8 +86,8 @@ elif user_mode == "Facilitator":
             st.write("")
             st.write("\n")
             st.write(f"## 🔗 Room Number: {ss_r.room_number}")
-            st.write("Invite people to your room")
-            st.code(f"Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {ss_r.room_number}.")
+            st.write("Copy-Paste this invite info for your participants")
+            st.code(f"👋 Invite Info\nJoin the discussion at https://tinyurl.com/findpatterns\nRoom number: {ss_r.room_number}.")
             doc_ref = db.collection("Room").document(f"Room {ss_r.room_number}")
             if ss_init.initial_state == 0:
                 doc_ref.set({
