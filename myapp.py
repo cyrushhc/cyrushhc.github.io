@@ -87,7 +87,8 @@ elif user_mode == "Facilitator":
             st.write("\n")
             st.write(f"## 🔗 Room Number: {ss_r.room_number}")
             st.write("Copy-Paste this invite info for your participants")
-            st.code(f"👋 Invite Info\nJoin the discussion at https://tinyurl.com/findpatterns\nRoom number: {ss_r.room_number}.")
+            st.code(f'''### 👋 Invite Info
+                    Join the discussion at https://tinyurl.com/findpatterns\nRoom number: {ss_r.room_number}.''')
             doc_ref = db.collection("Room").document(f"Room {ss_r.room_number}")
             if ss_init.initial_state == 0:
                 doc_ref.set({
