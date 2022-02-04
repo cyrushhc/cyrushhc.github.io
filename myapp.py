@@ -259,7 +259,9 @@ elif user_mode == "Participant":
         try:
             if ss_submit.submitted and ss_init.initial_state== 0:
 
-
+                st.write("all: ", all_response)
+                st.write("doc ", doc['responses'])
+                st.write(all_response not in doc['responses'])
                 if all_response not in doc['responses']:
 
                     current_response = doc['responses']
