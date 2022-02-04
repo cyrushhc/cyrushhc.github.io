@@ -220,7 +220,6 @@ elif user_mode == "Participant":
     
     initial_state = st.empty()
     ss_init = SessionState.get(initial_state = None)
-    ss_init.initial_state = 0
 
     try:
         room_number = int(st.text_input('Room Number', value = 0))
@@ -255,6 +254,7 @@ elif user_mode == "Participant":
             ss_submit = SessionState.get(submitted = False) 
             if submitted:
                 ss_submit.submitted = True
+                ss_init.initial_state = 0
 
         # if create_participant == 'Enter Number of Participant':
         #     all_response = create_response(number_of_response, number_of_p)
