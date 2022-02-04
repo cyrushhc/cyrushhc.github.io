@@ -256,21 +256,12 @@ elif user_mode == "Participant":
                 ss_submit.submitted = True
                 ss_init.initial_state = 0
 
-        # if create_participant == 'Enter Number of Participant':
-        #     all_response = create_response(number_of_response, number_of_p)
-            
-        #     # create a form that will have a set number of response
-
-        # elif create_participant == 'Enter Participant Name':
-        #     p_name_list = p_name.split(",")
-        #     all_response = create_response(number_of_response, p_name_list)
         try:
             if ss_submit.submitted and ss_init.initial_state== 0:
 
                 current_response = doc['responses']
                 updated_response = current_response + all_response
 
-        
                 doc_ref.update({
                     "responses": updated_response,
                 })
@@ -280,7 +271,7 @@ elif user_mode == "Participant":
             else:
                 st.write("You can only submit the response once 🙃")
 
-            st.write("Please wait for the facilitator to get back to you before clicking the next button")
+            # st.write("Please wait for the facilitator to get back to you before clicking the next button")
         
             see_results = st.button('See results')
 
