@@ -257,24 +257,17 @@ elif user_mode == "Participant":
                 ss_init.initial_state = 0
 
         try:
-            if ss_submit.submitted and ss_init.initial_state== 0:
+            if ss_submit.submitted and all_response[0] not in doc['responses']:
 
-                st.write("all: ", type(all_response))
-                st.write("doc ", type(doc['responses']))
-                st.write(all_response[0] not in doc['responses'])
-                if all_response[0] not in doc['responses']:
+                current_response = doc['responses']
+                updated_response = current_response + all_response
 
-                    current_response = doc['responses']
-                    updated_response = current_response + all_response
-
-                    doc_ref.update({
-                        "responses": updated_response,
-                    })
+                doc_ref.update({
+                    "responses": updated_response,
+                })
                 st.write("Thank you for your input 👍")
-                ss_init.initial_state = 1
-
             else:
-                pass
+                st.write("Thank you for your input 👍")
 
             # st.write("Please wait for the facilitator to get back to you before clicking the next button")
         
