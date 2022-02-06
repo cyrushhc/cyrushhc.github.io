@@ -215,11 +215,14 @@ elif user_mode == "Participant":
                 
                 current_response = doc['responses']
                 updated_response = current_response + all_response
-                
-                while all_response[0] not in doc['responses']:
+                limit = 0
+
+                while all_response[0] not in doc['responses'] and limit<5:
+                    
                     doc_ref.update({
                         "responses": updated_response,
                     })
+                    limit+=1
 
 
 
