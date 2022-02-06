@@ -238,8 +238,8 @@ elif user_mode == "Participant":
                         st.write(f'### Cluster {c_id}')
                         st.table(np.array(list(dict.values(doc['clustering_results'][c_id]))))
 
-        except Exception as exception:
-             st.write(type(exception).__name__)
+        except:
+            pass
 
     except:
         try:  
