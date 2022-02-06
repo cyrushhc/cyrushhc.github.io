@@ -225,7 +225,7 @@ elif user_mode == "Participant":
                     st.write('update')
                     
 
-
+                time.sleep(3)
                 doc = doc_ref.get()
                 doc = doc.to_dict()
                 st.write(doc['responses'])
