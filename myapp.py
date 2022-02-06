@@ -206,12 +206,13 @@ elif user_mode == "Participant":
     
             submitted = st.form_submit_button("Submit")
             ss_submit = SessionState.get(submitted = False) 
-            st.write('State of the submission: ',ss_submit.submitted)
+            
 
             if submitted:
                 ss_submit.submitted = True
 
-
+            st.write('State of the submission: ',ss_submit.submitted)
+            
         try:
             if ss_submit.submitted and all_response[0] not in doc['responses']:
                 
