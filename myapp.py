@@ -219,6 +219,7 @@ elif user_mode == "Participant":
 
                 atransaction = db.transaction()
                 
+                st.write('type(atransaction)')
                 atransaction(doc_ref.update({
                     "responses": updated_response,
                 }))
