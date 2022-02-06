@@ -237,9 +237,9 @@ elif user_mode == "Participant":
                     for c_id in range(len(doc['clustering_results'])):
                         st.write(f'### Cluster {c_id}')
                         st.table(np.array(list(dict.values(doc['clustering_results'][c_id]))))
-                        
+
         except Exception as exception:
-             assert type(exception).__name__ == 'NameError'
+             st.write(type(exception).__name__ == 'NameError')
 
     except:
         try:  
