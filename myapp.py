@@ -239,7 +239,7 @@ elif user_mode == "Participant":
                         st.table(np.array(list(dict.values(doc['clustering_results'][c_id]))))
 
         except Exception as exception:
-             st.write(type(exception).__name__ == 'NameError')
+             st.write(type(exception).__name__)
 
     except:
         try:  
