@@ -217,15 +217,10 @@ elif user_mode == "Participant":
                 current_response = doc['responses']
                 updated_response = current_response + all_response
 
-                atransaction = db.transaction()
-                
-                st.write(type(atransaction))
-
-                atransaction(doc_ref.update({
+                time.sleep(random.randint(1,4))
+                doc_ref.update({
                     "responses": updated_response,
-                }))
-                
-                st.write('anything')
+                })
 
                 st.write("Thank you for your input 👍👍")
             else:
