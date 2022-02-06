@@ -224,6 +224,8 @@ elif user_mode == "Participant":
 
                     st.write('update')
 
+                    st.write(doc['response'])
+
                 if all_response[0] not in doc['responses']:
                 
                     doc_ref.update({
