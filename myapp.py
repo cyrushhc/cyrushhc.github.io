@@ -8,7 +8,6 @@ import pandas as pd
 import time
 from st_aggrid import AgGrid 
 import numpy as np
-# from PIL import Image
 
 
 # Authenticate to Firestore with the JSON account key.
@@ -29,33 +28,6 @@ st.write("# findPattern.")
 # Add Rooms
 def room_number_generator():
     return random.randint(1,1000)
-
-# def create_response(number_of_response, participant_data):
-#         """
-#         participant_data: could either be the number of participant or the name
-#         number_of_response: number of response for each participant
-#         """
-#         if type(participant_data) == int:
-            
-#             # create a dictionary to keep track of all the response
-#             all_response = []
-
-#             # Create a for loop to create all the response
-#             for respondant in range(participant_data):
-
-#                 with st.form(f"{respondant}"):
-
-#                     numberlist = [f'response {nr}' for nr in range(number_of_response)]
-#                     response_list = dict.fromkeys(numberlist)
-#                     st.write(f"### Your Response")
-#                     for i in range(number_of_response):
-#                         response_list[f'response {i}'] = st.text_input(f'Response {i+1}')
-                    
-#                     all_response.append(response_list)
-                    
-#                     submitted = st.form_submit_button("Submit")
-
-#             return all_response, submitted
 
 
 user_mode = st.selectbox('Who are you?', ['-','Facilitator','Participant'])
@@ -189,19 +161,6 @@ elif user_mode == "Facilitator":
                     })
                 except:
                     st.write('Cannot write the results')
-                    
-
-
-                # data = {'Response': ['apple', 'banana', 'grapes', 'orange'], 'Person': ['Cyrus', 'Kate','Cyrus', 'James']}  
-                # df1 = pd.DataFrame(data)
-                # AgGrid(df1, theme='streamlit')
-
-                # st.write('\n')
-
-                # st.write('### Cluster 2')
-                # data2 = {'Response': ['cats', 'dogs', 'monkeys', 'gorillas'], 'Person': ['Jimmy', 'James','Cyrus', 'Kenn']}  
-                # df2 = pd.DataFrame(data2)
-                # st.table(df2)
                 
 
     except:
@@ -209,24 +168,16 @@ elif user_mode == "Facilitator":
 
     
 
-    
 
-
-
-# st.write("## 👀 View Mode")
-# mode = st.radio(label = "Choose a mode", options= ["Response","Result"])
 
 elif user_mode == "Participant":
-    
-    initial_state = st.empty()
-    ss_init = SessionState.get(initial_state = None)
 
     try:
+        # Create the room_number input 
         room_number = int(st.text_input('Room Number', value = 0))
     except:
         pass
 
-    # if room_number != 0:
     try:
         doc_ref = db.collection("Room").document(f"Room {room_number}")
         doc = doc_ref.get()
@@ -242,6 +193,8 @@ elif user_mode == "Participant":
 
         # Create a for loop to create all the response
         with st.form("This form"):
+            
+            # Create a dictionary of response for each participant
             numberlist = [f'response {nr}' for nr in range(number_of_response)]
             response_list = dict.fromkeys(numberlist)
             st.write(f"### Your Response")
@@ -253,8 +206,10 @@ elif user_mode == "Participant":
             submitted = st.form_submit_button("Submit")
             ss_submit = SessionState.get(submitted = False) 
             if submitted:
+                random_number = random.random()
+                time.sleep(random_number)
                 ss_submit.submitted = True
-                ss_init.initial_state = 0
+
 
         try:
             if ss_submit.submitted and all_response[0] not in doc['responses']:
@@ -268,8 +223,6 @@ elif user_mode == "Participant":
                 st.write("Thank you for your input 👍")
             else:
                 st.write("Thank you for your input 👍")
-
-            # st.write("Please wait for the facilitator to get back to you before clicking the next button")
         
             see_results = st.button('See results')
 
