@@ -220,9 +220,9 @@ elif user_mode == "Participant":
                 doc_ref.runTransaction({
                     "responses": updated_response,
                 })
-                st.write("Thank you for your input 👍")
+                st.write("Thank you for your input 👍👍")
             else:
-                st.write("Thank you for your input 👍")
+                st.write("Thank you for your input 👍👍")
         
             see_results = st.button('See results')
 
