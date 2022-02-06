@@ -221,7 +221,6 @@ elif user_mode == "Participant":
                     doc_ref.update({
                         "responses": updated_response,
                     })
-                    st.write('update-attempt')
                     time.sleep(1)
                     doc = doc_ref.get()
                     doc = doc.to_dict()
