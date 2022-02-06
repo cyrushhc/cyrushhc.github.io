@@ -188,9 +188,12 @@ elif user_mode == "Participant":
         st.write(f"### 🙃 Prompt: {prompt_name}")
         st.write(prompt_description)
 
+        st.write('State of the submission: ',ss_submit.submitted)
+
         # create a dictionary to keep track of all the response
         all_response = []
 
+        
         # Create a for loop to create all the response
         with st.form("This form"):
             
