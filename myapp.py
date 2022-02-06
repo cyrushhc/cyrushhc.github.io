@@ -211,16 +211,17 @@ elif user_mode == "Participant":
                 ss_submit.submitted = True
 
         try:
-            if ss_submit.submitted and all_response[0] not in doc['responses']:
-                
+            if ss_submit.submitted:
                 
                 current_response = doc['responses']
                 updated_response = current_response + all_response
+                
+                while all_response[0] not in doc['responses']:
+                    doc_ref.update({
+                        "responses": updated_response,
+                    })
 
-                time.sleep(random.randint(1,4))
-                doc_ref.update({
-                    "responses": updated_response,
-                })
+
 
                 st.write("Thank you for your input 👍👍")
             else:
