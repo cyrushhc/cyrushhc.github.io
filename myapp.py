@@ -223,8 +223,7 @@ elif user_mode == "Participant":
                     })
 
                     st.write('update')
-
-                    st.write(doc['response'])
+                    st.write(doc['responses'])
 
                 if all_response[0] not in doc['responses']:
                 
