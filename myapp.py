@@ -217,7 +217,9 @@ elif user_mode == "Participant":
                 current_response = doc['responses']
                 updated_response = current_response + all_response
 
-                db.transaction(doc_ref.update({
+                atransaction = db.transaction()
+                
+                atransaction(doc_ref.update({
                     "responses": updated_response,
                 }))
                 
