@@ -216,10 +216,10 @@ elif user_mode == "Participant":
                 
                 current_response = doc['responses']
                 updated_response = current_response + all_response
-                doc_ref.transaction()
-                doc_ref.update({
+
+                db.transaction(doc_ref.update({
                     "responses": updated_response,
-                })
+                }))
                 st.write("Thank you for your input 👍👍")
             else:
                 st.write("Thank you for your input 👍👍")
