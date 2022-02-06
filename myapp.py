@@ -220,6 +220,7 @@ elif user_mode == "Participant":
                 db.transaction(doc_ref.update({
                     "responses": updated_response,
                 }))
+
                 st.write("Thank you for your input 👍👍")
             else:
                 st.write("Thank you for your input 👍👍")
@@ -236,7 +237,7 @@ elif user_mode == "Participant":
                         st.write(f'### Cluster {c_id}')
                         st.table(np.array(list(dict.values(doc['clustering_results'][c_id]))))
         except:
-            st.write('')
+            st.write('something went wrong')
 
     except:
         try:  
