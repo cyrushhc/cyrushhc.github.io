@@ -243,6 +243,8 @@ elif user_mode == "Participant":
         try:  
             if room_number ==0 :
                 st.write("Enter your room number 👋")
+            else:
+                st.write("Please enter a valid room number 🙏")
         except:
             st.write("Please enter a valid room number 🙏")
 
