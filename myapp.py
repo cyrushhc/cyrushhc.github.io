@@ -228,8 +228,9 @@ elif user_mode == "Participant":
                 time.sleep(3)
                 doc = doc_ref.get()
                 doc = doc.to_dict()
-                st.write(doc['responses'])
-
+                current_response = doc['responses']
+                updated_response = current_response + all_response
+                
                 if all_response[0] not in doc['responses']:
                 
                     doc_ref.update({
@@ -237,8 +238,6 @@ elif user_mode == "Participant":
                     })
 
                     st.write('update')
-
-
 
                 st.write("Thank you for your input 👍👍")
             else:
