@@ -206,6 +206,7 @@ elif user_mode == "Participant":
     
             submitted = st.form_submit_button("Submit")
             ss_submit = SessionState.get(submitted = False) 
+            st.write('State of the submission: ',ss_submit.submitted)
 
             if submitted:
                 random_number = random.random()
