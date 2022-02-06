@@ -216,28 +216,42 @@ elif user_mode == "Participant":
                 current_response = doc['responses']
                 updated_response = current_response + all_response
 
-                if all_response[0] not in doc['responses']:
-                
+
+                while all_response[0] not in doc["responses"] and n<5:
                     doc_ref.update({
                         "responses": updated_response,
                     })
+                    st.write('update-attempt')
+                    time.sleep(3)
+                    doc = doc_ref.get()
+                    doc = doc.to_dict()
+                    current_response = doc['responses']
+                    updated_response = current_response + all_response
+                    n+=1
 
-                    st.write('update')
+
+                # if all_response[0] not in doc['responses']:
+                
+                #     doc_ref.update({
+                #         "responses": updated_response,
+                #     })
+
+                #     st.write('update')
                     
 
-                time.sleep(3)
-                doc = doc_ref.get()
-                doc = doc.to_dict()
-                current_response = doc['responses']
-                updated_response = current_response + all_response
-                
-                if all_response[0] not in doc['responses']:
-                
-                    doc_ref.update({
-                        "responses": updated_response,
-                    })
+                # time.sleep(3)
+                # doc = doc_ref.get()
+                # doc = doc.to_dict()
+                # current_response = doc['responses']
+                # updated_response = current_response + all_response
 
-                    st.write('update')
+                # if all_response[0] not in doc['responses']:
+                
+                #     doc_ref.update({
+                #         "responses": updated_response,
+                #     })
+
+                #     st.write('update')
 
                 st.write("Thank you for your input 👍👍")
             else:
