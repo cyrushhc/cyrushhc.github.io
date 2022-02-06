@@ -209,14 +209,13 @@ elif user_mode == "Participant":
             st.write('State of the submission: ',ss_submit.submitted)
 
             if submitted:
-                random_number = random.random()
-                time.sleep(random_number)
                 ss_submit.submitted = True
 
 
         try:
             if ss_submit.submitted and all_response[0] not in doc['responses']:
-
+                
+                
                 current_response = doc['responses']
                 updated_response = current_response + all_response
 
