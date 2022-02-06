@@ -205,6 +205,7 @@ elif user_mode == "Participant":
     
             submitted = st.form_submit_button("Submit")
             ss_submit = SessionState.get(submitted = False) 
+
             if submitted:
                 random_number = random.random()
                 time.sleep(random_number)
@@ -239,9 +240,10 @@ elif user_mode == "Participant":
             st.write('')
 
     except:
-        if room_number ==0 :
-            st.write("Enter your room number 👋")
-        else:
+        try:  
+            if room_number ==0 :
+                st.write("Enter your room number 👋")
+        except:
             st.write("Please enter a valid room number 🙏")
 
     
