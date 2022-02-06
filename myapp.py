@@ -222,7 +222,7 @@ elif user_mode == "Participant":
                         "responses": updated_response,
                     })
                     st.write('update-attempt')
-                    time.sleep(3)
+                    time.sleep(2)
                     doc = doc_ref.get()
                     doc = doc.to_dict()
                     current_response = doc['responses']
