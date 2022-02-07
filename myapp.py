@@ -126,17 +126,19 @@ elif user_mode == "Facilitator":
             st.write('## 🧩 Find Patterns')
             find_pattern = st.button("Find Pattern")
             ss4 = SessionState.get(find_pattern = False) 
+
             if find_pattern:
                 ss4.find_pattern = True
+                print('oops")
 
+                
             if ss4.find_pattern == True:
+                print('um')
                 with st.spinner('Finding patterns in your data...'):
                     
                     model = BERTopic()
                     new_list = []
                     new_list+=(list(i.values()))                    
-
-
                     pred, prob = model.fit_transform(new_list)
                     st.success('Here you go! 🤟')
                     st.balloons()
