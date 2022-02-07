@@ -134,7 +134,7 @@ elif user_mode == "Facilitator":
                     
                     model = BERTopic()
                     new_list = []
-                        new_list+=(list(i.values()))                    
+                    new_list+=(list(i.values()))                    
 
 
                     pred, prob = model.fit_transform(new_list)
