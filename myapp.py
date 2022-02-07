@@ -130,12 +130,16 @@ elif user_mode == "Facilitator":
             find_pattern = st.button("Find Pattern")
             ss4 = SessionState.get(find_pattern = False) 
 
+            st.write('um')
             if find_pattern:
+                st.write('yo')
                 ss4.find_pattern = True
 
             if ss4.find_pattern == True:
+                st.write('ah')
                 with st.spinner('Finding patterns in your data...'):
                     
+                    st.write('no')
                     model = BERTopic()
                     new_list = []
                     for i in doc['responses']:
