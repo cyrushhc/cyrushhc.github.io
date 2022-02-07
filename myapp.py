@@ -132,14 +132,13 @@ elif user_mode == "Facilitator":
 
                 
             if ss4.find_pattern == True:
-                with st.spinner('Finding patterns in your data...'):
-                    
-                    model = BERTopic()
-                    new_list = []
-                    new_list+=(list(i.values()))                    
-                    pred, prob = model.fit_transform(new_list)
-                    st.success('Here you go! 🤟')
-                    st.balloons()
+                
+                model = BERTopic()
+                new_list = []
+                new_list+=(list(i.values()))                    
+                pred, prob = model.fit_transform(new_list)
+                # st.success('Here you go! 🤟')
+                # st.balloons()
                 
                 clustering_results = []
                 st.write('## The patterns in your data.\n')
