@@ -20,7 +20,8 @@ db = firestore.Client(credentials=creds, project="automatic-affinity-mapping")
 from bertopic import BERTopic
 
 import random
-session_state = SessionState.get(random_number=random.random())
+session_state = SessionState.get(random_number= None)
+session_state.random_number = random.random()
 st.write("This number should be unique for each browser tab:", session_state.random_number)
 
 
