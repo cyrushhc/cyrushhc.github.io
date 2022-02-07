@@ -120,8 +120,11 @@ elif user_mode == "Facilitator":
         st.write("")    
 
     try:    
+        st.write('ha')
         doc_ref = db.collection("Room").document(f"Room {ss_r.room_number}") 
+        st.write('ha')
         doc = doc_ref.get().to_dict()
+        st.write('ha')
         if  doc['ready_to_cluster'] == True:
             st.write('## 🧩 Find Patterns')
             find_pattern = st.button("Find Pattern")
