@@ -120,33 +120,23 @@ elif user_mode == "Facilitator":
         st.write("")    
 
     try:    
-        st.write('ha')
         doc_ref = db.collection("Room").document(f"Room {ss_r.room_number}") 
-        st.write('ha')
         doc = doc_ref.get().to_dict()
-        st.write('ha')
         if  doc['ready_to_cluster'] == True:
             st.write('## 🧩 Find Patterns')
             find_pattern = st.button("Find Pattern")
             ss4 = SessionState.get(find_pattern = False) 
-
-            st.write('um')
             if find_pattern:
-                st.write('yo')
                 ss4.find_pattern = True
 
             if ss4.find_pattern == True:
-                st.write('ah')
                 with st.spinner('Finding patterns in your data...'):
                     
-                    st.write('no')
                     model = BERTopic()
-                    st.write('hahah')
                     new_list = []
-                    for i in doc['responses']:
                         new_list+=(list(i.values()))                    
 
-                    st.write('thanks')
+
                     pred, prob = model.fit_transform(new_list)
                     st.success('Here you go! 🤟')
                     st.balloons()
