@@ -126,7 +126,7 @@ elif user_mode == "Facilitator":
             st.write('## 🧩 Find Patterns')
             find_pattern = st.button("Find Pattern")
             ss4 = SessionState.get(find_pattern = False) 
-
+            st.write('yo')
             if find_pattern:
                 ss4.find_pattern = True
                 st.write("oops")
