@@ -140,9 +140,13 @@ elif user_mode == "Facilitator":
                 # st.success('Here you go! 🤟')
                 # st.balloons()
                 
+                st.write('here')
+                
                 clustering_results = []
                 st.write('## The patterns in your data.\n')
+
                 for i in range(len(model.get_topic_info())):
+
                     st.write(f'### Cluster {i}')
                     topic_index = np.where(np.array(pred) == i)
                     a_cluster = np.array(new_list)[topic_index]
@@ -152,7 +156,6 @@ elif user_mode == "Facilitator":
                     cluster_dict = dict(zip(dictionary_keys, a_cluster))
 
                     # Trying to turn the results into dictionary so I can store it on Firestore
-                    
                     clustering_results.append(cluster_dict)
 
                 # st.write(model.get_topic_info())
