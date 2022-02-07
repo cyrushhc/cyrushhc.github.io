@@ -266,7 +266,9 @@ elif user_mode == "Participant":
             doc = doc.to_dict()
 
             if see_results:
+                st.write(doc['clustering_results'])
                 if doc['clustering_results'] == []:
+
                     st.write('There is no results yet. Check back later.')
                 else:
                     st.balloons()
