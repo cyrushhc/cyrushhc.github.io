@@ -14,9 +14,14 @@ import numpy as np
 import json
 key_dict = json.loads(st.secrets["textkey"])
 creds = service_account.Credentials.from_service_account_info(key_dict)
+
 db = firestore.Client(credentials=creds, project="automatic-affinity-mapping")
 
 from bertopic import BERTopic
+
+import random
+session_state = SessionState.get(random_number=random.random())
+st.write("This number should be unique for each browser tab:", session_state.random_number)
 
 
 with open("style.css") as f:  
@@ -217,6 +222,8 @@ elif user_mode == "Participant":
                 updated_response = current_response + all_response
 
                 n =0
+            
+                # Dealing with the sitaution when more than one participant wants to submit
                 while all_response[0] not in doc["responses"] and n<5:
                     doc_ref.update({
                         "responses": updated_response,
