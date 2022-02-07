@@ -21,8 +21,6 @@ from bertopic import BERTopic
 
 import random
 
-session_state = SessionState.get(random_number= None)
-
 
 with open("style.css") as f:  
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
@@ -65,7 +63,7 @@ elif user_mode == "Facilitator":
             st.write("")
             st.write("\n")
             st.write(f"## 🔗 Room Number: {ss_r.room_number}")
-            session_state.random_number = random.random()
+            session_state = SessionState.get(random_number= random.random())
             st.write("This number should be unique for each browser tab:", session_state.random_number)
             st.write("**Copy-paste and share** this invite info with your participants")
             st.code(f"👉 Join here https://tinyurl.com/findpatterns\n🚪 Room number: {ss_r.room_number}")
