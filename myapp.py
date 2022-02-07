@@ -129,11 +129,11 @@ elif user_mode == "Facilitator":
 
             if find_pattern:
                 ss4.find_pattern = True
-                print('oops")
+                st.write("oops")
 
                 
             if ss4.find_pattern == True:
-                print('um')
+                st.write('um')
                 with st.spinner('Finding patterns in your data...'):
                     
                     model = BERTopic()
