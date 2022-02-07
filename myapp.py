@@ -209,9 +209,9 @@ elif user_mode == "Participant":
             all_response.append(response_list)
     
             submitted = st.form_submit_button("Submit")
+            ss_submit = SessionState.get(submitted = False) 
 
             if submitted:
-                ss_submit = SessionState.get(submitted = False) 
                 ss_submit.submitted = True
 
         try:
@@ -234,34 +234,11 @@ elif user_mode == "Participant":
                     updated_response = current_response + all_response
                     n+=1
 
-
-                # if all_response[0] not in doc['responses']:
-                
-                #     doc_ref.update({
-                #         "responses": updated_response,
-                #     })
-
-                #     st.write('update')
-                    
-
-                # time.sleep(3)
-                # doc = doc_ref.get()
-                # doc = doc.to_dict()
-                # current_response = doc['responses']
-                # updated_response = current_response + all_response
-
-                # if all_response[0] not in doc['responses']:
-                
-                #     doc_ref.update({
-                #         "responses": updated_response,
-                #     })
-
-                #     st.write('update')
-
                 st.write("Thank you for your input 👍👍")
             else:
                 st.write("Thank you for your input 👍👍")
         
+            
             see_results = st.button('See results')
 
             if see_results:
