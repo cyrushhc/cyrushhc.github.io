@@ -132,21 +132,19 @@ elif user_mode == "Facilitator":
 
                 
             if ss4.find_pattern == True:
-                
-                model = BERTopic()
-                new_list = []
-                new_list+=(list(i.values()))                    
-                pred, prob = model.fit_transform(new_list)
-                # st.success('Here you go! 🤟')
-                # st.balloons()
-                
-                st.write('here')
+                with st.spinner('Finding patterns in your data...'):
+                    
+                    model = BERTopic()
+                    new_list = []
+                    for i in doc['responses']:
+                        new_list+=(list(i.values()))                    
+                    pred, prob = model.fit_transform(new_list)
+                    st.success('Here you go! 🤟')
+                    st.balloons()
                 
                 clustering_results = []
                 st.write('## The patterns in your data.\n')
-
                 for i in range(len(model.get_topic_info())):
-
                     st.write(f'### Cluster {i}')
                     topic_index = np.where(np.array(pred) == i)
                     a_cluster = np.array(new_list)[topic_index]
@@ -156,6 +154,7 @@ elif user_mode == "Facilitator":
                     cluster_dict = dict(zip(dictionary_keys, a_cluster))
 
                     # Trying to turn the results into dictionary so I can store it on Firestore
+                    
                     clustering_results.append(cluster_dict)
 
                 # st.write(model.get_topic_info())
@@ -221,7 +220,7 @@ elif user_mode == "Participant":
                 current_response = doc['responses']
                 updated_response = current_response + all_response
 
-                n = 0
+                n =0
             
                 # Dealing with the sitaution when more than one participant wants to submit
                 while all_response[0] not in doc["responses"] and n<5:
@@ -264,13 +263,9 @@ elif user_mode == "Participant":
                 st.write("Thank you for your input 👍👍")
         
             see_results = st.button('See results')
-            doc = doc_ref.get()
-            doc = doc.to_dict()
 
             if see_results:
-                st.write(doc['clustering_results'])
                 if doc['clustering_results'] == []:
-
                     st.write('There is no results yet. Check back later.')
                 else:
                     st.balloons()
