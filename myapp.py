@@ -141,9 +141,12 @@ elif user_mode == "Facilitator":
                     
                     st.write('no')
                     model = BERTopic()
+                    st.write('hahah')
                     new_list = []
                     for i in doc['responses']:
                         new_list+=(list(i.values()))                    
+
+                    st.write('thanks')
                     pred, prob = model.fit_transform(new_list)
                     st.success('Here you go! 🤟')
                     st.balloons()
