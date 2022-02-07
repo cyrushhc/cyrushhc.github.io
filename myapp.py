@@ -219,7 +219,7 @@ elif user_mode == "Participant":
                 current_response = doc['responses']
                 updated_response = current_response + all_response
 
-                n =0
+                n = 0
             
                 # Dealing with the sitaution when more than one participant wants to submit
                 while all_response[0] not in doc["responses"] and n<5:
@@ -262,6 +262,8 @@ elif user_mode == "Participant":
                 st.write("Thank you for your input 👍👍")
         
             see_results = st.button('See results')
+            doc = doc_ref.get()
+            doc = doc.to_dict()
 
             if see_results:
                 if doc['clustering_results'] == []:
