@@ -167,7 +167,7 @@ elif user_mode == "Facilitator":
                 
 
     except:
-        st.write('')
+        st.write('Something go wrong')
 
     
 
