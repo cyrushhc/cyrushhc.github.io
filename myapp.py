@@ -124,10 +124,11 @@ elif user_mode == "Facilitator":
         doc = doc_ref.get().to_dict()
         if  doc['ready_to_cluster'] == True:
             st.write('## 🧩 Find Patterns')
+            result_fidelity = st.radio("Do you want more a more nuanced results or a more high-level generic clustering resutls?", ['Nuanced', 'Generic'])
             find_pattern = st.button("Find Pattern")
             ss4 = SessionState.get(find_pattern = False) 
 
-            result_fidelity = st.radio("Do you want more a more nuanced results or a more high-level generic clustering resutls?", ['Nuanced', 'Generic'])
+            
 
             if find_pattern:
                 ss4.find_pattern = True
@@ -158,7 +159,7 @@ elif user_mode == "Facilitator":
                     a_cluster = np.array(new_list)[topic_index]
                     st.table(a_cluster)
 
-                    
+
 
                     dictionary_keys = [f'entry {num}' for num in range(len(a_cluster))]
                     cluster_dict = dict(zip(dictionary_keys, a_cluster))
