@@ -161,11 +161,12 @@ elif user_mode == "Facilitator":
 
                     st.write('yo')
                     document_prob = np.array(prob)[topic_index]
+                    max_doc_prob = document_prob.max(axis=1)
 
                     st.write(type(a_cluster), a_cluster)
-                    st.write(type(document_prob), document_prob)
+                    st.write(type(max_doc_prob), max_doc_prob)
 
-                    df = pd.DataFrame({'documents': a_cluster, 'Probability': document_prob}, columns=['documents', 'Probability'])
+                    df = pd.DataFrame({'documents': a_cluster, 'Probability': max_doc_prob}, columns=['documents', 'Probability'])
                     st.write('yay') 
 
                     st.table(df)
