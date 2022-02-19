@@ -158,9 +158,11 @@ elif user_mode == "Facilitator":
                     topic_index = np.where(np.array(pred) == i)
                     a_cluster = np.array(new_list)[topic_index]
                     document_prob = np.array(prob)[topic_index]
-                    
+                    print(type(a_cluster), a_cluster)
+                    print(type(document_prob), document_prob)
+
                     df = pd.DataFrame({'documents': a_cluster, 'Probability': document_prob}, columns=['documents', 'Probability'])
-                     
+                    print('yay') 
 
                     st.table(df)
 
