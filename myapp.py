@@ -157,9 +157,12 @@ elif user_mode == "Facilitator":
                     st.write(f'### Cluster {i}')
                     topic_index = np.where(np.array(pred) == i)
                     a_cluster = np.array(new_list)[topic_index]
-                    st.table(a_cluster)
+                    document_prob = np.array(prob)[topic_index]
+                    
+                    df = pd.DataFrame({'documents': a_cluster, 'Probability': document_prob}, columns=['documents', 'Probability'])
+                     
 
-
+                    st.table(df)
 
                     dictionary_keys = [f'entry {num}' for num in range(len(a_cluster))]
                     cluster_dict = dict(zip(dictionary_keys, a_cluster))
