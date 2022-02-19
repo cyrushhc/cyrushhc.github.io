@@ -42,8 +42,8 @@ elif user_mode == "Facilitator":
     
     st.write("## ✋ Discussion Prompt")
     prompt_name = st.text_input('Prompt')
-    prompt_description = st.text_input('Prompt description (optional)')
-    number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = 3) 
+    prompt_description = st.text_input('What kind of response do you want participants to give? (e.g. each response should be 1-2 sentence.)')
+    number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = 5, step = 5) 
     finish = st.button("Create a Room")
     ss = SessionState.get(finish = False)
     room_number = st.empty()
@@ -51,7 +51,6 @@ elif user_mode == "Facilitator":
 
     initial_state = st.empty()
     ss_init = SessionState.get(initial_state = None)
-
 
     if finish:
         ss.finish = True
@@ -153,7 +152,7 @@ elif user_mode == "Facilitator":
                 
                 clustering_results = []
                 st.write('## The patterns in your data.\n')
-                
+
                 with st.expander("Interpret the results"):
                     st.write('''The model has found some pattern in your data.
                             Each cluster contains participants responses that the model considers to be similar
@@ -162,7 +161,7 @@ elif user_mode == "Facilitator":
                             ''')
                     st.image("https://github.com/cyrushhc/findPattern/blob/main/Example%20-%20Interpretation.png?raw=true")
         
-                for i in range(len(model.get_topic_info())):                
+                for i in range(len(model.get_topic_info()) -1):                
                     st.write(f'### Cluster {i+1}')
                     
                     topic_index = np.where(np.array(pred) == i)
