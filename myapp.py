@@ -182,6 +182,23 @@ elif user_mode == "Facilitator":
 
                 # st.write(model.get_topic_info())
 
+                st.write("### Here are the responses that the model couldn't find a cluster for")
+                topic_index = np.where(np.array(pred) == -1)
+                a_cluster = np.array(new_list)[topic_index]
+                document_prob = np.array(prob)[topic_index]
+                max_doc_prob = document_prob.max(axis=1)
+
+                df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
+
+                st.table(df)
+
+                dictionary_keys = [f'entry {num}' for num in range(len(a_cluster))]
+                cluster_dict = dict(zip(dictionary_keys, a_cluster))
+
+
+
+
+
                 try:
                     doc_ref.update({
                         "clustering_results":  clustering_results,
