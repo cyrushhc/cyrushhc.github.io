@@ -157,7 +157,10 @@ elif user_mode == "Facilitator":
                     st.write(f'### Cluster {i}')
                     topic_index = np.where(np.array(pred) == i)
                     a_cluster = np.array(new_list)[topic_index]
+
+                    print('yo')
                     document_prob = np.array(prob)[topic_index]
+
                     print(type(a_cluster), a_cluster)
                     print(type(document_prob), document_prob)
 
