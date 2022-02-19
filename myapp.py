@@ -155,17 +155,18 @@ elif user_mode == "Facilitator":
                 st.write('## The patterns in your data.\n')
                 for i in range(len(model.get_topic_info())):
                     st.write(f'### Cluster {i}')
+                    
                     topic_index = np.where(np.array(pred) == i)
                     a_cluster = np.array(new_list)[topic_index]
 
-                    print('yo')
+                    st.write('yo')
                     document_prob = np.array(prob)[topic_index]
 
-                    print(type(a_cluster), a_cluster)
-                    print(type(document_prob), document_prob)
+                    st.write(type(a_cluster), a_cluster)
+                    st.write(type(document_prob), document_prob)
 
                     df = pd.DataFrame({'documents': a_cluster, 'Probability': document_prob}, columns=['documents', 'Probability'])
-                    print('yay') 
+                    st.write('yay') 
 
                     st.table(df)
 
