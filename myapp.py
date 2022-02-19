@@ -154,14 +154,25 @@ elif user_mode == "Facilitator":
                 clustering_results = []
                 st.write('## The patterns in your data.\n')
                 for i in range(len(model.get_topic_info())):
-                    st.write(f'### Cluster {i}')
+
+                    with st.expander("Interpret the results"):
+                        st.write('''The model has found some pattern in your data. 
+                                Each cluster contains participants responses that the model considers to be similar
+                                The **Probability** column shows you how probable does that response belong to the assigned cluster.
+                                The below example reads:  The response `Banana` has `0.9 probability` to belong to the `cluster 1`. 
+                                ''')
+        
+
+
+                        
+                    st.write(f'### Cluster {i+1}')
                     
                     topic_index = np.where(np.array(pred) == i)
                     a_cluster = np.array(new_list)[topic_index]
                     document_prob = np.array(prob)[topic_index]
                     max_doc_prob = document_prob.max(axis=1)
 
-                    df = pd.DataFrame({'documents': a_cluster, 'Probability': max_doc_prob}, columns=['documents', 'Probability'])
+                    df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
 
                     st.table(df)
 
