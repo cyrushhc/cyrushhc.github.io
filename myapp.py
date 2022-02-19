@@ -156,14 +156,13 @@ elif user_mode == "Facilitator":
                 for i in range(len(model.get_topic_info())):
 
                     with st.expander("Interpret the results"):
-                        st.write('''The model has found some pattern in your data. 
-                                Each cluster contains participants responses that the model considers to be similar
-                                The **Probability** column shows you how probable does that response belong to the assigned cluster.
-                                The below example reads:  The response `Banana` has `0.9 probability` to belong to the `cluster 1`. 
+                        st.write('''The model has found some pattern in your data. \n
+                                Each cluster contains participants responses that the model considers to be similar \n
+                                The **Probability** column shows you how probable does that response belong to the assigned cluster. \n
+                                For example, the below result reads:  The response `Banana` has a `0.6694 probability` to belong to the `cluster 3`. 
                                 ''')
+                        st.image("/Example - Interpretation.png")
         
-
-
                         
                     st.write(f'### Cluster {i+1}')
                     
