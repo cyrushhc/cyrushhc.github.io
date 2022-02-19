@@ -8,7 +8,9 @@ import pandas as pd
 import time
 from st_aggrid import AgGrid 
 import numpy as np
-
+from bertopic import BERTopic
+import random
+from hdbscan import HDBSCAN
 
 # Authenticate to Firestore with the JSON account key.
 import json
@@ -17,9 +19,7 @@ creds = service_account.Credentials.from_service_account_info(key_dict)
 
 db = firestore.Client(credentials=creds, project="automatic-affinity-mapping")
 
-from bertopic import BERTopic
 
-import random
 
 
 with open("style.css") as f:  
@@ -127,6 +127,8 @@ elif user_mode == "Facilitator":
             find_pattern = st.button("Find Pattern")
             ss4 = SessionState.get(find_pattern = False) 
 
+            result_fidelity = st.radio("Do you want more a more nuanced results or a more high-level generic clustering resutls?", ['Nuanced', 'Generic'])
+
             if find_pattern:
                 ss4.find_pattern = True
 
@@ -134,7 +136,13 @@ elif user_mode == "Facilitator":
             if ss4.find_pattern == True:
                 with st.spinner('Finding patterns in your data...'):
                     
-                    model = BERTopic()
+                    if result_fidelity == 'Nuanced':
+                        clustering_model = HDBSCAN(metric='euclidean', cluster_selection_method='leaf', prediction_data=True)
+                        model = BERTopic(hdbscan_model = clustering_model, calculate_probabilities= True)
+                    
+                    else: 
+                        model = BERTopic()
+
                     new_list = []
                     for i in doc['responses']:
                         new_list+=(list(i.values()))                    
@@ -149,6 +157,8 @@ elif user_mode == "Facilitator":
                     topic_index = np.where(np.array(pred) == i)
                     a_cluster = np.array(new_list)[topic_index]
                     st.table(a_cluster)
+
+                    
 
                     dictionary_keys = [f'entry {num}' for num in range(len(a_cluster))]
                     cluster_dict = dict(zip(dictionary_keys, a_cluster))
@@ -234,9 +244,9 @@ elif user_mode == "Participant":
                     updated_response = current_response + all_response
                     n+=1
 
-                st.write("Thank you for your input 👍👍")
+                st.write("Thank you for your input 👍")
             else:
-                st.write("Thank you for your input 👍👍")
+                st.write("Thank you for your input 👍")
         
             
             see_results = st.button('See results')
