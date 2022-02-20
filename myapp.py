@@ -280,6 +280,7 @@ elif user_mode == "Participant":
                 see_results = st.button('See results')
         
 
+
             if see_results:
                 if doc['clustering_results'] == []:
                     st.write('There is no results yet. Check back later.')
