@@ -254,8 +254,6 @@ elif user_mode == "Participant":
             if submitted:
                 ss_submit.submitted = True
 
-        st.write(ss_submit.submitted)
-
         try:
             if ss_submit.submitted:
                 
