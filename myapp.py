@@ -277,11 +277,8 @@ elif user_mode == "Participant":
                     n+=1
 
                 st.write("Thank you for your input 👍")
-            else:
-                st.write("Thank you for your input 👍")
+                see_results = st.button('See results')
         
-            
-            see_results = st.button('See results')
 
             if see_results:
                 if doc['clustering_results'] == []:
