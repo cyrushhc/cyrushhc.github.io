@@ -254,13 +254,15 @@ elif user_mode == "Participant":
             if submitted:
                 ss_submit.submitted = True
 
+        st.write(ss_submit.submitted)
+
         try:
             if ss_submit.submitted:
                 
                 current_response = doc['responses']
                 updated_response = current_response + all_response
 
-                n =0
+                n = 0
             
                 # Dealing with the sitaution when more than one participant wants to submit
                 while all_response[0] not in doc["responses"] and n<5:
@@ -288,7 +290,7 @@ elif user_mode == "Participant":
                     st.balloons()
                     st.write('## The patterns in the ideas\n')
                     for c_id in range(len(doc['clustering_results'])):
-                        st.write(f'### Cluster {c_id}')
+                        st.write(f'### Cluster {c_id+1}')
                         st.table(np.array(list(dict.values(doc['clustering_results'][c_id]))))
 
         except:
