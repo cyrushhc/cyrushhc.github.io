@@ -186,6 +186,7 @@ elif user_mode == "Facilitator":
 
                     # st.write("this is doc prob:", document_prob)
 
+
                     
                     if type(document_prob[0]) == float or type(document_prob[0]) == int :
                         st.write("int")
