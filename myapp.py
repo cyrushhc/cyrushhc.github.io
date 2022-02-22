@@ -140,7 +140,7 @@ elif user_mode == "Facilitator":
                 with st.spinner('Finding patterns in your data...'):
                     if result_fidelity == 'Nuanced':
                         clustering_model = HDBSCAN(metric='euclidean', cluster_selection_method='leaf', prediction_data=True)
-                        
+
                         model = BERTopic(hdbscan_model = clustering_model, calculate_probabilities= True)   
                     
                     else: 
@@ -151,7 +151,9 @@ elif user_mode == "Facilitator":
                     new_list = []
                     for i in doc['responses']:
                         new_list+=(list(i.values()))                    
+
                     pred, prob = model.fit_transform(new_list)
+                    st.write('problem 3')        
 
                     # Manually lower the threshold of probabilty assignment
                     threshold = 0.3
