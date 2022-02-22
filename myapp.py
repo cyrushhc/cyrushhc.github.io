@@ -175,6 +175,9 @@ elif user_mode == "Facilitator":
                     st.image("https://github.com/cyrushhc/findPattern/blob/main/Example%20-%20Interpretation.png?raw=true")
 
         
+                st.write(prob)
+
+
                 for i in range(len(model.get_topic_info())-1):                
                     st.write(f'### Cluster {i+1}')
                     
@@ -186,9 +189,9 @@ elif user_mode == "Facilitator":
 
                     st.write(type(document_prob))
                     st.write(type(document_prob[0]))
+
                     
                     if type(document_prob[0]) == float or type(document_prob[0]) == int :
-                        st.write('hello')
                         max_doc_prob = document_prob
                     else:
                         max_doc_prob = document_prob.max(axis=1)
