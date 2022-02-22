@@ -183,7 +183,7 @@ elif user_mode == "Facilitator":
                     a_cluster = np.array(new_list)[topic_index]
                     st.write('Ah')
                     document_prob = np.array(prob)[topic_index][0]
-                    st.write('yay')
+                    st.write(document_prob)
                     max_doc_prob = document_prob.max(axis=1)
 
                     st.write('hello')
