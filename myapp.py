@@ -183,10 +183,11 @@ elif user_mode == "Facilitator":
                     a_cluster = np.array(new_list)[topic_index]
                     st.write('Ah')
                     document_prob = np.array(prob)[topic_index]
+
                     st.write(type(document_prob))
                     st.write(type(document_prob))
                     
-                    if len(document_prob[0]) == 1:
+                    if type(document_prob[0]) == float or type(document_prob[0]) == int :
                         max_doc_prob = document_prob
                     else:
                         max_doc_prob = document_prob.max(axis=1)
