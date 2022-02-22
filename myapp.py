@@ -185,7 +185,7 @@ elif user_mode == "Facilitator":
                     document_prob = np.array(prob)[topic_index]
 
                     st.write(type(document_prob))
-                    st.write(type(document_prob)[0])
+                    st.write(type(document_prob[0]))
                     
                     if type(document_prob[0]) == float or type(document_prob[0]) == int :
                         max_doc_prob = document_prob
