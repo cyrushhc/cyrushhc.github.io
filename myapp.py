@@ -184,8 +184,12 @@ elif user_mode == "Facilitator":
                     st.write('Ah')
                     document_prob = np.array(prob)[topic_index]
                     st.write(type(document_prob))
-                    st.write((document_prob))
-                    max_doc_prob = document_prob.amax
+                    st.write(type(document_prob))
+                    
+                    if len(document_prob[0]) == 1:
+                        max_doc_prob = document_prob
+                    else:
+                        max_doc_prob = document_prob.max(axis=1)
 
                     st.write('hello')
                     df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
