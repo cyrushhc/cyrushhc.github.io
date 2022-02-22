@@ -151,11 +151,6 @@ elif user_mode == "Facilitator":
                         new_list+=(list(i.values()))                    
                     pred, prob = model.fit_transform(new_list)
 
-                    # Exploring what the topic -1 documents are and their probability of falling into each topic
-                    for document in np.where(np.array(pred) == -1)[0]:
-                        print(document, max(prob[document]), np.where(prob[document] == max(prob[document])), data["Response"][document])
-
-
                     # Manually lower the threshold of probabilty assignment
                     threshold = 0.3
                     for document in np.where(np.array(pred) == -1)[0]:
