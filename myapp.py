@@ -142,11 +142,12 @@ elif user_mode == "Facilitator":
                     if result_fidelity == 'Nuanced':
                         clustering_model = HDBSCAN(metric='euclidean', cluster_selection_method='leaf', prediction_data=True)
                         model = BERTopic(hdbscan_model = clustering_model, calculate_probabilities= True)
+                        st.write('problem 2')        
                     
                     else: 
                         model = BERTopic(calculate_probabilities= True)
 
-                    st.write('problem 2')        
+                    
                     new_list = []
                     for i in doc['responses']:
                         new_list+=(list(i.values()))                    
