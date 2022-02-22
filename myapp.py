@@ -132,8 +132,6 @@ elif user_mode == "Facilitator":
             find_pattern = st.button("Find Pattern")
             ss4 = SessionState.get(find_pattern = False) 
 
-            
-
             if find_pattern:
                 ss4.find_pattern = True
 
@@ -152,6 +150,20 @@ elif user_mode == "Facilitator":
                     for i in doc['responses']:
                         new_list+=(list(i.values()))                    
                     pred, prob = model.fit_transform(new_list)
+
+                    # Exploring what the topic -1 documents are and their probability of falling into each topic
+                    for document in np.where(np.array(pred) == -1)[0]:
+                        print(document, max(prob[document]), np.where(prob[document] == max(prob[document])), data["Response"][document])
+
+
+                    # Manually lower the threshold of probabilty assignment
+                    threshold = 0.3
+                    for document in np.where(np.array(pred) == -1)[0]:
+                        if max(prob[document]) >= threshold:
+                            pred[document] = int(np.where(prob[document] == max(prob[document]))[0])
+                            print(int(np.where(prob[document] == max(prob[document]))[0]))
+
+
                     st.success('Here you go! 🤟')
                     st.balloons()
                 
@@ -165,6 +177,7 @@ elif user_mode == "Facilitator":
                             For example, the below result reads:  The response `Banana` has a `0.6694 probability` to belong to the `cluster 3`. 
                             ''')
                     st.image("https://github.com/cyrushhc/findPattern/blob/main/Example%20-%20Interpretation.png?raw=true")
+
         
                 for i in range(len(model.get_topic_info()) -1):                
                     st.write(f'### Cluster {i+1}')
@@ -187,6 +200,7 @@ elif user_mode == "Facilitator":
 
 
                 st.write("### Here are the responses that the model couldn't find a cluster for")
+
                 topic_index = np.where(np.array(pred) == -1)
                 a_cluster = np.array(new_list)[topic_index]
                 document_prob = np.array(prob)[topic_index]
