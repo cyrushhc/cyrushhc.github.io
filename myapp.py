@@ -177,26 +177,22 @@ elif user_mode == "Facilitator":
         
                 st.write(prob)
 
-
                 for i in range(len(model.get_topic_info())-1):                
                     st.write(f'### Cluster {i+1}')
                     
                     topic_index = np.where(np.array(pred) == i)
-                    st.write('opop')
                     a_cluster = np.array(new_list)[topic_index]
-                    st.write('Ah')
                     document_prob = np.array(prob)[topic_index]
 
-                    st.write(type(document_prob))
-                    st.write(type(document_prob[0]))
+                    st.write("this is doc prob:", document_prob))
 
                     
                     if type(document_prob[0]) == float or type(document_prob[0]) == int :
+                        st.write("int")
                         max_doc_prob = document_prob
                     else:
+                        st.write("list")
                         max_doc_prob = document_prob.max(axis=1)
-
-                    st.write('hello')
                     df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
 
                     st.table(df)
