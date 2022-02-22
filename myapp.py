@@ -124,7 +124,9 @@ elif user_mode == "Facilitator":
         if  doc['ready_to_cluster'] == True:
             st.write('## 🧩 Find Patterns')
             with st.expander("How to choose a setting"):
-                st.text("I would reommend going with `generic` first. If you find that the results are too generic, then choose `nuanced`.\nWhen you choose `generic`, the model is going to lump together smaller clusters that are simliar.\nWhen you choose `nuanced`, the model would show you the smaller clusters before they are lumped together. ")
+                st.write("I would reommend going with `generic` first. If you find that the results are too generic, then choose `nuanced`.")
+                st.write("When you choose `generic`, the model is going to lump together smaller clusters that are simliar.")
+                st.write("When you choose `nuanced`, the model would show you the smaller clusters before they are lumped together.")
 
             result_fidelity = st.radio("Do you want more a more nuanced results or a more high-level generic clustering resutls?", ['Nuanced', 'Generic'])
             find_pattern = st.button("Find Pattern")
