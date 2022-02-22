@@ -156,11 +156,12 @@ elif user_mode == "Facilitator":
                     for document in np.where(np.array(pred) == -1)[0]:
                         if max(prob[document]) >= threshold:
                             pred[document] = int(np.where(prob[document] == max(prob[document]))[0])
-                            print(int(np.where(prob[document] == max(prob[document]))[0]))
 
 
                     st.success('Here you go! 🤟')
                     st.balloons()
+
+                st.write(pred)
                 
                 clustering_results = []
                 st.write('## The patterns in your data.\n')
