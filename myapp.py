@@ -138,7 +138,7 @@ elif user_mode == "Facilitator":
                 
             if ss4.find_pattern == True:
                 with st.spinner('Finding patterns in your data...'):
-                    
+                    st.write('problem 3')        
                     if result_fidelity == 'Nuanced':
                         clustering_model = HDBSCAN(metric='euclidean', cluster_selection_method='leaf', prediction_data=True)
                         model = BERTopic(hdbscan_model = clustering_model, calculate_probabilities= True)
@@ -146,17 +146,18 @@ elif user_mode == "Facilitator":
                     else: 
                         model = BERTopic(calculate_probabilities= True)
 
+                    st.write('problem 2')        
                     new_list = []
                     for i in doc['responses']:
                         new_list+=(list(i.values()))                    
                     pred, prob = model.fit_transform(new_list)
 
+                    st.write('problem 1')
                     # Manually lower the threshold of probabilty assignment
                     threshold = 0.3
                     for document in np.where(np.array(pred) == -1)[0]:
                         if max(prob[document]) >= threshold:
                             pred[document] = int(np.where(prob[document] == max(prob[document]))[0])
-
 
                     st.success('Here you go! 🤟')
                     st.balloons()
@@ -174,8 +175,6 @@ elif user_mode == "Facilitator":
                             ''')
                     st.image("https://github.com/cyrushhc/findPattern/blob/main/Example%20-%20Interpretation.png?raw=true")
 
-        
-                st.write(prob)
 
                 for i in range(len(model.get_topic_info())-1):                
                     st.write(f'### Cluster {i+1}')
@@ -185,10 +184,6 @@ elif user_mode == "Facilitator":
                     document_prob = np.array(prob)[topic_index]
 
                     # st.write("this is doc prob:", document_prob)
-
-
-                    st.write(type(document_prob[0]))
-                    
 
                     if type(document_prob[0]) == float or type(document_prob[0]) == int :
                         st.write("int")
