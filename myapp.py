@@ -152,8 +152,11 @@ elif user_mode == "Facilitator":
                     for i in doc['responses']:
                         new_list+=(list(i.values()))                    
 
-                    pred, prob = model.fit_transform(new_list)
-                    st.write('problem 3')        
+                    try:
+                        pred, prob = model.fit_transform(new_list)
+
+                    except:
+                        st.write('The model could not find clusters. This could be because the datasize is too small or because there is only one topic')
 
                     # Manually lower the threshold of probabilty assignment
                     threshold = 0.3
