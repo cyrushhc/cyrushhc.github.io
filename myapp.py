@@ -138,22 +138,21 @@ elif user_mode == "Facilitator":
                 
             if ss4.find_pattern == True:
                 with st.spinner('Finding patterns in your data...'):
-                    st.write('problem 3')        
                     if result_fidelity == 'Nuanced':
                         clustering_model = HDBSCAN(metric='euclidean', cluster_selection_method='leaf', prediction_data=True)
-                        model = BERTopic(hdbscan_model = clustering_model, calculate_probabilities= True)
-                        st.write('problem 4')        
+                        
+                        model = BERTopic(hdbscan_model = clustering_model, calculate_probabilities= True)   
                     
                     else: 
                         model = BERTopic(calculate_probabilities= True)
 
-                    
+                    st.write('problem 2')        
+
                     new_list = []
                     for i in doc['responses']:
                         new_list+=(list(i.values()))                    
                     pred, prob = model.fit_transform(new_list)
 
-                    st.write('problem 1')
                     # Manually lower the threshold of probabilty assignment
                     threshold = 0.3
                     for document in np.where(np.array(pred) == -1)[0]:
