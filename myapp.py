@@ -144,7 +144,7 @@ elif user_mode == "Facilitator":
                         model = BERTopic(hdbscan_model = clustering_model, calculate_probabilities= True)
                     
                     else: 
-                        model = BERTopic()
+                        model = BERTopic(calculate_probabilities= True)
 
                     new_list = []
                     for i in doc['responses']:
