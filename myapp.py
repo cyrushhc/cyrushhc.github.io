@@ -179,8 +179,11 @@ elif user_mode == "Facilitator":
                     st.write(f'### Cluster {i+1}')
                     
                     topic_index = np.where(np.array(pred) == i)
+                    st.write('opop')
                     a_cluster = np.array(new_list)[topic_index]
+                    st.write('Ah')
                     document_prob = np.array(prob)[topic_index]
+                    st.write('yay')
                     max_doc_prob = document_prob.max(axis=1)
 
                     st.write('hello')
