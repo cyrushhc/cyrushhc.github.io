@@ -123,6 +123,9 @@ elif user_mode == "Facilitator":
         doc = doc_ref.get().to_dict()
         if  doc['ready_to_cluster'] == True:
             st.write('## 🧩 Find Patterns')
+            with st.expander("How to choose a setting"):
+                st.write("I would reommend going with `generic` first. If you find that the results are too generic, then choose `nuanced`.\nWhen you choose `generic`, the model is going to lump together smaller clusters that are simliar.\nWhen you choose `nuanced`, the model would show you the smaller clusters before they are lumped together. ")
+
             result_fidelity = st.radio("Do you want more a more nuanced results or a more high-level generic clustering resutls?", ['Nuanced', 'Generic'])
             find_pattern = st.button("Find Pattern")
             ss4 = SessionState.get(find_pattern = False) 
@@ -180,7 +183,6 @@ elif user_mode == "Facilitator":
                     
                     clustering_results.append(cluster_dict)
 
-                # st.write(model.get_topic_info())
 
                 st.write("### Here are the responses that the model couldn't find a cluster for")
                 topic_index = np.where(np.array(pred) == -1)
