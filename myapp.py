@@ -144,9 +144,7 @@ elif user_mode == "Facilitator":
                         model = BERTopic(hdbscan_model = clustering_model, calculate_probabilities= True)   
                     
                     else: 
-                        model = BERTopic(calculate_probabilities= True)
-
-                    st.write('problem 2')        
+                        model = BERTopic(calculate_probabilities= True)  
 
                     new_list = []
                     for i in doc['responses']:
@@ -194,7 +192,6 @@ elif user_mode == "Facilitator":
                         st.write("int")
                         max_doc_prob = document_prob
                     else:
-                        st.write("list")
                         max_doc_prob = document_prob.max(axis=1)
                         
                     df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
