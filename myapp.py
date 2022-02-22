@@ -175,7 +175,7 @@ elif user_mode == "Facilitator":
                     st.image("https://github.com/cyrushhc/findPattern/blob/main/Example%20-%20Interpretation.png?raw=true")
 
         
-                for i in range(len(model.get_topic_info()) -1):                
+                for i in range(len(model.get_topic_info())-1):                
                     st.write(f'### Cluster {i+1}')
                     
                     topic_index = np.where(np.array(pred) == i)
@@ -183,6 +183,7 @@ elif user_mode == "Facilitator":
                     document_prob = np.array(prob)[topic_index]
                     max_doc_prob = document_prob.max(axis=1)
 
+                    st.write('hello')
                     df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
 
                     st.table(df)
