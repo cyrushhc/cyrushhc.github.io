@@ -142,7 +142,7 @@ elif user_mode == "Facilitator":
                     if result_fidelity == 'Nuanced':
                         clustering_model = HDBSCAN(metric='euclidean', cluster_selection_method='leaf', prediction_data=True)
                         model = BERTopic(hdbscan_model = clustering_model, calculate_probabilities= True)
-                        st.write('problem 2')        
+                        st.write('problem 4')        
                     
                     else: 
                         model = BERTopic(calculate_probabilities= True)
