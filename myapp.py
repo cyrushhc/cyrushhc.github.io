@@ -161,7 +161,7 @@ elif user_mode == "Facilitator":
                     st.success('Here you go! 🤟')
                     st.balloons()
 
-                st.write(pred)
+
                 
                 clustering_results = []
                 st.write('## The patterns in your data.\n')
@@ -184,7 +184,7 @@ elif user_mode == "Facilitator":
                     a_cluster = np.array(new_list)[topic_index]
                     document_prob = np.array(prob)[topic_index]
 
-                    st.write("this is doc prob:", document_prob)
+                    # st.write("this is doc prob:", document_prob)
 
                     
                     if type(document_prob[0]) == float or type(document_prob[0]) == int :
