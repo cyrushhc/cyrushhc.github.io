@@ -188,6 +188,7 @@ elif user_mode == "Facilitator":
                     st.write(type(document_prob[0]))
                     
                     if type(document_prob[0]) == float or type(document_prob[0]) == int :
+                        st.write('hello')
                         max_doc_prob = document_prob
                     else:
                         max_doc_prob = document_prob.max(axis=1)
