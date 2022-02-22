@@ -187,13 +187,16 @@ elif user_mode == "Facilitator":
                     # st.write("this is doc prob:", document_prob)
 
 
+                    st.write(type(document_prob[0]))
                     
+
                     if type(document_prob[0]) == float or type(document_prob[0]) == int :
                         st.write("int")
                         max_doc_prob = document_prob
                     else:
                         st.write("list")
                         max_doc_prob = document_prob.max(axis=1)
+                        
                     df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
 
                     st.table(df)
