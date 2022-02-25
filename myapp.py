@@ -180,6 +180,8 @@ elif user_mode == "Facilitator":
                     st.image("https://github.com/cyrushhc/findPattern/blob/main/Example%20-%20Interpretation.png?raw=true")
 
 
+                st.write(len(model.get_topic_info()))
+                st.write(model.get_topic_info())
                 if -1 in pred:
                     num_cluster = len(model.get_topic_info())-1
                 else: 
