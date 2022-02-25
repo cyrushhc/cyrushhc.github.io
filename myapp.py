@@ -208,12 +208,6 @@ elif user_mode == "Facilitator":
                     # Trying to turn the results into dictionary so I can store it on Firestore
                     
                     clustering_results.append(cluster_dict)
- 
-
-
-                st.write(pred)
-                st.write(np.where(np.array(pred) == -1)[0])
-                st.write(np.array(new_list)[np.where(np.array(pred) == -1)])
 
                 if len(np.where(np.array(pred) == -1)[0]) != 0:
                     st.write("### Here are the responses that the model couldn't find a cluster for")
