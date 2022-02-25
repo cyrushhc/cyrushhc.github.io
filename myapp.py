@@ -205,19 +205,20 @@ elif user_mode == "Facilitator":
                     clustering_results.append(cluster_dict)
 
 
-                st.write("### Here are the responses that the model couldn't find a cluster for")
+                if len(np.where(np.array(pred) == -1)) != 0:
+                    st.write("### Here are the responses that the model couldn't find a cluster for")
 
-                topic_index = np.where(np.array(pred) == -1)
-                a_cluster = np.array(new_list)[topic_index]
-                document_prob = np.array(prob)[topic_index]
-                max_doc_prob = document_prob.max(axis=1)
+                    topic_index = np.where(np.array(pred) == -1)
+                    a_cluster = np.array(new_list)[topic_index]
+                    document_prob = np.array(prob)[topic_index]
+                    max_doc_prob = document_prob.max(axis=1)
 
-                df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
+                    df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
 
-                st.table(df)
+                    st.table(df)
 
-                dictionary_keys = [f'entry {num}' for num in range(len(a_cluster))]
-                cluster_dict = dict(zip(dictionary_keys, a_cluster))
+                    dictionary_keys = [f'entry {num}' for num in range(len(a_cluster))]
+                    cluster_dict = dict(zip(dictionary_keys, a_cluster))
 
 
                 try:
