@@ -131,11 +131,11 @@ elif user_mode == "Facilitator":
             find_pattern = st.button("Find Pattern")
             ss4 = SessionState.get(find_pattern = False) 
 
-            if find_pattern:
-                ss4.find_pattern = True
+            # if find_pattern:
+            #     ss4.find_pattern = True
 
                 
-            if ss4.find_pattern == True:
+            if find_pattern == True:
                 with st.spinner('Finding patterns in your data...'):
                     if result_fidelity == 'Nuanced':
                         clustering_model = HDBSCAN(metric='euclidean', cluster_selection_method='leaf', prediction_data=True)
@@ -217,9 +217,6 @@ elif user_mode == "Facilitator":
 
                 dictionary_keys = [f'entry {num}' for num in range(len(a_cluster))]
                 cluster_dict = dict(zip(dictionary_keys, a_cluster))
-
-
-
 
 
                 try:
