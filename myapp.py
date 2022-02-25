@@ -229,6 +229,10 @@ elif user_mode == "Facilitator":
 
                 try:
                     doc_ref.update({
+                        "clustering_results":  [],
+                    })
+                    
+                    doc_ref.update({
                         "clustering_results":  clustering_results,
                     })
                 except:
