@@ -140,7 +140,6 @@ elif user_mode == "Facilitator":
                 with st.spinner('Finding patterns in your data...'):
                     if result_fidelity == 'Nuanced':
                         clustering_model = HDBSCAN(metric='euclidean', cluster_selection_method='leaf', prediction_data=True)
-
                         model = BERTopic(hdbscan_model = clustering_model, calculate_probabilities= True)   
                     
                     else: 
@@ -280,24 +279,26 @@ elif user_mode == "Participant":
                 ss_submit.submitted = True
 
         try:
+
             if ss_submit.submitted:
                 
                 current_response = doc['responses']
                 updated_response = current_response + all_response
 
                 n = 0
-            
-                # Dealing with the sitaution when more than one participant wants to submit
-                while all_response[0] not in doc["responses"] and n<5:
-                    doc_ref.update({
-                        "responses": updated_response,
-                    })
-                    time.sleep(1)
-                    doc = doc_ref.get()
-                    doc = doc.to_dict()
-                    current_response = doc['responses']
-                    updated_response = current_response + all_response
-                    n+=1
+
+                if doc["collect_response"] == True:
+                    # Dealing with the sitaution when more than one participant wants to submit
+                    while all_response[0] not in doc["responses"] and n<5:
+                        doc_ref.update({
+                            "responses": updated_response,
+                        })
+                        time.sleep(1)
+                        doc = doc_ref.get()
+                        doc = doc.to_dict()
+                        current_response = doc['responses']
+                        updated_response = current_response + all_response
+                        n+=1
 
                 st.write("Thank you for your input 👍")
                 see_results = st.button('See results')
