@@ -211,7 +211,7 @@ elif user_mode == "Facilitator":
                     
                     clustering_results.append(cluster_dict)
 
-                if len(np.where(np.array(pred) == -1)[0]) != 0:
+                if -1 in pred:
                     st.write("### Here are the responses that the model couldn't find a cluster for")
 
                     topic_index = np.where(np.array(pred) == -1)
