@@ -86,7 +86,8 @@ elif user_mode == "Facilitator":
         
     
 
-    try:    
+    try:
+        print(ss_r.room_number)
         st.write("## 📝 Participant Response")
         doc = doc_ref.get().to_dict()  
         seeresult = st.button("View Results")
