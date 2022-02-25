@@ -149,6 +149,8 @@ elif user_mode == "Facilitator":
                     for i in doc['responses']:
                         new_list+=(list(i.values()))                    
 
+                    new_list = [x for x in new_list if x]
+
                     try:
                         pred, prob = model.fit_transform(new_list)
 
