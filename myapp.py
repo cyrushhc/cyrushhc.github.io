@@ -179,7 +179,7 @@ elif user_mode == "Facilitator":
                             ''')
                     st.image("https://github.com/cyrushhc/findPattern/blob/main/Example%20-%20Interpretation.png?raw=true")
 
-                    
+
                 if -1 in pred:
                     num_cluster = len(model.get_topic_info())-1
                 else: 
@@ -229,6 +229,7 @@ elif user_mode == "Facilitator":
                     dictionary_keys = [f'entry {num}' for num in range(len(a_cluster))]
                     cluster_dict = dict(zip(dictionary_keys, a_cluster))
 
+                    clustering_results.append(cluster_dict)
 
                 try:
                     doc_ref.update({
@@ -243,7 +244,7 @@ elif user_mode == "Facilitator":
                 
 
     except:
-        st.write('something wrong')
+        st.write('')
 
     
 
@@ -323,8 +324,12 @@ elif user_mode == "Participant":
                     st.balloons()
                     st.write('## The patterns in the ideas\n')
                     for c_id in range(len(doc['clustering_results'])):
-                        st.write(f'### Cluster {c_id+1}')
+                        if c_id <len(doc['clustering_results']) -1:
+                            st.write(f'### Cluster {c_id+1}')
+                        else:
+                            st.write("### Here are the responses that the model couldn't find a cluster for")
                         st.table(np.array(list(dict.values(doc['clustering_results'][c_id]))))
+
 
         except:
             pass
