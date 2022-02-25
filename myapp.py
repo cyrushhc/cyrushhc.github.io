@@ -182,11 +182,15 @@ elif user_mode == "Facilitator":
 
                 st.write(len(model.get_topic_info()))
                 st.write(model.get_topic_info())
+                st.write(pred)
+                st.write(-1 in pred)
+
                 if -1 in pred:
                     num_cluster = len(model.get_topic_info())-1
                 else: 
                     num_cluster = len(model.get_topic_info())
 
+                
                 for i in range(num_cluster):                
                     st.write(f'### Cluster {i+1}')
                     
@@ -213,6 +217,8 @@ elif user_mode == "Facilitator":
                     
                     clustering_results.append(cluster_dict)
 
+                
+                
                 if -1 in pred:
                     st.write("### Here are the responses that the model couldn't find a cluster for")
 
