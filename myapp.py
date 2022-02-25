@@ -178,7 +178,12 @@ elif user_mode == "Facilitator":
                     st.image("https://github.com/cyrushhc/findPattern/blob/main/Example%20-%20Interpretation.png?raw=true")
 
 
-                for i in range(len(model.get_topic_info())-1):                
+                if -1 in pred:
+                    num_cluster = len(model.get_topic_info())-1
+                else: 
+                    num_cluster = len(model.get_topic_info())
+
+                for i in range(num_cluster):                
                     st.write(f'### Cluster {i+1}')
                     
                     topic_index = np.where(np.array(pred) == i)
@@ -203,6 +208,8 @@ elif user_mode == "Facilitator":
                     # Trying to turn the results into dictionary so I can store it on Firestore
                     
                     clustering_results.append(cluster_dict)
+ 
+
 
                 st.write(pred)
                 st.write(np.where(np.array(pred) == -1)[0])
