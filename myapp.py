@@ -231,7 +231,7 @@ elif user_mode == "Facilitator":
                     doc_ref.update({
                         "clustering_results":  [],
                     })
-                    
+
                     doc_ref.update({
                         "clustering_results":  clustering_results,
                     })
@@ -240,7 +240,7 @@ elif user_mode == "Facilitator":
                 
 
     except:
-        st.write('')
+        st.write('something wrong')
 
     
 
