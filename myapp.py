@@ -270,45 +270,46 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
         room_number = int(st.text_input('Room Number', value = 0))
     except:
         pass
-    doc_ref = db.collection("Room").document(f"Room {room_number}")
-    doc = doc_ref.get()
-    doc = doc.to_dict()
-    prompt_name = doc['prompt_question'] 
-    prompt_description = doc['prompt_description']
-    st.write(f"### 🙃 Prompt: {prompt_name}")
-    st.write(prompt_description)
-    goal = st.radio('What do you want to do?',['See existing results', 'Create new cluster results'])
-    if goal == "See existing results":
-        if doc['clustering_results'] == []:
-            st.write('There is no results yet. Check back later.')
-        else:
-            with st.expander("Interpret the results"):
-                st.write('''The model has found some pattern in your data.
-                    Each cluster contains participants responses that the model considers to be similar
-                    The **Probability** column shows you how probable does that response belong to the assigned cluster.
-                    For example, the below result reads:  The response `Banana` has a `0.6694 probability` to belong to the `cluster 3`. 
-                    ''')
-                st.image("https://github.com/cyrushhc/findPattern/blob/main/Example%20-%20Interpretation.png?raw=true")
-            st.write('## The patterns in the ideas\n')
+    
+    try: 
+        doc_ref = db.collection("Room").document(f"Room {room_number}")
+        doc = doc_ref.get()
+        doc = doc.to_dict()
+        prompt_name = doc['prompt_question'] 
+        prompt_description = doc['prompt_description']
+        st.write(f"### 🙃 Prompt: {prompt_name}")
+        st.write(prompt_description)
+        goal = st.radio('What do you want to do?',['See existing results', 'Create new cluster results'])
+        if goal == "See existing results":
+            if doc['clustering_results'] == []:
+                st.write('There is no results yet. Check back later.')
+            else:
+                with st.expander("Interpret the results"):
+                    st.write('''The model has found some pattern in your data.
+                        Each cluster contains participants responses that the model considers to be similar
+                        The **Probability** column shows you how probable does that response belong to the assigned cluster.
+                        For example, the below result reads:  The response `Banana` has a `0.6694 probability` to belong to the `cluster 3`. 
+                        ''')
+                    st.image("https://github.com/cyrushhc/findPattern/blob/main/Example%20-%20Interpretation.png?raw=true")
+                st.write('## The patterns in the ideas\n')
 
-            for c_id in range(len(doc['clustering_results'])):
-                
-                if c_id <len(doc['clustering_results'])-1:
-                    st.write(f'### Cluster {c_id+1}')
-                
-                else:
-                    if doc['no_cluster'] == True: 
-                        st.write("### Here are the responses that the model couldn't find a cluster for")
-                    else: 
+                for c_id in range(len(doc['clustering_results'])):
+                    
+                    if c_id <len(doc['clustering_results'])-1:
                         st.write(f'### Cluster {c_id+1}')
-                
-                display = np.array(list(dict.values(doc['clustering_results'][c_id])))
-                display = pd.DataFrame(display, columns = ['Response', 'Probability'])
+                    
+                    else:
+                        if doc['no_cluster'] == True: 
+                            st.write("### Here are the responses that the model couldn't find a cluster for")
+                        else: 
+                            st.write(f'### Cluster {c_id+1}')
+                    
+                    display = np.array(list(dict.values(doc['clustering_results'][c_id])))
+                    display = pd.DataFrame(display, columns = ['Response', 'Probability'])
 
-                st.table(display)
+                    st.table(display)
 
-    else: 
-        try:
+        else: 
             st.write("## 📝 Participant Response")
             seeresult = st.button("View Results")
             ss2 = SessionState.get(seeresult = False) 
@@ -474,18 +475,18 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                             })
                         except:
                             st.write('Cannot write the results')
-                    
+                        
             except:
                 st.write('')
         
-        except:
-            try:  
-                if room_number ==0 :
-                    st.write("Enter your room number 👋")
-                else:
-                    st.write("Please enter a valid room number 🙏")
-            except:
+    except:
+        try:  
+            if room_number ==0 :
+                st.write("Enter your room number 👋")
+            else:
                 st.write("Please enter a valid room number 🙏")
+        except:
+            st.write("Please enter a valid room number 🙏")
 
     
 
