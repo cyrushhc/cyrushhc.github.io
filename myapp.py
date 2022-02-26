@@ -207,7 +207,8 @@ elif user_mode == "Facilitator":
                     st.table(df)
 
                     lst_storage = np.stack((a_cluster, max_doc_prob), axis=-1)
-                    logging.info('lst_storage')
+                    logging.info(lst_storage)
+                    logging.info(lst_storage[0])
                     lst_storage = list(lst_storage)
 
 
@@ -217,6 +218,7 @@ elif user_mode == "Facilitator":
                     
                     # Trying to turn the results into dictionary so I can store it on Firestore
                     
+                    logging.info(cluster_dict)
                     clustering_results.append(cluster_dict)
 
                 
