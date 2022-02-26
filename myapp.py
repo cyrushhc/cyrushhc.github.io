@@ -316,6 +316,7 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
             ss2 = SessionState.get(seeresult = False) 
             
             logging.info(ss2.seeresult)
+
             if seeresult:
                 ss2.seeresult = True
 
@@ -331,13 +332,17 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
             if end_collection:
                 ss3.end_collection = True
 
+            
+            logging.info("end_collection")  
             if ss3.end_collection == True:
                 doc_ref.update({
                     "collect_response": False,
                     "ready_to_cluster": True,
                 }
                 )
+                logging.info("Update success")
 
+            logging.info("end_collection")
             try:    
                 if  doc['ready_to_cluster'] == True:
                     st.write('## 🧩 Find Patterns')
