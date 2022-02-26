@@ -280,6 +280,7 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
         st.write(f"### 🙃 Prompt: {prompt_name}")
         st.write(prompt_description)
         goal = st.radio('What do you want to do?',['See existing results', 'Create new cluster results'])
+        
         if goal == "See existing results":
             if doc['clustering_results'] == []:
                 st.write('There is no results yet. Check back later.')
@@ -314,6 +315,7 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
             seeresult = st.button("View Results")
             ss2 = SessionState.get(seeresult = False) 
             
+            logging.info(ss2.seeresult)
             if seeresult:
                 ss2.seeresult = True
 
