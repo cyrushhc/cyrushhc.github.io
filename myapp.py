@@ -209,7 +209,8 @@ elif user_mode == "Facilitator":
                     lst_storage = np.stack((a_cluster, max_doc_prob), axis=-1)
                     logging.info(lst_storage)
                     logging.info(lst_storage[0])
-                    lst_storage = list(lst_storage)
+
+                    lst_storage = lst_storage.tolist()
 
 
                     dictionary_keys = [f'entry {num}' for num in range(len(a_cluster))]
