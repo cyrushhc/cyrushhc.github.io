@@ -34,12 +34,12 @@ def room_number_generator():
     return random.randint(1,1000)
 
 
-user_mode = st.selectbox('Who are you?', ['-','Facilitator','Participant'])
+user_mode = st.selectbox('Who are you?', ['-','Facilitator (Create New Room)','Facilitator (Go to Existing Room)','Participant'])
 
 if user_mode == '-':
     st.write('')
 
-elif user_mode == "Facilitator":
+elif user_mode == "Facilitator (Create New Room)":
     
     st.write("## ✋ Discussion Prompt")
     prompt_name = st.text_input('Prompt')
@@ -264,7 +264,64 @@ elif user_mode == "Facilitator":
         st.write('')
 
     
+elif user_mode == 'Facilitator (Go to Existing Room)':
+    try:
+        # Create the room_number input 
+        room_number = int(st.text_input('Room Number', value = 0))
+    except:
+        pass
 
+    try:
+        doc_ref = db.collection("Room").document(f"Room {room_number}")
+        doc = doc_ref.get()
+        doc = doc.to_dict()
+        prompt_name = doc['prompt_question'] 
+        prompt_description = doc['prompt_description']
+        st.write(f"### 🙃 Prompt: {prompt_name}")
+        st.write(prompt_description)
+
+        see_results = st.button('See results')
+
+        if see_results:
+            if doc['clustering_results'] == []:
+                st.write('There is no results yet. Check back later.')
+            else:
+                st.balloons()
+                with st.expander("Interpret the results"):
+                    st.write('''The model has found some pattern in your data.
+                        Each cluster contains participants responses that the model considers to be similar
+                        The **Probability** column shows you how probable does that response belong to the assigned cluster.
+                        For example, the below result reads:  The response `Banana` has a `0.6694 probability` to belong to the `cluster 3`. 
+                        ''')
+                    st.image("https://github.com/cyrushhc/findPattern/blob/main/Example%20-%20Interpretation.png?raw=true")
+                st.write('## The patterns in the ideas\n')
+                
+                for c_id in range(len(doc['clustering_results'])):
+                    
+                    if c_id <len(doc['clustering_results'])-1:
+                        st.write(f'### Cluster {c_id+1}')
+                    
+                    else:
+                        if doc['no_cluster'] == True: 
+                            st.write("### Here are the responses that the model couldn't find a cluster for")
+                        else: 
+                            st.write(f'### Cluster {c_id+1}')
+                    
+                    display = np.array(list(dict.values(doc['clustering_results'][c_id])))
+                    display = pd.DataFrame(display, columns = ['Response', 'Probability'])
+
+                    st.table(display)
+
+    except:
+        try:  
+            if room_number ==0 :
+                st.write("Enter your room number 👋")
+            else:
+                st.write("Please enter a valid room number 🙏")
+        except:
+            st.write("Please enter a valid room number 🙏")
+
+    
 
 
 elif user_mode == "Participant":
@@ -350,7 +407,7 @@ elif user_mode == "Participant":
                     st.write('## The patterns in the ideas\n')
                     for c_id in range(len(doc['clustering_results'])):
                         
-                        if c_id <len(doc['clustering_results']) -1:
+                        if c_id <len(doc['clustering_results'])-1:
                             st.write(f'### Cluster {c_id+1}')
                         
                         else:
@@ -361,7 +418,7 @@ elif user_mode == "Participant":
                         
                         display = np.array(list(dict.values(doc['clustering_results'][c_id])))
                         display = pd.DataFrame(display, columns = ['Response', 'Probability'])
-                        
+
                         st.table(display)
 
 
