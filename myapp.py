@@ -11,7 +11,7 @@ import numpy as np
 from bertopic import BERTopic
 import random
 from hdbscan import HDBSCAN
-# import logging
+import logging
 
 # Authenticate to Firestore with the JSON account key.
 import json
@@ -207,9 +207,12 @@ elif user_mode == "Facilitator":
                     st.table(df)
 
                     lst_storage = np.stack((a_cluster, max_doc_prob), axis=-1)
+                    logging.info('lst_storage')
+                    lst_storage = list(lst_storage)
 
 
                     dictionary_keys = [f'entry {num}' for num in range(len(a_cluster))]
+        
                     cluster_dict = dict(zip(dictionary_keys, lst_storage))
                     
                     # Trying to turn the results into dictionary so I can store it on Firestore
