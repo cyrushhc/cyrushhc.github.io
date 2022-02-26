@@ -216,6 +216,7 @@ elif user_mode == "Facilitator (Create New Room)":
                     dictionary_keys = [f'entry {num}' for num in range(len(a_cluster))]
         
                     cluster_dict = dict(zip(dictionary_keys, lst_storage))
+
                     
                     # Trying to turn the results into dictionary so I can store it on Firestore
                     
@@ -238,6 +239,7 @@ elif user_mode == "Facilitator (Create New Room)":
 
 
                     lst_storage = np.stack((a_cluster, max_doc_prob), axis=-1)
+                    lst_storage = lst_storage.tolist()
 
                     dictionary_keys = [f'entry {num}' for num in range(len(a_cluster))]
                     cluster_dict = dict(zip(dictionary_keys, lst_storage))
