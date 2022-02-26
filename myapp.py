@@ -206,7 +206,7 @@ elif user_mode == "Facilitator":
 
                     st.table(df)
 
-                    lst_storage = np.stack((a_cluster, max_doc_prob), axis=-1)[0]
+                    lst_storage = np.stack((a_cluster, max_doc_prob), axis=-1)
 
 
                     dictionary_keys = [f'entry {num}' for num in range(len(a_cluster))]
@@ -231,7 +231,7 @@ elif user_mode == "Facilitator":
                     st.table(df)
 
 
-                    lst_storage = np.stack((a_cluster, max_doc_prob), axis=-1)[0]
+                    lst_storage = np.stack((a_cluster, max_doc_prob), axis=-1)
 
                     dictionary_keys = [f'entry {num}' for num in range(len(a_cluster))]
                     cluster_dict = dict(zip(dictionary_keys, lst_storage))
