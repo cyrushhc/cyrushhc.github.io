@@ -270,17 +270,15 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
         room_number = int(st.text_input('Room Number', value = 0))
     except:
         pass
-
-    try:
-        doc_ref = db.collection("Room").document(f"Room {room_number}")
-        doc = doc_ref.get()
-        doc = doc.to_dict()
-        prompt_name = doc['prompt_question'] 
-        prompt_description = doc['prompt_description']
-        st.write(f"### 🙃 Prompt: {prompt_name}")
-        st.write(prompt_description)
-
-        
+    doc_ref = db.collection("Room").document(f"Room {room_number}")
+    doc = doc_ref.get()
+    doc = doc.to_dict()
+    prompt_name = doc['prompt_question'] 
+    prompt_description = doc['prompt_description']
+    st.write(f"### 🙃 Prompt: {prompt_name}")
+    st.write(prompt_description)
+    goal = st.radio('What do you want to do?',['See existing results', 'Create new cluster results'])
+    if goal == "See existing results":
         if doc['clustering_results'] == []:
             st.write('There is no results yet. Check back later.')
         else:
@@ -309,14 +307,182 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
 
                 st.table(display)
 
-    except:
-        try:  
-            if room_number ==0 :
-                st.write("Enter your room number 👋")
-            else:
-                st.write("Please enter a valid room number 🙏")
+    else: 
+        try:
+            st.write("## 📝 Participant Response")
+            seeresult = st.button("View Results")
+            ss2 = SessionState.get(seeresult = False) 
+            
+            if seeresult:
+                ss2.seeresult = True
+
+            if ss2.seeresult == True:
+                if doc['responses'] == []:
+                    st.write("No response submitted yet")
+                else:
+                    st.write(doc['responses'])
+            
+            end_collection = st.button("Close Participant Response")
+            ss3 = SessionState.get(end_collection = False) 
+
+            if end_collection:
+                ss3.end_collection = True
+
+            if ss3.end_collection == True:
+                doc_ref.update({
+                    "collect_response": False,
+                    "ready_to_cluster": True,
+                }
+                )
+
+            try:    
+                if  doc['ready_to_cluster'] == True:
+                    st.write('## 🧩 Find Patterns')
+                    with st.expander("How to choose a setting"):
+                        st.write("I would reommend going with `generic` first. If you find that the results are too generic, then choose `nuanced`.")
+                        st.write("When you choose `generic`, the model is going to lump together smaller clusters that are simliar.")
+                        st.write("When you choose `nuanced`, the model would show you the smaller clusters before they are lumped together.")
+
+                    result_fidelity = st.radio("Do you want more a more nuanced results or a more high-level generic clustering resutls?", ['Nuanced', 'Generic'])
+                    find_pattern = st.button("Find Pattern")
+                    ss4 = SessionState.get(find_pattern = False) 
+
+                    # if find_pattern:
+                    #     ss4.find_pattern = True
+
+                        
+                    if find_pattern == True:
+                        with st.spinner('Finding patterns in your data...'):
+                            if result_fidelity == 'Nuanced':
+                                clustering_model = HDBSCAN(metric='euclidean', cluster_selection_method='leaf', prediction_data=True)
+                                model = BERTopic(hdbscan_model = clustering_model, calculate_probabilities= True)   
+                            
+                            else: 
+                                model = BERTopic(calculate_probabilities= True)  
+
+                            new_list = []
+                            for i in doc['responses']:
+                                new_list+=(list(i.values()))                    
+
+                            new_list = [x for x in new_list if x]
+
+                            try:
+                                pred, prob = model.fit_transform(new_list)
+
+                            except:
+                                st.write('The model could not find clusters. This could be because the datasize is too small or because there is only one topic')
+
+                            # Manually lower the threshold of probabilty assignment
+                            threshold = 0.3
+                            for document in np.where(np.array(pred) == -1)[0]:
+                                if max(prob[document]) >= threshold:
+                                    pred[document] = int(np.where(prob[document] == max(prob[document]))[0])
+
+                            st.success('Here you go! 🤟')
+                            st.balloons()
+
+
+                        
+                        clustering_results = []
+                        st.write('## The patterns in your data.\n')
+
+                        with st.expander("Interpret the results"):
+                            st.write('''The model has found some pattern in your data.
+                                    Each cluster contains participants responses that the model considers to be similar
+                                    The **Probability** column shows you how probable does that response belong to the assigned cluster.
+                                    For example, the below result reads:  The response `Banana` has a `0.6694 probability` to belong to the `cluster 3`. 
+                                    ''')
+                            st.image("https://github.com/cyrushhc/findPattern/blob/main/Example%20-%20Interpretation.png?raw=true")
+
+
+                        if -1 in pred:
+                            num_cluster = len(model.get_topic_info())-1
+                        else: 
+                            num_cluster = len(model.get_topic_info())
+
+                        
+                        for i in range(num_cluster):                
+                            st.write(f'### Cluster {i+1}')
+                            
+                            topic_index = np.where(np.array(pred) == i)
+                            a_cluster = np.array(new_list)[topic_index]
+                            document_prob = np.array(prob)[topic_index]
+
+                            # st.write("this is doc prob:", document_prob)
+
+                            if type(document_prob[0]) == float or type(document_prob[0]) == int :
+                                st.write("int")
+                                max_doc_prob = document_prob
+                            else:
+                                max_doc_prob = document_prob.max(axis=1)
+                                
+                            df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
+
+                            st.table(df)
+
+                            lst_storage = np.stack((a_cluster, max_doc_prob), axis=-1)
+                            logging.info(lst_storage)
+                            logging.info(lst_storage[0])
+
+                            lst_storage = lst_storage.tolist()
+
+
+                            dictionary_keys = [f'entry {num}' for num in range(len(a_cluster))]
+                
+                            cluster_dict = dict(zip(dictionary_keys, lst_storage))
+                            
+                            # Trying to turn the results into dictionary so I can store it on Firestore
+                            
+                            logging.info(cluster_dict)
+                            clustering_results.append(cluster_dict)
+
+                        
+                        
+                        if -1 in pred:
+                            st.write("### Here are the responses that the model couldn't find a cluster for")
+
+                            topic_index = np.where(np.array(pred) == -1)
+                            a_cluster = np.array(new_list)[topic_index]
+                            document_prob = np.array(prob)[topic_index]
+                            max_doc_prob = document_prob.max(axis=1)
+
+                            df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
+
+                            st.table(df)
+
+
+                            lst_storage = np.stack((a_cluster, max_doc_prob), axis=-1)
+
+                            dictionary_keys = [f'entry {num}' for num in range(len(a_cluster))]
+                            cluster_dict = dict(zip(dictionary_keys, lst_storage))
+                            
+
+                            clustering_results.append(cluster_dict)
+                            doc_ref.update({
+                                "no_cluster":  True,
+                            })
+
+                        try:
+                            doc_ref.update({
+                                "clustering_results":  [],
+                            })
+                            doc_ref.update({
+                                "clustering_results":  clustering_results,
+                            })
+                        except:
+                            st.write('Cannot write the results')
+                    
+            except:
+                st.write('')
+        
         except:
-            st.write("Please enter a valid room number 🙏")
+            try:  
+                if room_number ==0 :
+                    st.write("Enter your room number 👋")
+                else:
+                    st.write("Please enter a valid room number 🙏")
+            except:
+                st.write("Please enter a valid room number 🙏")
 
     
 
