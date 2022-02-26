@@ -77,6 +77,7 @@ elif user_mode == "Facilitator":
                     "collect_response": True,
                     "ready_to_cluster": False,
                     'clustering_results': [],
+                    "no_cluster": False,
                 })
                 ss_init.initial_state += 1
             
@@ -115,7 +116,6 @@ elif user_mode == "Facilitator":
                 "ready_to_cluster": True,
             }
             )
-            
     except:
         st.write("")    
 
@@ -244,17 +244,20 @@ elif user_mode == "Facilitator":
                     
 
                     clustering_results.append(cluster_dict)
+                    doc_ref.update({
+                        "no_cluster":  True,
+                    })
 
                 try:
                     doc_ref.update({
                         "clustering_results":  [],
                     })
-
                     doc_ref.update({
                         "clustering_results":  clustering_results,
                     })
                 except:
                     st.write('Cannot write the results')
+                
                 
 
     except:
@@ -336,13 +339,30 @@ elif user_mode == "Participant":
                     st.write('There is no results yet. Check back later.')
                 else:
                     st.balloons()
+
+                    with st.expander("Interpret the results"):
+                        st.write('''The model has found some pattern in your data.
+                            Each cluster contains participants responses that the model considers to be similar
+                            The **Probability** column shows you how probable does that response belong to the assigned cluster.
+                            For example, the below result reads:  The response `Banana` has a `0.6694 probability` to belong to the `cluster 3`. 
+                            ''')
+                        st.image("https://github.com/cyrushhc/findPattern/blob/main/Example%20-%20Interpretation.png?raw=true")
                     st.write('## The patterns in the ideas\n')
                     for c_id in range(len(doc['clustering_results'])):
+                        
                         if c_id <len(doc['clustering_results']) -1:
                             st.write(f'### Cluster {c_id+1}')
+                        
                         else:
-                            st.write("### Here are the responses that the model couldn't find a cluster for")
-                        st.table(np.array(list(dict.values(doc['clustering_results'][c_id]))))
+                            if doc['no_cluster'] == True: 
+                                st.write("### Here are the responses that the model couldn't find a cluster for")
+                            else: 
+                                st.write(f'### Cluster {c_id+1}')
+                        
+                        display = np.array(list(dict.values(doc['clustering_results'][c_id])))
+                        display = pd.DataFrame(display, columns = ['Response', 'Probability'])
+                        
+                        st.table(display)
 
 
         except:
