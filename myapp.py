@@ -344,7 +344,7 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
 
             logging.info("end_collection")
             try:    
-                if  doc['ready_to_cluster'] == True:
+                if doc['ready_to_cluster'] == True:
                     st.write('## 🧩 Find Patterns')
                     with st.expander("How to choose a setting"):
                         st.write("I would reommend going with `generic` first. If you find that the results are too generic, then choose `nuanced`.")
@@ -491,7 +491,8 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
             if room_number ==0 :
                 st.write("Enter your room number 👋")
             else:
-                st.write("Please enter a valid room number 🙏")
+                pass
+                # st.write("Please enter a valid room number 🙏")
         except:
             st.write("Please enter a valid room number 🙏")
 
