@@ -63,12 +63,7 @@ if user_mode == '-':
         st.write('As mentioned before, after encoding each response (it could be a document, a sentence, or a word), each response will be represented in a list of numbers. To be exact, for SentenceTransformer encoder, each response would be represented with a list of 768 numbers. And this is a large number of dimensions for the computer to process! Large dimensions requires more time and computational resource to process. Moreover, not every dimension would be useful in separating responses into clusters. For example, if we have four words, [cats, dogs, girls, boys] and that one of the dimension is whether the text is a living object, then all four text would be very similar in that respect––making that dimension less useful. This is why we reduce dimension with UMAP. UMAP is also an powerful dimension-reduction techqniques that preserve the high dimensional structure very well after reducing dimensions. After the reduction, the list of 768 values becomes a list of 5 values. This is so that you do not have to wait forever for the results to show!')
         st.write('### Clustering - HDBSCAN')
         st.write('The last step of the BERTopic library is the clustering step. BERTopic uses HDBSCAN, which is a model that identifies clusters by the density of the data points, which is similar to the way human eyes identify clusters. Here is a great video telling you how HDBSCAN clusters datapoints.')
-        st.image('https://github.com/cyrushhc/findPattern/blob/main/HDBSCAN%20demo%20image/step%200.gif?raw=true')
-        st.image('https://github.com/cyrushhc/findPattern/blob/main/HDBSCAN%20demo%20image/step%201.gif?raw=true')
-        st.image('https://github.com/cyrushhc/findPattern/blob/main/HDBSCAN%20demo%20image/step%202.gif?raw=true')
-        st.image('https://github.com/cyrushhc/findPattern/blob/main/HDBSCAN%20demo%20image/step%203-4.gif?raw=true')
-        st.image('https://github.com/cyrushhc/findPattern/blob/main/HDBSCAN%20demo%20image/step%205.gif?raw=true')
-        st.write('If there are more core points outside these groups, continue step 3 & 4. If not, then we have bascially finished clustering the datapoints!')
+        st.image('HDBSCAN.gif')
 
 
 
