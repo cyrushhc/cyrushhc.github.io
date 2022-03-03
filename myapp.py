@@ -37,7 +37,31 @@ def room_number_generator():
 user_mode = st.selectbox('Who are you?', ['-','Facilitator (Create New Room)','Facilitator (Go to Existing Room)','Participant'])
 
 if user_mode == '-':
-    st.write('')
+    st.write('## Welcome to findPattern.')
+    st.write('findPattern is a machine learning-powered tool that helps people conduct affinity mapping exercise among a larger crowd FASTER.') 
+    st.write("Whether you  are a product person who want to work with users to identify the common pain points they have, or a conference speaker who want to ask your audience what they associate a brand with, or maybe your are a professor asking students to provide feedback for the course to revamp education together, findPattern is here for you.")
+    st.write('findPattern uses state-of-the-art Natural Language Processing technique--BERT to understand and process a huge number of texts faster than a human brain could do.')
+
+    with st.expander("What is affinity mapping and why use it?"):
+        st.write("Affinity mapping is the processing of taking a bunch of qualitative information, often about users, and group them into categories by similarities.")
+        st.image('https://marketing.invisionapp-cdn.com/cms/images/lr1orcar/marketing-pages/c9bb16e5cfa670bfcd5c07ef4e126097958fb4f2-2880x1444.png?w=2880&fm=jpg&q=90', "An exmaple of affinity mapping. [Image Source: Invision](https://www.invisionapp.com/freehand/templates/detail/affinity-diagram-template)")
+
+    with st.expander("How this app find patterns using algorithm?"):
+        st.write('BERtopic is a Python library that lets us do topic modeling (topic modeling is the machine learning jargon for finding topics within text without telling the machine what kind of topics there might be) created by Maarten Grootendorst. BERTopic combines a handful of useful existing python libraries, inlcuding a text encoder (SentenceTransformer), a dimension reduction tool (UMAP), and a clustering tool (HDBSCAN). So what are these python libraries doing and why does combining them help us do topic modeling? ')
+        st.write('### Encoder -- SentenceTransformer')
+        st.write('A text encoder reads the text input, considers the context and meaning of words in the text input, and represents text input in probability, which we call word embeddings. An example of the word embeddings is below. Each word is represented as a vector of 50 values in the GloVe model. Each of the values indicates a property of the word.')
+        # st.image('')
+        st.write('This is where the powerful BERT comes in: BERT is a empirically powerful encoder that produces state of the art results (Devlin et al., 2019; Thompson & Mimno, 2020). The SentenceTransformers library in Python uses BERT as encoder (Reimers & Gurevych, 2019). BERT can be extended to achieve several tasks to understand and process natural language. One such example is BERTopic.')
+        st.write('### Reduce Dimenstion -- UMAP')
+        st.write('As mentioned before, after encoding each response (it could be a document, a sentence, or a word), each response will be represented in a list of numbers. To be exact, for SentenceTransformer encoder, each response would be represented with a list of 768 numbers. And this is a large number of dimensions for the computer to process! Large dimensions requires more time and computational resource to process. Moreover, not every dimension would be useful in separating responses into clusters. For example, if we have four words, [cats, dogs, girls, boys] and that one of the dimension is whether the text is a living object, then all four text would be very similar in that respect––making that dimension less useful. This is why we reduce dimension with UMAP. UMAP is also an powerful dimension-reduction techqniques that preserve the high dimensional structure very well after reducing dimensions. After the reduction, the list of 768 values becomes a list of 5 values. This is so that you do not have to wait forever for the results to show!')
+        st.write('### Clustering - HDBSCAN')
+        st.write('The last step of the BERTopic library is the clustering step. BERTopic uses HDBSCAN, which is a model that identifies clusters by the density of the data points, which is similar to the way human eyes identify clusters. Here is a great video telling you how HDBSCAN clusters datapoints.')
+        # st.image('')
+
+
+
+
+
 
 elif user_mode == "Facilitator (Create New Room)":
     
@@ -264,7 +288,6 @@ elif user_mode == "Facilitator (Create New Room)":
 
     except:
         st.write('')
-
     
 elif user_mode == 'Facilitator (Go to Existing Room)':
     try:
@@ -497,9 +520,6 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                 # st.write("Please enter a valid room number 🙏")
         except:
             st.write("Please enter a valid room number 🙏")
-
-    
-
 
 elif user_mode == "Participant":
 
