@@ -56,7 +56,7 @@ if user_mode == '-':
         st.write('### Encoder -- SentenceTransformer')
         st.write('A text encoder reads the text input, considers the context and meaning of words in the text input, and represents text input in probability, which we call word embeddings. An example of the word embeddings is below. Each word is represented as a vector of 50 values in the GloVe model. Each of the values indicates a property of the word.')
         st.image('https://github.com/cyrushhc/findPattern/blob/main/Encoding%20exmaple.png?raw=true')
-        st.image('Image Source: Jay Alammar:https://jalammar.github.io/illustrated-word2vec/')
+        st.write('Image Source: Jay Alammar:https://jalammar.github.io/illustrated-word2vec/')
 
         st.write('This is where the powerful BERT comes in: BERT is a empirically powerful encoder that produces state of the art results (Devlin et al., 2019; Thompson & Mimno, 2020). The SentenceTransformers library in Python uses BERT as encoder (Reimers & Gurevych, 2019). BERT can be extended to achieve several tasks to understand and process natural language. One such example is BERTopic.')
         st.write('### Reduce Dimenstion -- UMAP')
