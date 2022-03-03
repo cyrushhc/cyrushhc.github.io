@@ -48,7 +48,7 @@ if user_mode == '-':
         st.write("[Image Source: Invision](https://www.invisionapp.com/freehand/templates/detail/affinity-diagram-template)")
     
     with st.expander("How does the app work?"):
-        st.image('https://github.com/cyrushhc/findPattern/blob/main/How%20it%20Works.png?raw=true')
+        st.image('How it Works.png')
 
 
     with st.expander("How this app find patterns using algorithm?"):
@@ -64,9 +64,6 @@ if user_mode == '-':
         st.write('### Clustering - HDBSCAN')
         st.write('The last step of the BERTopic library is the clustering step. BERTopic uses HDBSCAN, which is a model that identifies clusters by the density of the data points, which is similar to the way human eyes identify clusters. Here is a great video telling you how HDBSCAN clusters datapoints.')
         st.image('HDBSCAN.gif')
-
-
-
 
 
 
