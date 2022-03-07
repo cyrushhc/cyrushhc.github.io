@@ -92,7 +92,7 @@ elif user_mode == "Facilitator (Create New Room)":
             st.write("\n")
             st.write(f"## 🔗 Room Number: {ss_r.room_number}")
             st.write("**Copy-paste and share** this invite info with your participants")
-            st.code(f"👉 Join here https://tinyurl.com/findpatterns\n🚪 Room number: {ss_r.room_number}")
+            st.code(f"👉 Join here https://share.streamlit.io/cyrushhc/findpattern/main/myapp.py\n🚪 Room number: {ss_r.room_number}")
             
             doc_ref = db.collection("Room").document(f"Room {ss_r.room_number}")
             if ss_init.initial_state == 0:
