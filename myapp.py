@@ -628,7 +628,6 @@ elif user_mode == "Participant":
                         display = display.sort_values('Probability')
                         st.table(display)
 
-
         except:
             pass
 
