@@ -302,7 +302,8 @@ elif user_mode == "Facilitator (Create New Room)":
                 except:
                     st.write('Cannot write the results')
                 
-                st.download_button("Download your clustering data",  downloadable_results, 'Cluster Results from findPattern')
+                csv = downloadable_results.to_csv().encode('utf-8')
+                st.download_button("Download your clustering data",  csv, 'Cluster Results from findPattern')
 
     except:
         st.write('')
@@ -544,7 +545,11 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                         except:
                             st.write('Cannot write the results')
 
-                        st.download_button("Download your clustering data",  downloadable_results, 'Cluster Results from findPattern')
+
+                        csv = downloadable_results.to_csv().encode('utf-8')
+
+
+                        st.download_button("Download your clustering data",  csv, 'Cluster Results from findPattern')
                         
             except:
                 st.write('')
