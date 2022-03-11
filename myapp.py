@@ -235,9 +235,9 @@ elif user_mode == "Facilitator (Create New Room)":
 
                     df = df.sort_values('Probability', ascending= False)
 
-                    st.table(df.head(5))
+                    st.table(df.head())
                     with st.expander("View More"):
-                        st.table(df)
+                        st.table(df.iloc[5:])
 
                     lst_storage = np.stack((a_cluster, max_doc_prob), axis=-1)
                     logging.info(lst_storage)
@@ -269,9 +269,9 @@ elif user_mode == "Facilitator (Create New Room)":
                     df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
                     df = df.sort_values('Probability', ascending= False)
 
-                    st.table(df.head(5))
+                    st.table(df.head())
                     with st.expander("View More"):
-                        st.table(df)
+                        st.table(df.iloc[5:])
 
 
                     lst_storage = np.stack((a_cluster, max_doc_prob), axis=-1)
@@ -349,9 +349,9 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
 
 
 
-                    st.table(display.head(5))
+                    st.table(display.head())
                     with st.expander('See more results'):
-                        st.table(display)
+                        st.table(display.iloc[5:])
 
         else: 
             st.write("## 📝 Participant Response")
@@ -470,9 +470,9 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                             df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
                             df = df.sort_values('Probability', ascending= False)
 
-                            st.table(df.head(5))
+                            st.table(df.head())
                             with st.expander("View More"):
-                                st.table(df)
+                                st.table(df.iloc[5:])
 
                             lst_storage = np.stack((a_cluster, max_doc_prob), axis=-1)
                             logging.info(lst_storage)
@@ -502,9 +502,9 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
 
                             df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
                             df = df.sort_values('Probability', ascending= False)
-                            st.table(df.head(5))
+                            st.table(df.head())
                             with st.expander("View More"):
-                                st.table(df)
+                                st.table(df.iloc[5:])
 
 
                             lst_storage = np.stack((a_cluster, max_doc_prob), axis=-1)
@@ -639,9 +639,9 @@ elif user_mode == "Participant":
                         display = np.array(list(dict.values(doc['clustering_results'][c_id])))
                         display = pd.DataFrame(display, columns = ['Response', 'Probability'])
                         display = display.sort_values('Probability', ascending= False)
-                        st.table(display.head(5))
+                        st.table(display.head())
                         with st.expander('See more results'):
-                            st.table(display)
+                            st.table(display.iloc[5:])
 
         except:
             pass
