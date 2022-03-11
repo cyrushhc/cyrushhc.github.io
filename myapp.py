@@ -1,4 +1,5 @@
 from re import L
+from scipy.misc import ascent
 import streamlit as st
 from google.oauth2 import service_account
 from google.cloud import firestore
@@ -232,7 +233,7 @@ elif user_mode == "Facilitator (Create New Room)":
                         
                     df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
 
-                    df = df.sort_values('Probability')
+                    df = df.sort_values('Probability', ascending= False)
 
                     st.table(df)
 
@@ -264,7 +265,7 @@ elif user_mode == "Facilitator (Create New Room)":
                     max_doc_prob = document_prob.max(axis=1)
 
                     df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
-                    df = df.sort_values('Probability')
+                    df = df.sort_values('Probability', ascending= False)
 
                     st.table(df)
 
@@ -340,7 +341,7 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                     display = np.array(list(dict.values(doc['clustering_results'][c_id])))
                     display = pd.DataFrame(display, columns = ['Response', 'Probability'])
 
-                    display = display.sort_values('Probability')
+                    display = display.sort_values('Probability', ascending= False)
 
                     st.table(display)
 
@@ -459,7 +460,7 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                                 max_doc_prob = document_prob.max(axis=1)
                                 
                             df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
-                            df = df.sort_values('Probability')
+                            df = df.sort_values('Probability', ascending= False)
 
                             st.table(df)
 
@@ -490,7 +491,7 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                             max_doc_prob = document_prob.max(axis=1)
 
                             df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
-                            df = df.sort_values('Probability')
+                            df = df.sort_values('Probability', ascending= False)
                             st.table(df)
 
 
@@ -625,7 +626,7 @@ elif user_mode == "Participant":
                         
                         display = np.array(list(dict.values(doc['clustering_results'][c_id])))
                         display = pd.DataFrame(display, columns = ['Response', 'Probability'])
-                        display = display.sort_values('Probability')
+                        display = display.sort_values('Probability', ascending= False)
                         st.table(display)
 
         except:
