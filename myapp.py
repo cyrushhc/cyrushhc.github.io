@@ -232,6 +232,8 @@ elif user_mode == "Facilitator (Create New Room)":
                         
                     df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
 
+                    df = df.sort_values('Probability')
+
                     st.table(df)
 
                     lst_storage = np.stack((a_cluster, max_doc_prob), axis=-1)
@@ -262,6 +264,7 @@ elif user_mode == "Facilitator (Create New Room)":
                     max_doc_prob = document_prob.max(axis=1)
 
                     df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
+                    df = df.sort_values('Probability')
 
                     st.table(df)
 
@@ -336,6 +339,8 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                     
                     display = np.array(list(dict.values(doc['clustering_results'][c_id])))
                     display = pd.DataFrame(display, columns = ['Response', 'Probability'])
+
+                    display = display.sort_values('Probability')
 
                     st.table(display)
 
@@ -454,6 +459,7 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                                 max_doc_prob = document_prob.max(axis=1)
                                 
                             df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
+                            df = df.sort_values('Probability')
 
                             st.table(df)
 
@@ -484,7 +490,7 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                             max_doc_prob = document_prob.max(axis=1)
 
                             df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
-
+                            df = df.sort_values('Probability')
                             st.table(df)
 
 
@@ -619,7 +625,7 @@ elif user_mode == "Participant":
                         
                         display = np.array(list(dict.values(doc['clustering_results'][c_id])))
                         display = pd.DataFrame(display, columns = ['Response', 'Probability'])
-
+                        display = display.sort_values('Probability')
                         st.table(display)
 
 
