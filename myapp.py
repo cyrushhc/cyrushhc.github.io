@@ -353,8 +353,9 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
 
                     display = display.sort_values('Probability', ascending= False)
 
-
-                    st.table(display)
+                    st.table(display.head()) 
+                    with st.expander ("View More"):
+                        st.table(display)
 
         else: 
             st.write("## 📝 Participant Response")
@@ -653,7 +654,9 @@ elif user_mode == "Participant":
                         display = np.array(list(dict.values(doc['clustering_results'][c_id])))
                         display = pd.DataFrame(display, columns = ['Response', 'Probability'])
                         display = display.sort_values('Probability', ascending= False)
-                        st.table(display)
+                        st.table(display.head()) 
+                        with st.expander ("View More"):
+                            st.table(display)
 
         except:
             pass
