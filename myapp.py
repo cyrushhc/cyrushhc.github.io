@@ -162,11 +162,11 @@ elif user_mode == "Facilitator (Create New Room)":
             find_pattern = st.button("Find Pattern")
             ss4 = SessionState.get(find_pattern = False) 
 
-            # if find_pattern:
-            #     ss4.find_pattern = True
+            if find_pattern:
+                ss4.find_pattern = True
 
                 
-            if find_pattern == True:
+            if ss4.find_pattern == True:
                 with st.spinner('Finding patterns in your data...'):
                     if result_fidelity == 'Nuanced':
                         clustering_model = HDBSCAN(metric='euclidean', cluster_selection_method='leaf', prediction_data=True)
@@ -199,6 +199,8 @@ elif user_mode == "Facilitator (Create New Room)":
 
                 
                 clustering_results = []
+                downloadable_results = pd.DataFrame()
+                blank_rows = pd.DataFrame([['', ''],['', ''],['Next Cluster Starts','']])
                 st.write('## The patterns in your data.\n')
 
                 with st.expander("Interpret the results"):
@@ -234,6 +236,9 @@ elif user_mode == "Facilitator (Create New Room)":
                     df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
 
                     df = df.sort_values('Probability', ascending= False)
+                    
+                    downloadable_results = downloadable_results.append(blank_rows) 
+                    downloadable_results =downloadable_results.append(df)
 
                     st.table(df.head())
                     with st.expander("View More"):
@@ -269,9 +274,10 @@ elif user_mode == "Facilitator (Create New Room)":
                     df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
                     df = df.sort_values('Probability', ascending= False)
 
-                    st.table(df.head())
-                    with st.expander("View More"):
-                        st.table(df.iloc[5:])
+                    blank_rows_2 = pd.DataFrame([['', ''],['', ''],['Responses with No Cluster','']])
+                    downloadable_results = downloadable_results.append(blank_rows) 
+                    downloadable_results =downloadable_results.append(df)
+                    st.table(df)
 
 
                     lst_storage = np.stack((a_cluster, max_doc_prob), axis=-1)
@@ -296,7 +302,7 @@ elif user_mode == "Facilitator (Create New Room)":
                 except:
                     st.write('Cannot write the results')
                 
-                
+                st.download_button("Download your clustering data",  downloadable_results, 'Cluster Results from findPattern')
 
     except:
         st.write('')
@@ -348,10 +354,7 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                     display = display.sort_values('Probability', ascending= False)
 
 
-
-                    st.table(display.head())
-                    with st.expander('See more results'):
-                        st.table(display.iloc[5:])
+                    st.table(display)
 
         else: 
             st.write("## 📝 Participant Response")
@@ -398,11 +401,11 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                     find_pattern = st.button("Find Pattern")
                     ss4 = SessionState.get(find_pattern = False) 
 
-                    # if find_pattern:
-                    #     ss4.find_pattern = True
+                    if find_pattern:
+                        ss4.find_pattern = True
 
                         
-                    if find_pattern == True:
+                    if ss4.find_pattern == True:
                         with st.spinner('Finding patterns in your data...'):
                             if result_fidelity == 'Nuanced':
                                 clustering_model = HDBSCAN(metric='euclidean', cluster_selection_method='leaf', prediction_data=True)
@@ -435,6 +438,9 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
 
                         
                         clustering_results = []
+                        downloadable_results = pd.DataFrame()
+                        blank_rows = pd.DataFrame([['', ''],['', ''],['Next Cluster Starts','']])
+
                         st.write('## The patterns in your data.\n')
 
                         with st.expander("Interpret the results"):
@@ -470,6 +476,9 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                             df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
                             df = df.sort_values('Probability', ascending= False)
 
+                            downloadable_results = downloadable_results.append(blank_rows) 
+                            downloadable_results =downloadable_results.append(df)
+
                             st.table(df.head())
                             with st.expander("View More"):
                                 st.table(df.iloc[5:])
@@ -502,9 +511,12 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
 
                             df = pd.DataFrame({'Response': a_cluster, 'Probability': max_doc_prob}, columns=['Response', 'Probability'])
                             df = df.sort_values('Probability', ascending= False)
-                            st.table(df.head())
-                            with st.expander("View More"):
-                                st.table(df.iloc[5:])
+
+                            blank_rows_2 = pd.DataFrame([['', ''],['', ''],['Responses with No Cluster','']])
+                            downloadable_results = downloadable_results.append(blank_rows) 
+                            downloadable_results =downloadable_results.append(df)
+
+                            st.table(df)
 
 
                             lst_storage = np.stack((a_cluster, max_doc_prob), axis=-1)
@@ -530,6 +542,8 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                             })
                         except:
                             st.write('Cannot write the results')
+
+                        st.download_button("Download your clustering data",  downloadable_results, 'Cluster Results from findPattern')
                         
             except:
                 st.write('')
@@ -639,9 +653,7 @@ elif user_mode == "Participant":
                         display = np.array(list(dict.values(doc['clustering_results'][c_id])))
                         display = pd.DataFrame(display, columns = ['Response', 'Probability'])
                         display = display.sort_values('Probability', ascending= False)
-                        st.table(display.head())
-                        with st.expander('See more results'):
-                            st.table(display.iloc[5:])
+                        st.table(display)
 
         except:
             pass
