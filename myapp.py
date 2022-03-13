@@ -133,7 +133,7 @@ elif user_mode == "Facilitator (Create New Room)":
             if doc['responses'] == []:
                 st.write("No response submitted yet")
             else:
-                st.write(doc['responses'])
+                st.table(doc['responses'])
         
         end_collection = st.button("Close Participant Response")
         ss3 = SessionState.get(end_collection = False) 
