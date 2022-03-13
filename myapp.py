@@ -384,7 +384,7 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                 if doc['responses'] == []:
                     st.write("No response submitted yet")
                 else:
-                    st.write(doc['responses'])
+                    st.table(doc['responses'])
             
             end_collection = st.button("Close Participant Response")
             ss3 = SessionState.get(end_collection = False) 
@@ -616,6 +616,19 @@ elif user_mode == "Participant":
 
             if submitted:
                 ss_submit.submitted = True
+        
+        seeresult = st.button("View Results")
+        ss10 = SessionState.get(seeresult = False) 
+        
+        if seeresult:
+            ss10.seeresult = True
+
+        if ss10.seeresult == True:
+            if doc['responses'] == []:
+                st.write("No response submitted yet")
+            else:
+                st.table(doc['responses'])
+
 
         try:
 
