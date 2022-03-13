@@ -41,25 +41,19 @@ user_mode = st.selectbox('Who are you?', ['-','Facilitator (Create New Room)','F
 
 if user_mode == '-':
     st.write('## Welcome to findPattern.')
-    st.write('findPattern is a machine learning-powered tool that helps people conduct affinity mapping exercise among a larger crowd FASTER.') 
-    st.write("Whether you  are a product person who want to work with users to identify the common pain points they have, or a conference speaker who want to ask your audience what they associate a brand with, or maybe your are a professor asking students to provide feedback for the course to revamp education together, findPattern is here for you.")
+    st.write('findPattern helps you brainstorm and find common themes in the ideas FASTER.') 
+    st.image("quickshow.gif")
     st.write('findPattern uses state-of-the-art Natural Language Processing technique--BERT to understand and process a huge number of texts faster than a human brain could do.')
 
-    with st.expander("What is affinity mapping and why use it?"):
-        st.write("Affinity mapping is the processing of taking a bunch of qualitative information, often about users, and group them into categories by similarities.")
-        st.image('https://marketing.invisionapp-cdn.com/cms/images/lr1orcar/marketing-pages/c9bb16e5cfa670bfcd5c07ef4e126097958fb4f2-2880x1444.png?w=2880&fm=jpg&q=90', "An exmaple of affinity mapping.")
-        st.write("[Image Source: Invision](https://www.invisionapp.com/freehand/templates/detail/affinity-diagram-template)")
-    
     with st.expander("How does the app work?"):
         st.image('How it Works.png')
-
 
     with st.expander("How this app find patterns using algorithm?"):
         st.write('BERtopic is a Python library that lets us do topic modeling (topic modeling is the machine learning jargon for finding topics within text without telling the machine what kind of topics there might be) created by Maarten Grootendorst. BERTopic combines a handful of useful existing python libraries, inlcuding a text encoder (SentenceTransformer), a dimension reduction tool (UMAP), and a clustering tool (HDBSCAN). So what are these python libraries doing and why does combining them help us do topic modeling? ')
         st.write('### Encoder -- SentenceTransformer')
         st.write('A text encoder reads the text input, considers the context and meaning of words in the text input, and represents text input in probability, which we call word embeddings. An example of the word embeddings is below. Each word is represented as a vector of 50 values in the GloVe model. Each of the values indicates a property of the word.')
         st.image('https://github.com/cyrushhc/findPattern/blob/main/Encoding%20exmaple.png?raw=true')
-        st.write('Image Source: Jay Alammar:https://jalammar.github.io/illustrated-word2vec/')
+        st.write('[Image Source: Jay Alammar](https://jalammar.github.io/illustrated-word2vec/)')
 
         st.write('This is where the powerful BERT comes in: BERT is a empirically powerful encoder that produces state of the art results (Devlin et al., 2019; Thompson & Mimno, 2020). The SentenceTransformers library in Python uses BERT as encoder (Reimers & Gurevych, 2019). BERT can be extended to achieve several tasks to understand and process natural language. One such example is BERTopic.')
         st.write('### Reduce Dimenstion -- UMAP')
@@ -68,7 +62,10 @@ if user_mode == '-':
         st.write('The last step of the BERTopic library is the clustering step. BERTopic uses HDBSCAN, which is a model that identifies clusters by the density of the data points, which is similar to the way human eyes identify clusters. Here is a great video telling you how HDBSCAN clusters datapoints.')
         st.image('HDBSCAN.gif')
 
-
+    # with st.expander("What is affinity mapping and why use it?"):
+    #     st.write("Affinity mapping is the processing of taking a bunch of qualitative information, often about users, and group them into categories by similarities.")
+    #     st.image('https://marketing.invisionapp-cdn.com/cms/images/lr1orcar/marketing-pages/c9bb16e5cfa670bfcd5c07ef4e126097958fb4f2-2880x1444.png?w=2880&fm=jpg&q=90', "An exmaple of affinity mapping.")
+    #     st.write("[Image Source: Invision](https://www.invisionapp.com/freehand/templates/detail/affinity-diagram-template)")
 
 elif user_mode == "Facilitator (Create New Room)":
     
@@ -374,7 +371,7 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
 
         else: 
             st.write("## 📝 Participant Response")
-            seeresult = st.button("View Results")
+            seeresult = st.button("View Participants' Responses")
             ss2 = SessionState.get(seeresult = False) 
             
             logging.info(ss2.seeresult)
@@ -617,6 +614,8 @@ elif user_mode == "Participant":
 
             if submitted:
                 ss_submit.submitted = True
+                st.write("Thank you for your input 👍")
+                
         
 
         if doc["cross_pollination"]:
@@ -656,7 +655,7 @@ elif user_mode == "Participant":
                         updated_response = current_response + all_response
                         n+=1
 
-                st.write("Thank you for your input 👍")
+                
                 st.write('## 🧩 Find Patterns')
                 see_results = st.button('See Clustering Results')
         
