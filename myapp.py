@@ -75,7 +75,8 @@ elif user_mode == "Facilitator (Create New Room)":
     st.write("## ✋ Discussion Prompt")
     prompt_name = st.text_input('Prompt')
     prompt_description = st.text_input('What kind of response do you want participants to give? (e.g. each response should be 1-2 sentence.)')
-    number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = 5, step = 5) 
+    number_of_response = st.slider(label ='Number of responses for each participant', min_value = 0, max_value = 20, value = 5)
+    cross_pollination = st.checkbox("Let participants see other participants' responses", False) 
     finish = st.button("Create a Room")
     ss = SessionState.get(finish = False)
     room_number = st.empty()
@@ -109,6 +110,7 @@ elif user_mode == "Facilitator (Create New Room)":
                     "ready_to_cluster": False,
                     'clustering_results': [],
                     "no_cluster": False,
+                    "cross_pollination": cross_pollination,
                 })
                 ss_init.initial_state += 1
             
@@ -123,7 +125,7 @@ elif user_mode == "Facilitator (Create New Room)":
         print(ss_r.room_number)
         st.write("## 📝 Participant Response")
         doc = doc_ref.get().to_dict()  
-        seeresult = st.button("View Results")
+        seeresult = st.button("View Participants' Responses")
         ss2 = SessionState.get(seeresult = False) 
         
         if seeresult:
@@ -243,7 +245,7 @@ elif user_mode == "Facilitator (Create New Room)":
                     downloadable_results =downloadable_results.append(df)
 
                     st.table(df.head())
-                    with st.expander("View More"):
+                    with st.expander("View More Responses in this Cluster"):
                         st.table(df.iloc[5:])
 
                     lst_storage = np.stack((a_cluster, max_doc_prob), axis=-1)
@@ -365,7 +367,7 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
 
 
                     st.table(display.head()) 
-                    with st.expander ("View More"):
+                    with st.expander ("View More Responses in this Cluster"):
                         st.table(display)
                     
                     st.download_button("Download your clustering data",  csv, 'Cluster Results from findPattern.csv')
@@ -494,7 +496,7 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                             downloadable_results =downloadable_results.append(df)
 
                             st.table(df.head())
-                            with st.expander("View More"):
+                            with st.expander("View More Responses in this Cluster"):
                                 st.table(df.iloc[5:])
 
                             lst_storage = np.stack((a_cluster, max_doc_prob), axis=-1)
@@ -617,17 +619,19 @@ elif user_mode == "Participant":
             if submitted:
                 ss_submit.submitted = True
         
-        seeresult = st.button("View Results")
-        ss10 = SessionState.get(seeresult = False) 
-        
-        if seeresult:
-            ss10.seeresult = True
 
-        if ss10.seeresult == True:
-            if doc['responses'] == []:
-                st.write("No response submitted yet")
-            else:
-                st.table(doc['responses'])
+        if doc["cross_pollination"]:
+            seeresult = st.button("View other participants' responses")
+            ss10 = SessionState.get(seeresult = False) 
+            
+            if seeresult:
+                ss10.seeresult = True
+
+            if ss10.seeresult == True:
+                if doc['responses'] == []:
+                    st.write("No response submitted yet")
+                else:
+                    st.table(doc['responses'])
 
 
         try:
@@ -653,7 +657,7 @@ elif user_mode == "Participant":
                         n+=1
 
                 st.write("Thank you for your input 👍")
-                see_results = st.button('See results')
+                see_results = st.button('See Clustering Results')
         
 
 
@@ -686,7 +690,7 @@ elif user_mode == "Participant":
                         display = pd.DataFrame(display, columns = ['Response', 'Probability'])
                         display = display.sort_values('Probability', ascending= False)
                         st.table(display.head()) 
-                        with st.expander ("View More"):
+                        with st.expander ("View More Responses in this Cluster"):
                             st.table(display)
 
         except:
