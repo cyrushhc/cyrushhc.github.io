@@ -45,11 +45,13 @@ if user_mode == '-':
     st.image("quickshow.gif")
     st.write('findPattern uses state-of-the-art Natural Language Processing technique--BERT to understand and process a huge number of texts faster than a human brain could do.')
 
+    st.write("# 👉 How does the app work?")
     with st.expander("How does the app work?"):
         st.image('How it Works.png')
 
-    with st.expander("How this app find patterns using algorithm?"):
-        st.write('BERtopic is a Python library that lets us do topic modeling (topic modeling is the machine learning jargon for finding topics within text without telling the machine what kind of topics there might be) created by Maarten Grootendorst. BERTopic combines a handful of useful existing python libraries, inlcuding a text encoder (SentenceTransformer), a dimension reduction tool (UMAP), and a clustering tool (HDBSCAN). So what are these python libraries doing and why does combining them help us do topic modeling? ')
+    st.write("# 👉 What technology does this app use?")
+    with st.expander("What technology does this app use?"):
+        st.write('This app uses a type of algorthm called Topic modeling. Topic modeling is the machine learning jargon for finding topics within text without telling the machine what kind of topics there might be. Specifically, this app uses a Python library called BERTopic, which is created by Maarten Grootendorst. BERTopic combines a handful of useful existing python libraries, inlcuding a text encoder (SentenceTransformer), a dimension reduction tool (UMAP), and a clustering tool (HDBSCAN). So what are these python libraries doing and why does combining them help us do topic modeling? ')
         st.write('### Encoder -- SentenceTransformer')
         st.write('A text encoder reads the text input, considers the context and meaning of words in the text input, and represents text input in probability, which we call word embeddings. An example of the word embeddings is below. Each word is represented as a vector of 50 values in the GloVe model. Each of the values indicates a property of the word.')
         st.image('https://github.com/cyrushhc/findPattern/blob/main/Encoding%20exmaple.png?raw=true')
@@ -112,7 +114,7 @@ elif user_mode == "Facilitator (Create New Room)":
                 ss_init.initial_state += 1
             
             with st.expander("View Participant Interface"):
-                st.image("https://github.com/cyrushhc/cyrushhc.github.io/blob/main/Example.png?raw=true")
+                st.image("Example-participants.png")
     except: 
         st.write('')
         
@@ -210,7 +212,7 @@ elif user_mode == "Facilitator (Create New Room)":
                             The **Probability** column shows you how probable does that response belong to the assigned cluster.
                             For example, the below result reads:  The response `Banana` has a `0.6694 probability` to belong to the `cluster 3`. 
                             ''')
-                    st.image("https://github.com/cyrushhc/findPattern/blob/main/Example%20-%20Interpretation.png?raw=true")
+                    st.image("Example - Interpretation.png")
 
 
                 if -1 in pred:
@@ -337,7 +339,7 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                         The **Probability** column shows you how probable does that response belong to the assigned cluster.
                         For example, the below result reads:  The response `Banana` has a `0.6694 probability` to belong to the `cluster 3`. 
                         ''')
-                    st.image("https://github.com/cyrushhc/findPattern/blob/main/Example%20-%20Interpretation.png?raw=true")
+                    st.image("Example - Interpretation.png")
                 st.write('## The patterns in the ideas\n')
 
                 downloadable_results = pd.DataFrame()
@@ -462,7 +464,7 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                                     The **Probability** column shows you how probable does that response belong to the assigned cluster.
                                     For example, the below result reads:  The response `Banana` has a `0.6694 probability` to belong to the `cluster 3`. 
                                     ''')
-                            st.image("https://github.com/cyrushhc/findPattern/blob/main/Example%20-%20Interpretation.png?raw=true")
+                            st.image("Example - Interpretation.png")
 
 
                         if -1 in pred:
@@ -673,7 +675,7 @@ elif user_mode == "Participant":
                             The **Probability** column shows you how probable does that response belong to the assigned cluster.
                             For example, the below result reads:  The response `Banana` has a `0.6694 probability` to belong to the `cluster 3`. 
                             ''')
-                        st.image("https://github.com/cyrushhc/findPattern/blob/main/Example%20-%20Interpretation.png?raw=true")
+                        st.image("Example - Interpretation.png")
                     st.write('## The patterns in the ideas\n')
                     for c_id in range(len(doc['clustering_results'])):
                         
