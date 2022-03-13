@@ -600,6 +600,9 @@ elif user_mode == "Participant":
         # create a dictionary to keep track of all the response
         all_response = []
 
+        if doc["cross_pollination"]:
+            st.write("Open the sidebar to see other participant's response:")
+
         
         # Create a for loop to create all the response
         with st.form("This form"):
@@ -621,7 +624,7 @@ elif user_mode == "Participant":
         
 
         if doc["cross_pollination"]:
-            seeresult = st.button("View other participants' responses")
+            seeresult = st.sidebar.button("View other participants' responses")
             ss10 = SessionState.get(seeresult = False) 
             
             if seeresult:
@@ -629,9 +632,9 @@ elif user_mode == "Participant":
 
             if ss10.seeresult == True:
                 if doc['responses'] == []:
-                    st.write("No response submitted yet")
+                    st.sidebar.write("No response submitted yet")
                 else:
-                    st.table(doc['responses'])
+                    st.sidebar.table(doc['responses'])
 
 
         try:
