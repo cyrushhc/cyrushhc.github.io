@@ -600,10 +600,6 @@ elif user_mode == "Participant":
         # create a dictionary to keep track of all the response
         all_response = []
 
-        if doc["cross_pollination"]:
-            st.write("Open the sidebar to see other participant's response:")
-
-        
         # Create a for loop to create all the response
         with st.form("This form"):
             
@@ -624,7 +620,8 @@ elif user_mode == "Participant":
         
 
         if doc["cross_pollination"]:
-            seeresult = st.sidebar.button("View other participants' responses")
+            st.write("## 📝 Participant Response")
+            seeresult = st.button("View other participants' responses")
             ss10 = SessionState.get(seeresult = False) 
             
             if seeresult:
@@ -632,9 +629,9 @@ elif user_mode == "Participant":
 
             if ss10.seeresult == True:
                 if doc['responses'] == []:
-                    st.sidebar.write("No response submitted yet")
+                    st.write("No response submitted yet")
                 else:
-                    st.sidebar.table(doc['responses'])
+                    st.table(doc['responses'])
 
 
         try:
@@ -660,6 +657,7 @@ elif user_mode == "Participant":
                         n+=1
 
                 st.write("Thank you for your input 👍")
+                st.write('## 🧩 Find Patterns')
                 see_results = st.button('See Clustering Results')
         
 
