@@ -13,6 +13,7 @@ from bertopic import BERTopic
 import random
 from hdbscan import HDBSCAN
 import logging
+from string import ascii_uppercase, digits
 
 # Authenticate to Firestore with the JSON account key.
 import json
@@ -32,7 +33,8 @@ st.write("# findPattern.")
 
 # Add Rooms
 def room_number_generator():
-    return random.randint(1,1000)
+    str0= random.sample(ascii_uppercase,4)+random.sample(digits,4)+random.sample(ascii_uppercase,1)
+    return ''.join(str0)
 
 
 user_mode = st.selectbox('Who are you?', ['-','Facilitator (Create New Room)','Facilitator (Go to Existing Room)','Participant'])
@@ -303,7 +305,7 @@ elif user_mode == "Facilitator (Create New Room)":
                     st.write('Cannot write the results')
                 
                 csv = downloadable_results.to_csv().encode('utf-8')
-                st.download_button("Download your clustering data",  csv, 'Cluster Results from findPattern')
+                st.download_button("Download your clustering data",  csv, 'Cluster Results from findPattern.csv')
 
     except:
         st.write('')
@@ -311,7 +313,8 @@ elif user_mode == "Facilitator (Create New Room)":
 elif user_mode == 'Facilitator (Go to Existing Room)':
     try:
         # Create the room_number input 
-        room_number = int(st.text_input('Room Number', value = 0))
+        # room_number = int(st.text_input('Room Number', value = 0))
+        room_number = st.text_input('Room Number', value = 0)
     except:
         pass
     
@@ -338,6 +341,9 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                     st.image("https://github.com/cyrushhc/findPattern/blob/main/Example%20-%20Interpretation.png?raw=true")
                 st.write('## The patterns in the ideas\n')
 
+                downloadable_results = pd.DataFrame()
+                blank_rows = pd.DataFrame([['', ''],['', ''],['Next Cluster Starts','']])
+                
                 for c_id in range(len(doc['clustering_results'])):
                     
                     if c_id <len(doc['clustering_results'])-1:
@@ -354,9 +360,15 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
 
                     display = display.sort_values('Probability', ascending= False)
 
+                    downloadable_results = downloadable_results.append(blank_rows)
+                    downloadable_results = downloadable_results.append(display)
+
+
                     st.table(display.head()) 
                     with st.expander ("View More"):
                         st.table(display)
+                    
+                    st.download_button("Download your clustering data",  csv, 'Cluster Results from findPattern.csv')
 
         else: 
             st.write("## 📝 Participant Response")
@@ -549,7 +561,7 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                         csv = downloadable_results.to_csv().encode('utf-8')
 
 
-                        st.download_button("Download your clustering data",  csv, 'Cluster Results from findPattern')
+                        st.download_button("Download your clustering data",  csv, 'Cluster Results from findPattern.csv')
                         
             except:
                 st.write('')
@@ -568,7 +580,8 @@ elif user_mode == "Participant":
 
     try:
         # Create the room_number input 
-        room_number = int(st.text_input('Room Number', value = 0))
+        # room_number = int(st.text_input('Room Number', value = 0))
+        room_number = st.text_input('Room Number', value = 0)
     except:
         pass
 
