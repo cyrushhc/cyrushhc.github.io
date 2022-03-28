@@ -1,62 +1,82 @@
-from re import L
-from scipy.misc import ascent
+###############################################################################
+## 📚 Importing all the libraries and dependencies that the app needs to use ##
+###############################################################################
+
+# Creating the interface and accessing data 
 import streamlit as st
 from google.oauth2 import service_account
 from google.cloud import firestore
-import random
-import SessionState
-import pandas as pd 
 import time
-from st_aggrid import AgGrid 
-import numpy as np
-from bertopic import BERTopic
-import random
-from hdbscan import HDBSCAN
+import SessionState
+'''
+SessionState is an important libray that allows the button to stay "activated" after users 
+click on other components in the app. This is a library that is sepcific to streamlit. Find the library in the same github repo.
+'''
 import logging
+import json
+
+
+# Basic data processing 
+import random
+import pandas as pd 
+import numpy as np
 from string import ascii_uppercase, digits
 
+# Data analysis 
+from bertopic import BERTopic
+from hdbscan import HDBSCAN
+
+
 # Authenticate to Firestore with the JSON account key.
-import json
+# This steps connect that database to the interface
 key_dict = json.loads(st.secrets["textkey"])
 creds = service_account.Credentials.from_service_account_info(key_dict)
-
 db = firestore.Client(credentials=creds, project="automatic-affinity-mapping")
 
+###############################################################################
+### 👋 Interface Begins Here ##################################################
+###############################################################################
 
-
-
-with open("style.css") as f:  
-    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-
-
+# Write the title of the app. strings within the quotation marks function like markdown. 
 st.write("# findPattern.")
 
-# Add Rooms
+# Create a room number composed of 9 characters (english letters and numbers)
 def room_number_generator():
     str0= random.sample(ascii_uppercase,4)+random.sample(digits,4)+random.sample(ascii_uppercase,1)
     return ''.join(str0)
 
-
+# Allow users to select who they are and correpond their role to respective interface
 user_mode = st.selectbox('Who are you?', ['-','Facilitator (Create New Room)','Facilitator (Go to Existing Room)','Participant'])
 
+##################################
+### State 1: Introduction Page ###
+##################################
+
+
+# When the role is not selected, the introduction page is displayed
+# In the introduction page gives users an overview on what the app does and what technology it uses
 if user_mode == '-':
-    st.write('## Welcome to findPattern.')
+
+    # Section 1: Overview
+    st.write('## 👋 Welcome to findPattern.')
     st.write('findPattern helps you brainstorm and find common themes in the ideas FASTER.') 
     st.image("quickshow.gif")
     st.write('findPattern uses state-of-the-art Natural Language Processing technique--BERT to understand and process a huge number of texts faster than a human brain could do.')
-
-    st.write("# 👉 How does the app work?")
+    
+    # Section 2: How does the app work?
+    st.write("## 👉 How does the app work?")
     with st.expander("How does the app work?"):
         st.image('How it Works.png')
 
-    st.write("# 👉 What technology does this app use?")
+    # Section 3: What technology does this app use?
+    st.write("## 👉 What technology does this app use?")
     with st.expander("What technology does this app use?"):
+
         st.write('This app uses a type of algorthm called Topic modeling. Topic modeling is the machine learning jargon for finding topics within text without telling the machine what kind of topics there might be. Specifically, this app uses a Python library called BERTopic, which is created by Maarten Grootendorst. BERTopic combines a handful of useful existing python libraries, inlcuding a text encoder (SentenceTransformer), a dimension reduction tool (UMAP), and a clustering tool (HDBSCAN). So what are these python libraries doing and why does combining them help us do topic modeling? ')
         st.write('### Encoder -- SentenceTransformer')
         st.write('A text encoder reads the text input, considers the context and meaning of words in the text input, and represents text input in probability, which we call word embeddings. An example of the word embeddings is below. Each word is represented as a vector of 50 values in the GloVe model. Each of the values indicates a property of the word.')
         st.image('https://github.com/cyrushhc/findPattern/blob/main/Encoding%20exmaple.png?raw=true')
         st.write('[Image Source: Jay Alammar](https://jalammar.github.io/illustrated-word2vec/)')
-
         st.write('This is where the powerful BERT comes in: BERT is a empirically powerful encoder that produces state of the art results (Devlin et al., 2019; Thompson & Mimno, 2020). The SentenceTransformers library in Python uses BERT as encoder (Reimers & Gurevych, 2019). BERT can be extended to achieve several tasks to understand and process natural language. One such example is BERTopic.')
         st.write('### Reduce Dimenstion -- UMAP')
         st.write('As mentioned before, after encoding each response (it could be a document, a sentence, or a word), each response will be represented in a list of numbers. To be exact, for SentenceTransformer encoder, each response would be represented with a list of 768 numbers. And this is a large number of dimensions for the computer to process! Large dimensions requires more time and computational resource to process. Moreover, not every dimension would be useful in separating responses into clusters. For example, if we have four words, [cats, dogs, girls, boys] and that one of the dimension is whether the text is a living object, then all four text would be very similar in that respect––making that dimension less useful. This is why we reduce dimension with UMAP. UMAP is also an powerful dimension-reduction techqniques that preserve the high dimensional structure very well after reducing dimensions. After the reduction, the list of 768 values becomes a list of 5 values. This is so that you do not have to wait forever for the results to show!')
@@ -64,10 +84,9 @@ if user_mode == '-':
         st.write('The last step of the BERTopic library is the clustering step. BERTopic uses HDBSCAN, which is a model that identifies clusters by the density of the data points, which is similar to the way human eyes identify clusters. Here is a great video telling you how HDBSCAN clusters datapoints.')
         st.image('HDBSCAN.gif')
 
-    # with st.expander("What is affinity mapping and why use it?"):
-    #     st.write("Affinity mapping is the processing of taking a bunch of qualitative information, often about users, and group them into categories by similarities.")
-    #     st.image('https://marketing.invisionapp-cdn.com/cms/images/lr1orcar/marketing-pages/c9bb16e5cfa670bfcd5c07ef4e126097958fb4f2-2880x1444.png?w=2880&fm=jpg&q=90', "An exmaple of affinity mapping.")
-    #     st.write("[Image Source: Invision](https://www.invisionapp.com/freehand/templates/detail/affinity-diagram-template)")
+###########################################################
+### State 1: Faciliator who wants to create a new room ###
+###########################################################
 
 elif user_mode == "Facilitator (Create New Room)":
     
