@@ -7,11 +7,9 @@ import streamlit as st
 from google.oauth2 import service_account
 from google.cloud import firestore
 import time
-import SessionState
-'''
-SessionState is an important libray that allows the button to stay "activated" after users 
-click on other components in the app. This is a library that is sepcific to streamlit. Find the library in the same github repo.
-'''
+import SessionState  #SessionState is an important libray that allows the button to stay "activated" after users 
+                     #click on other components in the app. This is a library that is sepcific to streamlit. Find the library in the same github repo.
+
 import logging
 import json
 
