@@ -432,7 +432,7 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
         
         if goal == "See existing results":
             if doc['clustering_results'] == []:
-                st.write('There is no results yet. Check back later.')
+                st.write('There is no results yet. Create new cluster results instead')
             else:
 
                 # Instruction for users to interpret the results
@@ -482,8 +482,8 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
                     with st.expander ("View More Responses in this Cluster"):
                         st.table(display)
                     
-                    csv = downloadable_results.to_csv().encode('utf-8')
-                    st.download_button("Download your clustering data",  csv, 'Cluster Results from findPattern.csv')
+                csv = downloadable_results.to_csv().encode('utf-8')
+                st.download_button("Download your clustering data",  csv, 'Cluster Results from findPattern.csv')
 
         
         # If the users want to create new cluster results, repeat the steps from 
