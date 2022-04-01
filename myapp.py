@@ -501,15 +501,18 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
 
             if view_responses:
                 ss2.view_responses = True
+            
+            try: 
+                if ss2.view_responses == True:
+                    # If there is no responses yet, show the status.
+                    if doc['responses'] == []:
+                        st.write("No response submitted yet")
 
-            if ss2.view_responses == True:
-                # If there is no responses yet, show the status.
-                if doc['responses'] == []:
-                    st.write("No response submitted yet")
-
-                # Otherwise, show the responses
-                else:
-                    st.table(doc['responses'])
+                    # Otherwise, show the responses
+                    else:
+                        st.table(doc['responses'])
+            except:
+                pass
             
             # button the close paritipants ability to submit new responeses
             end_collection = st.button("Close Participant Response")
@@ -728,7 +731,9 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
             if room_number ==0 :
                 st.write("Enter your room number 👋")
             else:
-                pass
+                 # If it's an invalud room number 
+                st.write("Please enter a valid room number 🙏")
+
         except:
             # If it's an invalud room number 
             st.write("Please enter a valid room number 🙏")
@@ -901,6 +906,7 @@ elif user_mode == "Participant":
             if room_number ==0 :
                 st.write("Enter your room number 👋")
             else: 
+                 # If it's an invalud room number 
                 st.write("Please enter a valid room number 🙏")
 
         except:
