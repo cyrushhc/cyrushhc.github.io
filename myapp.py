@@ -805,7 +805,8 @@ elif user_mode == "Participant":
                 # Otherwise, show the responses
                 else:
                     st.table(doc['responses'])
-
+            
+            logging.info('hello?')
 
         try:
             # Update the responses into the database
