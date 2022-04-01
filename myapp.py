@@ -76,7 +76,7 @@ if user_mode == '-':
         st.image('https://github.com/cyrushhc/findPattern/blob/main/Encoding%20exmaple.png?raw=true')
         st.write('[Image Source: Jay Alammar](https://jalammar.github.io/illustrated-word2vec/)')
         st.write('This is where the powerful BERT comes in: BERT is a empirically powerful encoder that produces state of the art results (Devlin et al., 2019; Thompson & Mimno, 2020). The SentenceTransformers library in Python uses BERT as encoder (Reimers & Gurevych, 2019). BERT can be extended to achieve several tasks to understand and process natural language. One such example is BERTopic.')
-        st.write('### Reduce Dimenstion -- UMAP')
+        st.write('### Reduce Dimension -- UMAP')
         st.write('As mentioned before, after encoding each response (it could be a document, a sentence, or a word), each response will be represented in a list of numbers. To be exact, for SentenceTransformer encoder, each response would be represented with a list of 768 numbers. And this is a large number of dimensions for the computer to process! Large dimensions requires more time and computational resource to process. Moreover, not every dimension would be useful in separating responses into clusters. For example, if we have four words, [cats, dogs, girls, boys] and that one of the dimension is whether the text is a living object, then all four text would be very similar in that respect––making that dimension less useful. This is why we reduce dimension with UMAP. UMAP is also an powerful dimension-reduction techqniques that preserve the high dimensional structure very well after reducing dimensions. After the reduction, the list of 768 values becomes a list of 5 values. This is so that you do not have to wait forever for the results to show!')
         st.write('### Clustering - HDBSCAN')
         st.write('The last step of the BERTopic library is the clustering step. BERTopic uses HDBSCAN, which is a model that identifies clusters by the density of the data points, which is similar to the way human eyes identify clusters. Here is a great video telling you how HDBSCAN clusters datapoints.')
@@ -327,7 +327,7 @@ elif user_mode == "Facilitator (Create New Room)":
                     st.table(df.head())
                     
                     # Allow users to see the rest of the responses in the cluster if they want to 
-                    with st.expander("View More Responses in this Cluster"):
+                    with st.expander("View All Responses in this Cluster"):
                         st.table(df.iloc[5:])
 
                     
@@ -893,8 +893,6 @@ elif user_mode == "Participant":
             # The room number is default to 0
             if room_number ==0 :
                 st.write("Enter your room number 👋")
-            else:
-                pass
         except:
             # If it's an invalud room number 
             st.write("Please enter a valid room number 🙏")
