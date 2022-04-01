@@ -793,9 +793,12 @@ elif user_mode == "Participant":
             view_responses = st.button("View other participants' responses")
             ss10 = SessionState.get(view_responses = False) 
             
+            logging.info('nihao')
+
             if view_responses:
                 ss10.view_responses = True
-
+            
+            logging.info('2')
             if ss10.view_responses == True:
 
                 # If there is no responses yet, show the status.
@@ -806,7 +809,7 @@ elif user_mode == "Participant":
                 else:
                     st.table(doc['responses'])
             
-            logging.info('hello?')
+            logging.info('3')
 
         try:
             # Update the responses into the database
