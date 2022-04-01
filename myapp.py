@@ -521,14 +521,17 @@ elif user_mode == 'Facilitator (Go to Existing Room)':
             if end_collection:
                 ss3.end_collection = True
 
-
-            if ss3.end_collection == True:
-                # When the button is clicked, the next sections will be activated because "read_to_cluster" is set to True.
-                doc_ref.update({
-                    "collect_response": False,
-                    "ready_to_cluster": True,
-                }
-                )
+            try: 
+                if ss3.end_collection == True:
+                    # When the button is clicked, the next sections will be activated because "read_to_cluster" is set to True.
+                    doc_ref.update({
+                        "collect_response": False,
+                        "ready_to_cluster": True,
+                    }
+                    )
+            except:
+                pass
+            
             try:    
                 if doc['ready_to_cluster'] == True:
                     st.write('## 🧩 Find Patterns')
