@@ -893,6 +893,9 @@ elif user_mode == "Participant":
             # The room number is default to 0
             if room_number ==0 :
                 st.write("Enter your room number 👋")
+            else: 
+                st.write("Please enter a valid room number 🙏")
+
         except:
             # If it's an invalud room number 
             st.write("Please enter a valid room number 🙏")
