@@ -799,15 +799,18 @@ elif user_mode == "Participant":
                 ss10.view_responses = True
             
             logging.info('2')
-            if ss10.view_responses == True:
+            try:
+                if ss10.view_responses == True:
 
-                # If there is no responses yet, show the status.
-                if doc['responses'] == []:
-                    st.write("No response submitted yet")
+                    # If there is no responses yet, show the status.
+                    if doc['responses'] == []:
+                        st.write("No response submitted yet")
 
-                # Otherwise, show the responses
-                else:
-                    st.table(doc['responses'])
+                    # Otherwise, show the responses
+                    else:
+                        st.table(doc['responses'])
+            except:
+                pass
             
             logging.info('3')
 
