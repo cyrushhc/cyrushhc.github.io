@@ -1,3 +1,5 @@
+# Create the secret from the firestore keys if you want to run things locally 
+
 import toml
 
 output_file = "secrets.toml"
