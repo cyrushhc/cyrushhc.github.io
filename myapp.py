@@ -88,6 +88,13 @@ if user_mode == '-':
 
 elif user_mode == "Facilitator (Create New Room)":
     
+    # Reminder
+    with st.expander("Reminder for before you start"):
+        st.write("1. Currently, findPattern only supports finding clusters among a larger number of responses (>50). We will work hard to resolve the data size constraints and hope to support users dealing with a fewer responses")
+        st.write("2. For the model to work, please remind the participants to provide one idea per response box. For example, if the prompt is 'what do you want to eat for breakfast', the responses 'milk and bread' should be separated into 'milk' and 'bread' in separate response box.")
+
+
+
     st.write("## ✋ Discussion Prompt")
     
     # Create the interface to allow facilitators to input the questions they want to ask participants
@@ -768,6 +775,9 @@ elif user_mode == "Participant":
 
         # create a dictionary to keep track of all the responses by one participant
         all_response = []
+
+        with st.expander("Reminder for before you start"):
+            st.write("For the model to work, please provide one idea per response box. For example, if the prompt is 'what do you want to eat for breakfast', and your response is 'milk and bread', you should put 'milk' and 'bread' in separate response box.")
 
         # Create a form for the participant to fill out their responses
         with st.form("This form"):
