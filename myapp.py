@@ -64,7 +64,7 @@ if user_mode == '-':
     # Section 2: How does the app work?
     st.write("## 👉 How does the app work?")
     with st.expander("How does the app work?"):
-        st.image('./Images/How it Works.png')
+        st.image('How it Works.png')
 
     # Section 3: What technology does this app use?
     st.write("## 👉 What technology does this app use?")
