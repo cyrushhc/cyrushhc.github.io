@@ -1,5 +1,5 @@
 # findPattern - Brainstorm Faster With Machine Learning 
-🎮 Check out the [App](https://share.streamlit.io/cyrushhc/cyrushhc.github.io/main/myapp.py)
+🎮 Check out the [App](https://share.streamlit.io/cyrushhc/findpattern/main/myapp.py)
 
 🔗 Check out the [Project Demo Video](https://drive.google.com/file/d/1_8_wR5_zab3vRL8Lhbjhr-IQ5lVyPDx3/view?usp=sharing)
 
